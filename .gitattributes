@@ -1,0 +1,18 @@
+# 统一换行符：文本文件一律 LF，Windows/Linux 检出结果一致
+* text=auto eol=lf
+
+*.v        text eol=lf
+*.sv       text eol=lf
+*.vh       text eol=lf
+*.sh       text eol=lf
+Makefile   text eol=lf
+
+# 二进制文件，禁止任何转换
+*.pdf      binary
+*.docx     binary
+*.pptx     binary
+*.xlsx     binary
+*.png      binary
+*.jpg      binary
+*.jpeg     binary
+*.zip      binary

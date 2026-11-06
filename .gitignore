@@ -1,0 +1,19 @@
+# OS / Office junk
+~$*
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Verilog 仿真产物
+work/
+*.vcd
+*.vvp
+*.wlf
+vsim.wlf
+transcript
+modelsim.ini
+*.qwsf
+
+# Quartus
+db/
+incremental_db/
