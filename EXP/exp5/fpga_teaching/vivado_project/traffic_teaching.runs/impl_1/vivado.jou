@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2018.3 (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:38:27 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Mon Nov  9 14:36:30 2026
+# Process ID: 14992
+# Current directory: C:/suat/ljl-digital/digital-logic-materials/EXP/exp5/fpga_teaching/vivado_project/traffic_teaching.runs/impl_1
+# Command line: vivado.exe -log traffic_light_minisys.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source traffic_light_minisys.tcl -notrace
+# Log file: C:/suat/ljl-digital/digital-logic-materials/EXP/exp5/fpga_teaching/vivado_project/traffic_teaching.runs/impl_1/traffic_light_minisys.vdi
+# Journal file: C:/suat/ljl-digital/digital-logic-materials/EXP/exp5/fpga_teaching/vivado_project/traffic_teaching.runs/impl_1\vivado.jou
+#-----------------------------------------------------------
+source traffic_light_minisys.tcl -notrace

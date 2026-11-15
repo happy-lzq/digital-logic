@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="C:/suat/ljl-digital/digital-logic-materials/EXP/exp5/fpga_teaching/results/traffic_light.wdb" id="1">
+         <top_modules>
+            <top_module name="tb_traffic_light" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+   </zoom_setting>
+   <column_width_setting>
+   </column_width_setting>
+   <WVObjectSize size="20" />
+   <wvobject fp_name="/tb_traffic_light/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_traffic_light/rst_n" type="logic">
+      <obj_property name="ElementShortName">rst_n</obj_property>
+      <obj_property name="ObjectShortName">rst_n</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_traffic_light/pass_request" type="logic">
+      <obj_property name="ElementShortName">pass_request</obj_property>
+      <obj_property name="ObjectShortName">pass_request</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_traffic_light/motor_green" type="logic">
+      <obj_property name="ElementShortName">motor_green</obj_property>
+      <obj_property name="ObjectShortName">motor_green</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_traffic_light/motor_yellow" type="logic">
+      <obj_property name="ElementShortName">motor_yellow</obj_property>
+      <obj_property name="ObjectShortName">motor_yellow</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_traffic_light/motor_red" type="logic">
+      <obj_property name="ElementShortName">motor_red</obj_property>
+      <obj_property name="ObjectShortName">motor_red</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_traffic_light/pass_red" type="logic">
+      <obj_property name="ElementShortName">pass_red</obj_property>
+      <obj_property name="ObjectShortName">pass_red</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_traffic_light/pass_green" type="logic">
+      <obj_property name="ElementShortName">pass_green</obj_property>
+      <obj_property name="ObjectShortName">pass_green</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_traffic_light/clock" type="array">
+      <obj_property name="ElementShortName">clock[7:0]</obj_property>
+      <obj_property name="ObjectShortName">clock[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_traffic_light/light_name" type="array">
+      <obj_property name="ElementShortName">light_name[47:0]</obj_property>
+      <obj_property name="ObjectShortName">light_name[47:0]</obj_property>
+      <obj_property name="Radix">ASCIIRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_traffic_light/dut/state" type="array">
+      <obj_property name="ElementShortName">state[1:0]</obj_property>
+      <obj_property name="ObjectShortName">state[1:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_traffic_light/dut/cnt" type="array">
+      <obj_property name="ElementShortName">cnt[7:0]</obj_property>
+      <obj_property name="ObjectShortName">cnt[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_traffic_light/dut/div_cnt" type="array">
+      <obj_property name="ElementShortName">div_cnt[3:0]</obj_property>
+      <obj_property name="ObjectShortName">div_cnt[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_traffic_light/dut/load_data" type="array">
+      <obj_property name="ElementShortName">load_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">load_data[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_traffic_light/dut/set10" type="logic">
+      <obj_property name="ElementShortName">set10</obj_property>
+      <obj_property name="ObjectShortName">set10</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_traffic_light/dut/set5" type="logic">
+      <obj_property name="ElementShortName">set5</obj_property>
+      <obj_property name="ObjectShortName">set5</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_traffic_light/dut/set50" type="logic">
+      <obj_property name="ElementShortName">set50</obj_property>
+      <obj_property name="ObjectShortName">set50</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_traffic_light/dut/set90" type="logic">
+      <obj_property name="ElementShortName">set90</obj_property>
+      <obj_property name="ObjectShortName">set90</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_traffic_light/dut/load_count" type="logic">
+      <obj_property name="ElementShortName">load_count</obj_property>
+      <obj_property name="ObjectShortName">load_count</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_traffic_light/dut/state_we" type="logic">
+      <obj_property name="ElementShortName">state_we</obj_property>
+      <obj_property name="ObjectShortName">state_we</obj_property>
+   </wvobject>
+</wave_config>

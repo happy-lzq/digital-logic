@@ -1,0 +1,13 @@
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/soft/vivado/Vivado/2018.3/bin/unwrapped/win64.o/xelab.exe tb_traffic_light -s traffic_tb -debug all 
+Multi-threading is on. Using 14 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module work.traffic_light_default
+Compiling module work.tb_traffic_light
+ERROR: [XSIM 43-3409] Failed to compile generated C file xsim.dir/traffic_tb/obj/xsim_1.c.
+ERROR: [XSIM 43-3915] Encountered a fatal error. Cannot continue. Exiting... 

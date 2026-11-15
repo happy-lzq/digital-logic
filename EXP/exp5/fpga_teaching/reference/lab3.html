@@ -1,0 +1,336 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>实验三 加减法器设计 &mdash; 深圳理工大学-数字逻辑基础与Verilog设计-实验课程 0.1 文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=e50e972b" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=7c91f8fd"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=beaddf03"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="实验四 桶形移位器设计" href="lab4.html" />
+    <link rel="prev" title="s实验二 加法器设计与仿真" href="lab2.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            深圳理工大学-数字逻辑基础与Verilog设计-实验课程
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <p class="caption" role="heading"><span class="caption-text">实验课程目录</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="lab1.html">实验一 异或门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab2.html">实验二 加法器设计与仿真</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">实验三 加减法器设计</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">加减法器</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">输出加法器结果</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#logic-synthesis">逻辑综合 Logic Synthesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#implementation">实现 Implementation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#i-o-planning">管脚绑定 I/O Planning</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id4">方法一 添加设计约束文件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">方法二 使用图形化绑定管脚</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#open-hardware-manager">写入比特流 Open Hardware Manager</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="lab4.html">实验四 桶形移位器设计</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab5.html">实验五 时序逻辑电路设计</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lab6.html">实验六 移位乘法器设计</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extra/extra1.html">番外一 EDA发展史</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TODO.html">敬请期待</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">深圳理工大学-数字逻辑基础与Verilog设计-实验课程</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">实验三 加减法器设计</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/labs/lab3.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>实验三 加减法器设计<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<section id="id2">
+<h2>加减法器<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>如果参与运算的操作数都是补码，那么加法器是可以同时实现加法和减法操作的。
+<code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">-</span> <span class="pre">B</span> <span class="pre">=</span> <span class="pre">A</span> <span class="pre">+</span> <span class="pre">(-B)</span></code> ，因此我们对B的补码进行取反加一操作，就能得到 -B，
+再让 A 与 -B 经过加法器相加，便完成了 A - B 的操作。</p>
+<p>在前面的异或门实验中，我们得知， <strong>可以通过异或门可控取反操作数，加一操作可以
+输入到进位输入端口</strong> ，这样就能完成取反加一的操作了。因此我们稍加修改，即可让
+加法器也能实现减法操作，如下图所示。</p>
+<figure class="align-center">
+<img alt="adder" src="../_images/adder.png" />
+</figure>
+<p>其中 Sub 为1代表做减法运算，Sub 为0代表做加法运算。</p>
+<div class="admonition mytodo">
+   <p class="admonition-title">加法器的 RTL 实现</p >
+   <p>使用实验二中的 cla_4bit 模块搭建层次化的 cla_8bit ，并仿真验证。
+   然后按照上图的方式搭建能够实现减法操作的电路，完成最终的加法器设计并仿真验证。</p>
+</div><section id="id3">
+<h3>输出加法器结果<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<p>我们提供了一些源代码，能够让你的加法器能够在 FPGA 上输入输出。加法器的输入有 8bit 的 a 和 b，以及 sub 信号，因此需要
+17个输入，我们的 FPGA 上拥有 24 个用户拨码开关。</p>
+<figure class="align-center">
+<img alt="minisys" src="../_images/minisys.png" />
+</figure>
+<p>我们计划使用 7段数码管 显示你的加法器结果，拨码开关作为你的加法器二进制输入，每一个开关代表一位二进制数。
+我们提供了 7段数码管 的控制电路：seg_driver 模块，你需要做的是将你的加法器结果输出到 seg_driver 模块的 data 端口，
+data 端口是32位宽的端口，因为有 8个 7段数码管，因此可以16进制数显示32位宽的二进制数。</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">顶层模块代码框架</span><a class="headerlink" href="#id6" title="Link to this code"></a></div>
+<div class="highlight-v notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="w"> </span><span class="k">module</span><span class="w"> </span><span class="n">top</span><span class="w"> </span><span class="p">(</span>
+<span class="linenos"> 2</span><span class="w">     </span><span class="n">clk</span>
+<span class="linenos"> 3</span><span class="w">     </span><span class="p">,</span><span class="n">a</span>
+<span class="linenos"> 4</span><span class="w">     </span><span class="p">,</span><span class="n">b</span>
+<span class="linenos"> 5</span><span class="w">     </span><span class="p">,</span><span class="n">ctrl_addsub</span>
+<span class="linenos"> 6</span><span class="w">     </span><span class="p">,</span><span class="n">reset</span>
+<span class="linenos"> 7</span><span class="w">     </span><span class="p">,</span><span class="n">code</span>
+<span class="linenos"> 8</span><span class="w">     </span><span class="p">,</span><span class="n">cs_o</span>
+<span class="linenos"> 9</span><span class="w"> </span><span class="p">);</span>
+<span class="linenos">10</span>
+<span class="hll"><span class="linenos">11</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="p">;</span>
+</span><span class="linenos">12</span>
+<span class="linenos">13</span><span class="w"> </span><span class="k">input</span><span class="w">   </span><span class="kt">wire</span><span class="w">            </span><span class="n">clk</span><span class="p">;</span><span class="w">    </span><span class="c1">// 100 Mhz System Clock</span>
+<span class="linenos">14</span><span class="w"> </span><span class="k">input</span><span class="w">   </span><span class="kt">wire</span><span class="w">    </span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="linenos">15</span><span class="w"> </span><span class="k">input</span><span class="w">   </span><span class="kt">wire</span><span class="w">            </span><span class="n">ctrl_addsub</span><span class="p">;</span>
+<span class="linenos">16</span><span class="w"> </span><span class="k">input</span><span class="w">   </span><span class="kt">wire</span><span class="w">            </span><span class="n">reset</span><span class="p">;</span>
+<span class="linenos">17</span><span class="w"> </span><span class="k">output</span><span class="w">  </span><span class="kt">wire</span><span class="w">    </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">   </span><span class="n">code</span><span class="p">;</span>
+<span class="linenos">18</span><span class="w"> </span><span class="k">output</span><span class="w">  </span><span class="kt">wire</span><span class="w">    </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">   </span><span class="n">cs_o</span><span class="p">;</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span><span class="w"> </span><span class="kt">wire</span><span class="w">    </span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">sum</span><span class="p">;</span>
+<span class="linenos">21</span><span class="w"> </span><span class="kt">wire</span><span class="w">            </span><span class="n">cout</span><span class="p">;</span>
+<span class="linenos">22</span>
+<span class="hll"><span class="linenos">23</span><span class="w"> </span><span class="n">adder_sub_4bit</span><span class="w"> </span><span class="n">u_adder_sub_4bit</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">],</span><span class="w"> </span><span class="n">b</span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">],</span><span class="w"> </span><span class="n">sum</span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">],</span><span class="w"> </span><span class="n">cout</span><span class="p">,</span><span class="w"> </span><span class="n">ctrl_addsub</span><span class="p">);</span><span class="w">  </span><span class="c1">// change to instant of your add/sub module</span>
+</span><span class="linenos">24</span>
+<span class="linenos">25</span><span class="w"> </span><span class="n">seg_driver</span><span class="w"> </span><span class="n">u_seg_driver</span><span class="p">(</span>
+<span class="linenos">26</span><span class="w">     </span><span class="p">.</span><span class="n">clk</span><span class="w">     </span><span class="p">(</span><span class="n">clk</span><span class="p">)</span>
+<span class="hll"><span class="linenos">27</span><span class="w">     </span><span class="p">,.</span><span class="n">data</span><span class="w">   </span><span class="p">({</span><span class="mh">27</span><span class="mi">&#39;d0</span><span class="p">,</span><span class="w"> </span><span class="n">cout</span><span class="p">,</span><span class="w"> </span><span class="n">sum</span><span class="p">})</span>
+</span><span class="linenos">28</span><span class="w">     </span><span class="p">,.</span><span class="n">reset</span><span class="w">  </span><span class="p">(</span><span class="n">reset</span><span class="p">)</span>
+<span class="linenos">29</span><span class="w">     </span><span class="p">,.</span><span class="n">code</span><span class="w">   </span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+<span class="linenos">30</span><span class="w">     </span><span class="p">,.</span><span class="n">cs_o</span><span class="w">   </span><span class="p">(</span><span class="n">cs_o</span><span class="p">)</span>
+<span class="linenos">31</span><span class="w"> </span><span class="p">);</span>
+<span class="linenos">32</span>
+<span class="linenos">33</span><span class="w"> </span><span class="k">endmodule</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition mytodo">
+   <p class="admonition-title">加法器连接7段数码管</p >
+   <p>我们只需要修改第27行代码的 data 端口连接上你的加法器输出，同时注意位宽需要匹配。
+   完成 RTL 代码的修改。这样我们提供的7段数码管电路就会将你的二进制数转换为16进制数，
+   并最终在 FPGA 的7段数码管上显示出来。</p>
+</div></section>
+</section>
+<section id="logic-synthesis">
+<h2>逻辑综合 Logic Synthesis<a class="headerlink" href="#logic-synthesis" title="Link to this heading"></a></h2>
+<p>我们都已经上手写过一些 Verilog 代码了，本次实验我们会使用修改并验证过的代码，在 FPGA 上运行我们设计的加减法器。</p>
+<p>那么 FPGA 是什么呢？ FPGA (Field-Programmable Gate Array) 可以翻译为现场可编程逻辑门阵列。
+我们写好的 Verilog 可以转换为我们熟悉的门电路，我们可以按照这些门电路的连线关系生产成专用的集成电路，
+也就是 ASIC (Application-Specific Integrated Circuit) 。而 FPGA 则完全不同，它是一种可编程逻辑器件(PLD, Programmable Logic Device)，
+允许用户在硬件层面上根据需求进行编程，那么具体功能是怎么实现的呢？</p>
+<p>LUT (Look-Up Table) 查找表结构可以通过编程定义功能，逻辑功能可以通过查表来实现。</p>
+<figure class="align-center">
+<img alt="lut_xor" src="../_images/lut_xor.png" />
+</figure>
+<p>我们通过一个简易的 <strong>2输入查找表</strong> 例子学习如何实现2输入门电路等功能。查找表可以通过 <strong>多路选通器</strong> 实现。
+多路选通器的输入通过我们编程配置，也就是将真值表填入多路选择信号，即可实现与或非、异或等门电路的功能。如上图所示。
+如果我要完成 <code class="docutils literal notranslate"><span class="pre">assign</span> <span class="pre">y</span> <span class="pre">=</span> <span class="pre">(a</span> <span class="pre">&amp;</span> <span class="pre">b)</span> <span class="pre">|</span> <span class="pre">c;</span></code> 的逻辑功能，同理可以使用一个3输入查找表来实现，这些配置信息保存在存储器中。</p>
+<p>Xilinx 的 FPGA 查找表一般设计为6个输入，那么就需要64bit的存储器来存储6个变量所有的可能组合，这个查找表也可以作为两个5输入的查找表使用，
+也可以拆分成更小的查找表来使用。因此这些 6输入查找表 (LUT6) 可以完成复杂的逻辑功能。</p>
+<figure class="align-center">
+<img alt="CLBLM" src="../_images/CLBLM.png" />
+</figure>
+<p>上图是我们使用的 <code class="docutils literal notranslate"><span class="pre">xc7a100tfgg484</span></code> 芯片中的真实的一个可配置逻辑块 (CLB) 的结构，里面又分为两种SLICE ：SLICEL 与 SLICEM，它们的 LUT 部分不一样，其余部分一样。
+SLICEL 的 LUT 主要用于 Logic 逻辑功能，而 SLICEM 的 LUT 主要用于 Memory 结构，可以用于分布式 RAM 或者 移位寄存器等。
+此外还有专用电路部分，多路选通器、加法器以及寄存器。</p>
+<p>综合是把 HDL 代码经过一系列步骤，最终映射为电路的过程。Vivado 综合器可以将可综合的语法转换为 LUT、多路选通器、加法器、寄存器、存储器等 FPGA
+内部的基本电路。综合完成之后，就能得到网表文件 (netlist)，用于描述电路单元之间连接关系。</p>
+<div class="admonition mycomment">
+   <p class="admonition-title">ASIC设计与FPGA的区别</p >
+   <p>ASIC 专用集成电路的逻辑功能不需要能够编程配置，因此综合器可以直接将 HDL 转换成基础的门电路，
+   以及一些常见的单元，寄存器、锁存器等。这些基础电路库一般由芯片制造厂商提供，比如TSMC台积电。
+   我们把这些基础电路库称为<strong>Std Cell 标准单元库</strong>。ASIC 的电路映射更灵活，
+   门的大小与位置都可以灵活调整，更好布局布线。而 FPGA 的灵活程度没有那么高，通常布线延迟占大头。
+   以 Sifive U500 4核SoC处理器为例，在采用相似的工艺情况下，ASIC 设计的 Sifive U500 宣称运行频率高达 1.5Ghz，
+   而同样是28nm的 Xilinx FPGA VC707 上综合的 Sifive U500 最高只能以 200Mhz 频率运行。</p>
+</div><p>在 Vivado 中，设计文件中被 <code class="docutils literal notranslate"><span class="pre">Set</span> <span class="pre">as</span> <span class="pre">Top</span></code> 的文件用于流程中的设计实现，仿真文件中被 <code class="docutils literal notranslate"><span class="pre">Set</span> <span class="pre">as</span> <span class="pre">Top</span></code> 的文件用于运行仿真。我们可以在 <code class="docutils literal notranslate"><span class="pre">Source</span></code> 栏对你想要的顶层模块右键设置其为顶层。
+将仿真完成的文件进行综合，在 <code class="docutils literal notranslate"><span class="pre">Flow</span> <span class="pre">Navigator</span></code> 中点击 <code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">Synthesis</span></code> 开始综合，综合完成之后会弹窗，可以直接关闭弹窗。</p>
+<p>综合之后的设计可以打开 <code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Synthesis</span> <span class="pre">Design</span></code> 栏，里面有很多内容，我们暂时只关心 <code class="docutils literal notranslate"><span class="pre">Schematic</span></code> 电路原理图部分。
+点击打开电路原理图，我们可以看到 HDL 转换之后的电路原理图，如下图所示。</p>
+<figure class="align-center">
+<img alt="Schematic" src="../_images/Schematic.png" />
+</figure>
+<p>点击模块左上角的加号可以展开模块内部的细节，仔细查看可以发现有 LUT2、LUT5、LUT6、CARRY4、FDCE 等熟悉的基础电路单元。
+以及输入输出部分的很多 BUF 缓冲器等。Vivado 综合器将你写的 Verilog 代码变成了 FPGA 器件上面的基础电路单元，
+以及它们的连线关系，在后续的步骤会将这些基础电路单元映射到 FPGA 芯片上某些真实的电路单元。</p>
+</section>
+<section id="implementation">
+<h2>实现 Implementation<a class="headerlink" href="#implementation" title="Link to this heading"></a></h2>
+<p>直接点击 <code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">Implementation</span></code> 即可实现设计，其大致包含几个步骤：</p>
+<ul class="simple">
+<li><p>opt_design 逻辑优化，优化你的设计，使网表更利于时序与布线。</p></li>
+<li><p>place_design 布局，将电路原理图映射到 FPGA 电路单元。</p></li>
+<li><p>route_design 布线，将这些电路单元通过数据通路连接起来。</p></li>
+</ul>
+<p>在完成实现之后，会弹窗，可以直接关闭弹窗。
+实现之后的设计可以打开 <code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Implemented</span> <span class="pre">Design</span></code> 栏，右侧会显示芯片的版图，
+其中高亮的部分是我们实际使用的电路单元，可以放大仔细查看我们使用的具体的电路单元，
+会发现之前电路原理图中的熟悉的单元名字。</p>
+<figure class="align-center">
+<img alt="Layout" src="../_images/Layout.png" />
+</figure>
+<section id="i-o-planning">
+<h3>管脚绑定 I/O Planning<a class="headerlink" href="#i-o-planning" title="Link to this heading"></a></h3>
+<p>在这个界面，我们可以将顶层设计模块中的输入输出端口与芯片的真实的管脚进行绑定。
+有两种方法，一种是添加设计约束文件进行绑定，另一种是使用图形化界面进行绑定。
+当然我认为第一种更便捷，不过推荐你两种方法都尝试一次。</p>
+<section id="id4">
+<h4>方法一 添加设计约束文件<a class="headerlink" href="#id4" title="Link to this heading"></a></h4>
+<p>我们以复位按键信号的管脚绑定为例 (时钟信号以后再讲) ，以下是约束语句的含义。</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">adder.xdc片段</span><a class="headerlink" href="#id7" title="Link to this code"></a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span> <span class="n">set_property</span> <span class="n">PACKAGE_PIN</span> <span class="n">P20</span> <span class="p">[</span><span class="n">get_ports</span> <span class="n">reset</span><span class="p">]</span>
+<span class="linenos">2</span> <span class="n">set_property</span> <span class="n">IOSTANDARD</span> <span class="n">LVCMOS33</span> <span class="p">[</span><span class="n">get_ports</span> <span class="n">reset</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p>第一行是指定顶层端口 reset 输入信号与 FPGA 封装管脚 P20 相连，通过 FPGA 硬件手册我们知道，
+P20 管脚与 S6 按键电路相连，可以用来作为复位信号输入。</p>
+<p>第二行是指定 reset 端口的 I/O 电气标准设置为 LVCMOS33，这个是依据 S6 按键电路的高电平电压是3.3V，
+否则电气标准不匹配可能会导致功能失效，甚至对芯片、硬件电路等造成损伤。</p>
+<p>我们给出了一个设计约束文件的模板，主要是本次实验有部分电路是我们提供的，用于演示加减法结果。
+因此你可以对拨码输入等按键进行更改，所有的电路以及管脚信息都在 FPGA 硬件手册中。</p>
+<p>以下图为例，展示了 S6 按键的电路信息。</p>
+<figure class="align-center">
+<img alt="S6" src="../_images/S6.png" />
+</figure>
+<p>S6 按键被我作为 <code class="docutils literal notranslate"><span class="pre">reset</span></code> 复位信号输入到 FPGA 内部，当按下 S6 按键时，P20 管脚连接 3.3V 电平，输入为逻辑1；
+当松开 S6 时，P20 接地，输入为逻辑0。</p>
+<p>完成设计如约束文件的编写后，在添加源文件的地方选择 <code class="docutils literal notranslate"><span class="pre">Add</span> <span class="pre">Deisgn</span> <span class="pre">Constraints</span></code> 添加约束文件，Vivado 约束文件的后缀名为 <code class="docutils literal notranslate"><span class="pre">.xdc</span></code> ，
+代表 Xilinx Deisgn Constraints ，约束文件添加后，可以右键点击约束文件，选择 <code class="docutils literal notranslate"><span class="pre">Set</span> <span class="pre">as</span> <span class="pre">Target</span> <span class="pre">Constraint</span> <span class="pre">File</span></code>，确保该文件作为目标的
+约束文件，文件名后面会出现 <strong>(target)</strong> ，标明这个约束文件作为目标约束文件。</p>
+<figure class="align-center">
+<img alt="Constraints" src="../_images/Constraints.png" />
+</figure>
+</section>
+<section id="id5">
+<h4>方法二 使用图形化绑定管脚<a class="headerlink" href="#id5" title="Link to this heading"></a></h4>
+<p>在 <code class="docutils literal notranslate"><span class="pre">Implemented</span> <span class="pre">Design</span></code> 界面，也可以使用图形化的方式绑定管脚。</p>
+<figure class="align-center">
+<img alt="io_planning" src="../_images/io_planning.png" />
+</figure>
+<p>在下方的 <code class="docutils literal notranslate"><span class="pre">Package</span> <span class="pre">Pin</span></code> 和 <code class="docutils literal notranslate"><span class="pre">I/O</span> <span class="pre">Std</span></code> 中填入正确的信息。
+本次实验的最好是按照我们给的设计约束文件进行管脚绑定，当然你能够根据 FPGA 硬件手册自由修改按键绑定也没问题。</p>
+<p>完成图形化的管脚绑定后，快捷键 <code class="docutils literal notranslate"><span class="pre">ctrl</span> <span class="pre">+</span> <span class="pre">s</span></code> 保存设计约束文件，你可以存放在指定的位置，然后查看，你会发现其实通过这种方式生成的
+设计约束文件与我们给的设计约束文件没有区别，因此你可以手动编写设计约束文件，最简单的办法就是使用模板进行修改。</p>
+<p>完成设计约束文件后，由于更新了源文件，需要重新进行综合与实现。再次实现完成之后，观察版图，你会发现这次使用的电路单元应该与之前没有约束文件时是不同的。
+因为我们有了管脚约束之后，会重新布局布线，与 FPGA 真实的封装管脚相连。</p>
+</section>
+</section>
+</section>
+<section id="open-hardware-manager">
+<h2>写入比特流 Open Hardware Manager<a class="headerlink" href="#open-hardware-manager" title="Link to this heading"></a></h2>
+<p>完成实现之后，点击 <code class="docutils literal notranslate"><span class="pre">Generate</span> <span class="pre">Bitstream</span></code> 会生成最后需要写入 FPGA 编程的文件，称之为比特流文件。
+如果在这一步报错，很可能是设计约束文件有错误，需要检查错误信息，设计约束文件是否错误。</p>
+<div class="admonition mycaution">
+   <p class="admonition-title">驱动安装</p >
+   <p>请仔细检查你的驱动程序是否安装，如果没有安装，请按照 Vivado 安装教程安装驱动程序，否则电脑无法检测到 FPGA ，无法对 FPGA 进行编程。</p>
+</div><p>将 FPGA 的 USB 接口与 电脑相连，打开电源开关， FPGA 将通电并发光，如下图所示。</p>
+<figure class="align-center">
+<img alt="poweron" src="../_images/poweron.png" />
+</figure>
+<p>最后点击 <code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Hardware</span> <span class="pre">Manager</span></code> ，再点击 <code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Target</span></code> ，点击 <code class="docutils literal notranslate"><span class="pre">Auto</span> <span class="pre">Connect</span></code> 自动连接设备。</p>
+<figure class="align-center">
+<img alt="hardware_manager" src="../_images/hardware_manager.png" />
+</figure>
+<p>如上图所示，成功连接 FPGA 后会在 <code class="docutils literal notranslate"><span class="pre">Hardware</span></code> 栏显示 FPGA 的状态和信息。
+点击编程设备，然后直接点击编程，等待编程进度条完毕。</p>
+<p>点击 <code class="docutils literal notranslate"><span class="pre">Program</span> <span class="pre">Device</span></code> 后默认会自动选择好比特流文件，如下图所示。
+如果你不小心删除了，可以手动选取生成的比特流文件，在工程目录的 <code class="docutils literal notranslate"><span class="pre">&lt;工程名&gt;.runs//impl_1/&lt;顶层模块名&gt;.bit</span></code> 。</p>
+<p>编程完成 FPGA 之后，即可尝试波动用户拨码开关，观察 7段数码管 的结果。</p>
+<div class="admonition mytodo">
+   <p class="admonition-title">上板实验</p >
+   <p>上板成功后，拍一张 FPGA 成功运行以及你的学生卡入镜头的照片，提交到实验报告中。</p>
+</div></section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="lab2.html" class="btn btn-neutral float-left" title="s实验二 加法器设计与仿真" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="lab4.html" class="btn btn-neutral float-right" title="实验四 桶形移位器设计" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2025, 陈奕含，黄夕祠。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+#-----------------------------------------------------------
+# Vivado v2018.3 (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:38:27 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Mon Nov  9 14:40:26 2026
+# Process ID: 29288
+# Current directory: C:/suat/ljl-digital/digital-logic-materials/EXP/exp5/fpga_teaching
+# Command line: vivado.exe -mode batch -source scripts/open_saved_wave.tcl -log results/wave_config.log -journal results/wave_config.jou
+# Log file: C:/suat/ljl-digital/digital-logic-materials/EXP/exp5/fpga_teaching/results/wave_config.log
+# Journal file: C:/suat/ljl-digital/digital-logic-materials/EXP/exp5/fpga_teaching\results/wave_config.jou
+#-----------------------------------------------------------
+source scripts/open_saved_wave.tcl
+# set root [file normalize [file join [file dirname [info script]] ..]]
+# open_wave_database [file join $root results traffic_light.wdb]
+# create_wave_config
+# foreach n {clk rst_n pass_request motor_green motor_yellow motor_red pass_red pass_green} {add_wave /tb_traffic_light/$n}
+# add_wave -radix unsigned /tb_traffic_light/clock
+# add_wave -radix ascii /tb_traffic_light/light_name
+# foreach n {state cnt div_cnt load_data} {add_wave -radix unsigned /tb_traffic_light/dut/$n}
+# foreach n {set10 set5 set50 set90 load_count state_we} {add_wave /tb_traffic_light/dut/$n}
+# save_wave_config [file join $root results traffic_light.wcfg]
+INFO: [Common 17-206] Exiting Vivado at Mon Nov  9 14:40:27 2026...

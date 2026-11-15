@@ -1,0 +1,19 @@
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
+| Date         : Mon Nov  9 14:36:24 2026
+| Host         : LAPTOP-46D2VA3Q running 64-bit major release  (build 9200)
+| Command      : report_exceptions -file C:/suat/ljl-digital/digital-logic-materials/EXP/exp5/fpga_teaching/results/exceptions_synth.rpt
+| Design       : traffic_light_minisys
+| Device       : 7a100t-fgg484
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+Exceptions Report
+
+Position  From                     Through         To                                                                                Setup           Hold            Status           
+--------  -----------------------  --------------  --------------------------------------------------------------------------------  --------------  --------------  -----------------
+2         [get_ports request_btn]  *               [get_pins -hierarchical -filter {NAME =~ */btn_meta_reg/D}]                       false           false           
+3         [get_ports reset]        *               [get_pins -hierarchical -filter {NAME =~ */reset_pipe_reg*/CLR || NAME =~ */rese  false           false           
+                                                   t_pipe_reg*/PRE}]                                                                                                 
+

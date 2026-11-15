@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2018.3 (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:38:27 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Mon Nov  9 14:27:42 2026
+# Process ID: 3332
+# Current directory: C:/suat/ljl-digital/digital-logic-materials/EXP/exp5/fpga_teaching
+# Command line: vivado.exe -mode gui -log results/gui.log -journal results/gui.jou
+# Log file: C:/suat/ljl-digital/digital-logic-materials/EXP/exp5/fpga_teaching/results/gui.log
+# Journal file: C:/suat/ljl-digital/digital-logic-materials/EXP/exp5/fpga_teaching\results/gui.jou
+#-----------------------------------------------------------
+start_gui

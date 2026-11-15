@@ -1,0 +1,4 @@
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/suat/ljl-digital/digital-logic-materials/EXP/exp5/fpga_teaching/sim/tb_traffic_light.sv" into library work
+INFO: [VRFC 10-311] analyzing module tb_traffic_light
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/suat/ljl-digital/digital-logic-materials/EXP/exp5/fpga_teaching/sim/tb_minisys.sv" into library work
+INFO: [VRFC 10-311] analyzing module tb_minisys

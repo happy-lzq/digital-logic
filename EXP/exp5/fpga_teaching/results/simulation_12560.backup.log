@@ -1,0 +1,22 @@
+#-----------------------------------------------------------
+# xsim v2018.3 (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:38:27 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Mon Nov  9 14:30:38 2026
+# Process ID: 12560
+# Current directory: C:/suat/ljl-digital/digital-logic-materials/EXP/exp5/fpga_teaching
+# Command line: xsim.exe -log results/simulation.log -mode tcl -source {xsim.dir/traffic_tb/xsim_script.tcl}
+# Log file: C:/suat/ljl-digital/digital-logic-materials/EXP/exp5/fpga_teaching/results/simulation.log
+# Journal file: C:/suat/ljl-digital/digital-logic-materials/EXP/exp5/fpga_teaching\xsim.jou
+#-----------------------------------------------------------
+source xsim.dir/traffic_tb/xsim_script.tcl
+# xsim {traffic_tb} -wdb {results/traffic_light.wdb} -autoloadwcfg -tclbatch {scripts/run_sim.tcl}
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+source scripts/run_sim.tcl
+## log_wave -r /*
+WARNING: [Simtcl 6-197] One or more HDL objects could not be logged because of object type or size limitations.  To see details please rerun the command with -verbose (-v).
+## open_vcd results/traffic_light.vcd
+## log_vcd -r /tb_traffic_light/*
+ERROR: [Common 17-170] Unknown option '-r', please type 'log_vcd -help' for usage info.
+xsim% INFO: [Common 17-206] Exiting xsim at Mon Nov  9 14:30:41 2026...

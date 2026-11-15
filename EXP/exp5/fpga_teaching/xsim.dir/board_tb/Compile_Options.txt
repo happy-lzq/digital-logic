@@ -1,0 +1,1 @@
+"tb_minisys" -s "board_tb" -debug "typical" 

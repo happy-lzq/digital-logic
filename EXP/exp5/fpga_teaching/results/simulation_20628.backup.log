@@ -1,0 +1,29 @@
+#-----------------------------------------------------------
+# xsim v2018.3 (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:38:27 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Mon Nov  9 14:31:19 2026
+# Process ID: 20628
+# Current directory: C:/suat/ljl-digital/digital-logic-materials/EXP/exp5/fpga_teaching
+# Command line: xsim.exe -log results/simulation.log -mode tcl -source {xsim.dir/traffic_tb/xsim_script.tcl}
+# Log file: C:/suat/ljl-digital/digital-logic-materials/EXP/exp5/fpga_teaching/results/simulation.log
+# Journal file: C:/suat/ljl-digital/digital-logic-materials/EXP/exp5/fpga_teaching\xsim.jou
+#-----------------------------------------------------------
+source xsim.dir/traffic_tb/xsim_script.tcl
+# xsim {traffic_tb} -wdb {results/traffic_light.wdb} -autoloadwcfg -tclbatch {scripts/run_sim.tcl}
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+source scripts/run_sim.tcl
+## log_wave /tb_traffic_light/clk /tb_traffic_light/rst_n /tb_traffic_light/pass_request /tb_traffic_light/clock /tb_traffic_light/light_name /tb_traffic_light/motor_green /tb_traffic_light/motor_yellow /tb_traffic_light/motor_red /tb_traffic_light/pass_red /tb_traffic_light/pass_green
+## open_vcd results/traffic_light.vcd
+## log_vcd /tb_traffic_light/*
+## run all
+GREEN_DURATION_PASS: 9000 ns
+YELLOW_DURATION_PASS: 500 ns
+RED_DURATION_PASS: 5000 ns
+REQUEST_PASS: 85 to 10
+SIM_PASS: 61 directed checks, continuous pairing/countdown checks
+$finish called at time : 137870 ns : File "C:/suat/ljl-digital/digital-logic-materials/EXP/exp5/fpga_teaching/sim/tb_traffic_light.sv" Line 76
+## close_vcd
+## quit
+INFO: [Common 17-206] Exiting xsim at Mon Nov  9 14:31:21 2026...
