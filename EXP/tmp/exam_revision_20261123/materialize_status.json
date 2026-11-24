@@ -1,0 +1,37 @@
+[
+  {
+    "name": "数字逻辑_期末试卷_A卷_2026版.docx",
+    "path": "C:\\suat\\ljl-digital\\digital-logic-materials\\EXP\\tmp\\exam_revision_20261123\\inputs\\数字逻辑_期末试卷_A卷_2026版.docx",
+    "code": 1,
+    "stdout": "",
+    "stderr": "library file transfer failed: download failed: DNS\n"
+  },
+  {
+    "name": "数字逻辑_期末试卷_A卷_2026版_参考答案.docx",
+    "path": "C:\\suat\\ljl-digital\\digital-logic-materials\\EXP\\tmp\\exam_revision_20261123\\inputs\\数字逻辑_期末试卷_A卷_2026版_参考答案.docx",
+    "code": 1,
+    "stdout": "",
+    "stderr": "library file transfer failed: download failed: DNS\n"
+  },
+  {
+    "name": "数字逻辑_期末试卷_A卷_2026版(1).pdf",
+    "path": "C:\\suat\\ljl-digital\\digital-logic-materials\\EXP\\tmp\\exam_revision_20261123\\inputs\\original\\数字逻辑_期末试卷_A卷_2026版(1).pdf",
+    "code": 1,
+    "stdout": "",
+    "stderr": "library file transfer failed: download failed: DNS\n"
+  },
+  {
+    "name": "数字逻辑_期末试卷_A卷_2026版.pdf",
+    "path": "C:\\suat\\ljl-digital\\digital-logic-materials\\EXP\\tmp\\exam_revision_20261123\\inputs\\数字逻辑_期末试卷_A卷_2026版.pdf",
+    "code": 1,
+    "stdout": "",
+    "stderr": "library file transfer failed: download failed: DNS\n"
+  },
+  {
+    "name": "数字逻辑_期末试卷_A卷_2026版_参考答案.pdf",
+    "path": "C:\\suat\\ljl-digital\\digital-logic-materials\\EXP\\tmp\\exam_revision_20261123\\inputs\\数字逻辑_期末试卷_A卷_2026版_参考答案.pdf",
+    "code": 1,
+    "stdout": "",
+    "stderr": "library file transfer failed: download failed: DNS\n"
+  }
+]

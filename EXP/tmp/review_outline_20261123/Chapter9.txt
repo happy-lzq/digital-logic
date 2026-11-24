@@ -1,0 +1,281 @@
+PAGE 1
+数字逻辑 Digital Logic
+课程编码： FCAA213              | 开课单位：计算机科学与人工智能学院
+开课时间：2026-2027学年秋季学期
+主讲教师：马懋德教授 与 李嘉龙助理教授
+SUAT
+
+
+PAGE 2
+目录 Contents
+Chapter 1 Introduction
+Chapter 2 Number & Arithmetic
+Chapter 3 Logic Functions
+Chapter 4 Verilog Language
+Chapter 5 Combinational Circuits
+Chapter 6 Basic Storage Elements
+Chapter 7 Synchronous Sequential Circuits
+Chapter 8 Asynchronous Sequential Circuits
+Chapter 9 Digital System Design
+
+PAGE 3
+9.1 Multiplexer
+9.2 Decoder
+9.3 Encoder
+9.4 Comparator
+9.5 Bus
+9.6 Multiplier
+9.7 Simple Processor
+Chapter 9 Digital System Design
+
+
+PAGE 4
+数字系统设计
+
+
+PAGE 5
+数字系统设计
+
+
+PAGE 6
+数字系统设计
+
+
+PAGE 7
+数字系统设计
+
+
+PAGE 8
+数字系统设计
+
+
+PAGE 9
+数字系统设计
+
+
+PAGE 10
+数字系统设计
+
+
+PAGE 11
+数字系统设计
+
+
+PAGE 12
+数字系统设计
+
+
+PAGE 13
+数字系统设计
+
+
+PAGE 14
+数字系统设计
+
+
+PAGE 15
+数字系统设计
+
+
+PAGE 16
+数字系统设计
+
+
+PAGE 17
+数字系统设计
+
+
+PAGE 18
+数字系统设计
+
+
+PAGE 19
+数字系统设计
+
+
+PAGE 20
+数字系统设计
+
+
+PAGE 21
+数字系统设计
+
+
+PAGE 22
+数字系统设计
+
+
+PAGE 23
+数字系统设计
+
+
+PAGE 24
+数字系统设计
+
+
+PAGE 25
+数字系统设计
+
+
+PAGE 26
+数字系统设计
+
+
+PAGE 27
+数字系统设计
+
+
+PAGE 28
+数字系统设计
+
+
+PAGE 29
+数字系统设计
+
+
+PAGE 30
+数字系统设计
+
+
+PAGE 31
+数字系统设计
+
+
+PAGE 32
+数字系统设计
+
+
+PAGE 33
+数字系统设计
+
+
+PAGE 34
+数字系统设计
+
+
+PAGE 35
+数字系统设计
+
+
+PAGE 36
+数字系统设计
+
+
+PAGE 37
+数字系统设计
+
+
+PAGE 38
+数字系统设计
+
+
+PAGE 39
+数字系统设计
+
+
+PAGE 40
+数字系统设计
+
+
+PAGE 41
+数字系统设计
+
+
+PAGE 42
+数字系统设计
+
+
+PAGE 43
+数字系统设计
+
+
+PAGE 44
+数字系统设计
+
+
+PAGE 45
+数字系统设计
+
+
+PAGE 46
+数字系统设计
+
+
+PAGE 47
+数字系统设计
+
+
+PAGE 48
+数字系统设计
+
+
+PAGE 49
+数字系统设计
+
+
+PAGE 50
+数字系统设计
+
+
+PAGE 51
+数字系统设计
+
+
+PAGE 52
+数字系统设计
+
+
+PAGE 53
+数字系统设计
+
+
+PAGE 54
+数字系统设计
+
+
+PAGE 55
+数字系统设计
+
+
+PAGE 56
+数字系统设计
+
+
+PAGE 57
+数字系统设计
+
+
+PAGE 58
+数字系统设计
+
+
+PAGE 59
+数字系统设计
+
+
+PAGE 60
+数字系统设计
+
+
+PAGE 61
+数字系统设计
+
+
+PAGE 62
+数字系统设计
+
+
+PAGE 63
+数字系统设计
+
+
+PAGE 64
+数字系统设计
+
+
+PAGE 65
+数字系统设计
+
+
+PAGE 66
+数字系统设计

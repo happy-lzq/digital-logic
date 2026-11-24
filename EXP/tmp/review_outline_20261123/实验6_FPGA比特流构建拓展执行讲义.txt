@@ -1,0 +1,287 @@
+PAGE 1
+1 
+实验 6 FPGA比特流构建 
+拓展执行讲义   Vivado 2018.3  
+在完成 FSM 源码与配套 testbench 仿真后，按本讲义完成综合、引脚和时钟约束、布局布线、结果检查，最终生
+成 .bit 配置文件。第 15至 19步为有开发板时的下载和观察补充。 
+准备：使用已通过仿真的板级设计；将仿真加速参数恢复为板载 100 MHz 对应的实际计时值，保证 1T 为 1秒。
+截图示例的综合顶层为 traffic_light，共 8个外部端口，state 和 countdown 保留在模块内部。 
+第 1步  选择 FPGA 器件 
+操作：新建 RTL Project，添加设计文件，在 Default Part 中选择 xc7a100tfgg484-1。若已有工程，先在工程设置中
+核对 Part，再继续后续流程。 
+ 
+图 1  Default Part 中选择的器件 
+检查要点：器件型号、封装与速度等级均应匹配课程开发板；综合顶层是板级设计模块，不能选  tb_traffic_light。
+截图示例使用 MINISYS 平台。 
+ 
+
+
+PAGE 2
+2 
+第 2步  运行综合并打开设计 
+操作：在 Flow Navigator 中点击 Run Synthesis。完成后，可在弹窗选择 Open Synthesized Design，或从左侧进入综
+合后设计。 
+ 
+图 2  Synthesis successfully completed 综合完成 
+这一步的作用：综合将可综合的 Verilog 描述转换为目标 FPGA 的逻辑资源和连接。综合成功后，才可进一步查看
+网表、分配 I/O 和约束时钟。 
+检查要点：确认综合成功，查看 Messages 中的错误与警告，并检查顶层及端口是否正确。仿真通过与综合通过
+应分别保留结果。图中弹窗虽选中 Run Implementation，首次教学执行可先进入综合后设计配置约束。 
+ 
+
+
+PAGE 3
+3 
+第 3步  进入 I/O Planning 
+操作：打开综合后设计，在右上角布局下拉菜单中选择 I/O Planning，在下方打开 I/O Ports，展开全部顶层端口。 
+ 
+图 3  I/O Planning 布局与绑定前的 I/O Ports 
+检查要点：截图记录过一次初步实现；正式流程应在约束完成后重新实现。图中  Y11、U16 等为绑定前的显示值，
+Fixed 尚未勾选，不能直接当作开发板引脚表使用。 
+这一步的作用：I/O Planning 把 HDL 端口和封装引脚联系起来。端口名称说明逻辑功能，物理连接由 Package Pin 
+和板卡电路决定。 
+ 
+
+
+PAGE 4
+4 
+第 4步  绑定引脚并选择电气标准 
+操作：在 I/O Ports 中逐项设置 Package Pin 和 I/O Std。下表复述截图工程的绑定，用于核对同一示例；更换板卡
+或更换指示灯时，应重新查阅板卡资料。 
+ 
+图 4  截图工程完成绑定后的 8个外部端口 
+端口 方向 Package Pin I/O Standard 
+clk IN Y18 LVCMOS33 
+motor_green OUT A21 LVCMOS33 
+motor_red OUT N19 LVCMOS33 
+motor_yellow OUT J17 LVCMOS33 
+pass_green OUT D22 LVCMOS33 
+pass_red OUT N20 LVCMOS33 
+pass_request IN R1 LVCMOS15 
+reset IN P20 LVCMOS33 
+ 
+检查要点：8个端口全部绑定，无重复占用；I/O 电压与实际 Bank 和外设匹配。本图 pass_request 为 LVCMOS15，
+不能把所有端口统一设为 LVCMOS33。端口名中的颜色不保证等于所绑定 LED 的物理颜色，应按引脚定位指示灯。 
+ 
+
+
+PAGE 5
+5 
+第 5步  保存引脚修改 
+操作：引脚和电气标准填写完成后保存。切换设计或打开时序约束窗口时，若出现  Save Project 提示，勾选需保
+存的约束修改并点击 Save。 
+ 
+图 5  离开当前设计前保存约束修改 
+检查要点：不要选 Don’t Save 丢弃刚填写的约束。此阶段截图底部的时序值为 NA，且提示没有用户时序约束，表
+示时钟约束尚未建立，不能据此判断时序通过。 
+这一步的作用：界面修改首先存在于当前打开的设计中，必须保存到工程约束文件，后续综合和实现才能重复使
+用。[1] 
+ 
+
+
+PAGE 6
+6 
+第 6步  创建并保存 XDC 文件 
+操作：在 Save Constraints 对话框中选择 Create a new file，文件类型选 XDC，文件名填写 traffic_light_io，保存在
+当前工程中。若已有目标 XDC，则选择该文件保存。 
+ 
+图 6  Save Constraints 对话框 
+检查要点：在 Sources 的 Constraints 中能找到 traffic_light_io.xdc，并确认刚设置的 PACKAGE_PIN 与 IOSTANDARD 
+已写入。保存后综合或实现可能显示 Out-of-date，后续需重新运行。 
+本讲义以界面编辑为主。核对 XDC 后再继续界面操作，避免同时手改文件和保存旧的内存约束而互相覆盖。 [1] 
+ 
+
+
+PAGE 7
+7 
+第 7步  打开时钟约束窗口 
+操作：进入 Open Synthesized Design，点击 Edit Timing Constraints。在 Timing Constraints 中展开 Clocks，选择 
+Create Clock，双击空白项或使用新增按钮。 
+ 
+图 7  Timing Constraints 中的 Create Clock 入口 
+检查要点：此图 Clocks 为 0，表示尚未创建时钟约束。下一步应把主时钟约束绑定到实际输入端口  clk，而不是创
+建一个没有来源对象的虚拟时钟。 
+这一步的作用：时钟约束告诉时序分析工具电路需要按多快的节拍工作；它不会产生晶振，也不会替代源码里的
+分频逻辑。 
+ 
+
+
+PAGE 8
+8 
+第 8步  创建 100 MHz主时钟约束 
+操作：在 Create Clock 中填写 Clock name 为 sys_clk，Source objects 选择 clk，Period 填 10 ns，Rise at 填 0 ns，Fall 
+at 填 5 ns。点击 OK 并应用、保存约束。 
+ 
+图 8  100 MHz主时钟的 Create Clock 设置 
+检查要点：100 MHz 的周期为 10 ns；来源对象必须为输入 clk。不要把主时钟周期改成 1秒来代替分频。该设置
+约束的是板载晶振输入。 
+ 
+
+
+PAGE 9
+9 
+第 9步  核对生成时钟与完整 XDC 
+操作：截图设计使用内部 clk_1hz 驱动 FSM，还需添加 Create Generated Clock：主时钟来源为 clk，目标为实际分
+频寄存器的 Q 输出，名称为 traffic_clk_1hz，Divide by 为 100000000。保存后打开 XDC 核对。 
+ 
+图 9  XDC 中的主时钟和 1 Hz生成时钟约束 
+create_clock -name sys_clk -period 10.000 \ 
+    -waveform {0.000 5.000} [get_ports clk] 
+  
+create_generated_clock -name traffic_clk_1hz \ 
+    -source [get_ports clk] -divide_by 100000000 \ 
+    [get_pins clk_1hz_reg/Q] 
+ 
+检查要点：上面是截图工程的命令，目标对象名必须以自己的综合网表为准，不能出现空对象或无效对象警告。
+100 MHz 除以一亿为 1 Hz，对应周期为 1,000,000,000 ns。[1] 
+这里约束的是完整时钟周期的分频比。若源码每累计 50,000,000个主时钟周期翻转一次输出，则两次翻转组成 1
+秒完整周期。若采用单主时钟加秒使能的另一种结构，则不存在 clk_1hz 时钟，不应照抄本条生成时钟约束。 
+ 
+
+
+PAGE 10
+10 
+第 10步  检查时钟间的时序关系 
+操作：查看 Report Clock Interaction，核对 sys_clk 和 traffic_clk_1hz 的时钟间路径；同时查看 Clock Summary，检查
+两个时钟的周期与来源。正式结论应以最后一次实现后的报告为准。  
+ 
+图 10  Clock Interaction 中存在 No Common Period 与 Timed unsafe 
+图中同一时钟内的路径显示 Clean / Timed；两个时钟之间的路径显示 No Common Period 与 Timed (unsafe)。即使 
+WNS 为正，也不能据此声称跨时钟路径已经得到可靠验证。 
+检查要点：记录异常对应的时钟对、起点和终点。核对生成时钟是否匹配电路，检查请求和状态反馈的跨域传递。
+不能仅为让报告好看，就整体添加 False Path 或把相关时钟随意设为异步。 
+对于无法在分析窗口内展开公共周期的时钟关系，工具给出的裕量存在分析局限。 [2] 需要结合同步结构或握手
+方案处理；也可在后续设计改进中使用单时钟加使能结构。修改结构或约束后须重新仿真和实现。  
+ 
+
+
+PAGE 11
+11 
+第 11步  重新综合并执行实现 
+操作：保存所有 RTL 与 XDC 后运行 Run Implementation。若 Vivado 提示综合结果过期，允许重新综合；若提示 
+Reset Runs，按当前修改重跑相关流程。完成后选择 Open Implemented Design。 
+ 
+图 11  Implementation successfully completed 实现完成 
+检查要点：确认实现成功。图中背景还有 Synthesized Design is out-of-date 提示，说明当前打开的综合视图不是最
+新结果；应打开最新实现结果，必要时 Reload 后再查看报告。 
+这一步的作用：Implementation 完成布局和布线，让综合网表真正映射到具体器件位置与连线。引脚或时钟约束
+改变后，应重新实现，旧结果不能作为最终验收依据。 
+ 
+
+
+PAGE 12
+12 
+第 12步  查看实现后的时序报告 
+操作：在 Open Implemented Design 中打开 Report Timing Summary，查看 Design Timing Summary、Clock Summary、
+Check Timing 和 Unconstrained Paths。 
+ 
+图 12  实现后的 Design Timing Summary 
+指标 截图中的数值 检查含义 
+WNS 5.678 ns 已分析路径的最差建立裕量 
+TNS 0.000 ns 建立检查的总负裕量 
+WHS 0.000 ns 已分析路径的最差保持裕量 
+THS 0.000 ns 保持检查的总负裕量 
+Failing Endpoints 0 图中各类检查的失败端点数为 0 
+ 
+检查要点：对已分析路径应检查 WNS ≥ 0、WHS ≥ 0，以及 TNS / THS 为 0；还需检查时钟和必要路径是否受到约束。
+所有用户约束满足，只能说明当前约束覆盖到的检查满足要求。  
+第 10步与本页截图属于流程中的不同查看阶段，报告中的数值不能混作同一次实现的完整结论。最终报告应重
+新导出最后一次实现的 Clock Interaction，确认或说明跨时钟分析问题。 
+ 
+
+
+PAGE 13
+13 
+第 13步  运行 DRC 并分析警告 
+操作：在实现后设计中点击 Report DRC，查看每条规则检查结果。先处理阻止生成比特流的错误，再根据板卡资
+料检查剩余警告。 
+ 
+图 13  DRC 中的 CFGBVS 1 配置电压警告 
+检查要点：图中显示 1条 Warning，内容是 CFGBVS / CONFIG_VOLTAGE 未设置；不能将该图写成“零警告”。它与
+逻辑仿真是否正确是不同检查项。 
+对配置电压相关属性，应查阅实际板卡的配置 Bank 电压与连接方式后设置，并重新执行 DRC。不要在没有依据
+时填写数值，也不要仅通过降低检查级别掩盖错误。报告保留规则名称、当前级别和处理说明。  
+ 
+
+
+PAGE 14
+14 
+第 14步  生成并找到比特流文件 
+操作：确认最终实现结果和必要检查后，点击 PROGRAM AND DEBUG → Generate Bitstream。等待流程结束，检查
+右上角状态及日志，并在输出目录中确认 .bit 文件。 
+ 
+图 14  write_bitstream Complete 与尚未连接的 Hardware Manager 
+检查要点：图中右上角 write_bitstream Complete 表示生成阶段完成。本示例文件为 traffic_light.bit，通常位于工
+程的 exp6.runs/impl_1 目录。核对文件名、修改时间及对应的最新实现。 
+到此即可完成“构建比特流”的流程任务，无需先连接开发板。保存源码、XDC、最终时序与 DRC 报告、生成成功
+截图及 .bit 文件。图中 No hardware target is open 仅表示硬件目标尚未打开，不能单凭此图判断驱动失败。  
+ 
+
+
+PAGE 15
+15 
+第 15步  补充操作  连接开发板 
+操作：有开发板时，按板卡说明供电，连接支持数据传输的 USB JTAG 线。打开 Hardware Manager → Open Target 
+→ Auto Connect，等待本地服务器识别目标。[3] 
+ 
+图 15  Hardware Manager 中的硬件目标和 FPGA 器件 
+检查要点：localhost 应显示 Connected，硬件目标应打开，设备树中应看到 xc7a100t 对应器件。没有识别到时，
+依次检查供电、JTAG 接口、数据线和驱动，结合具体日志定位原因。 
+There are no debug cores 表示当前设计中没有可用调试核。普通交通灯设计不使用 ILA 时可以没有调试核，该提示
+本身不表示连接或下载失败。 
+ 
+
+
+PAGE 16
+16 
+第 16步  补充操作  下载比特流 
+操作：选择 xc7a100t_0，点击 Program Device。在 Bitstream file 中选择本次最新的 traffic_light.bit。没有调试核时，
+Debug probes file 可留空；核对后点击 Program。[3] 
+ 
+图 16  Program Device 中选择 bitstream 文件 
+检查要点：器件型号与比特流匹配，所选文件属于当前实现。图中是下载前的设置窗口，不能单凭此图认定下载
+已完成；点击后还需检查最终状态和日志，再观察板上输出。  
+ 
+
+
+PAGE 17
+17 
+第 17步  补充观察  车辆绿灯与行人红灯 
+操作：下载后执行复位，观察绑定 motor_green 和 pass_red 的指示灯。确认当前逻辑状态对应车辆绿灯、行人红
+灯，其他交通灯输出关闭。 
+ 
+图 17  车辆绿灯与行人红灯阶段的板上现象示例 
+检查要点：先按引脚表定位信号对应的指示灯，再判断状态。正常绿灯阶段应持续 90秒；在剩余时间大于 10秒
+时按下请求按钮，还应观察请求被采纳后的剩余计时。静态照片不能单独证明这些持续时间。  
+ 
+
+
+PAGE 18
+18 
+第 18步  补充观察  车辆黄灯与行人红灯 
+操作：等待绿灯计时结束，观察 motor_yellow 和 pass_red 对应指示灯，确认进入车辆黄灯、行人红灯状态。 
+ 
+图 18  车辆黄灯与行人红灯阶段的板上现象示例 
+检查要点：黄灯正常持续 5秒。黄灯期间按下请求按钮，不应跳过黄灯、重新装载黄灯倒计时或暂停计时；应正
+常进入车辆红灯和行人绿灯状态。建议用连续观察或视频记录状态变化。  
+ 
+
+
+PAGE 19
+19 
+第 19步  补充观察  车辆红灯与行人绿灯 
+操作：观察 motor_red 和 pass_green 对应指示灯，确认进入车辆红灯、行人绿灯状态；经过 50秒后应返回车辆
+绿灯、行人红灯。 
+ 
+图 19  车辆红灯与行人绿灯阶段的板上现象示例 
+检查要点：红灯期间请求不改变原有计时。运行中再次复位，应回到车辆绿灯、行人红灯并从 90秒重新计时。
+报告分别记录状态现象、持续时间、请求和复位结果，不把单张照片作为全功能通过的证明。  
+提交：构建流程提交最终源码、XDC、.bit 文件与关键检查截图；完成实物补充者，再附连接、下载结果及板上运
+行记录。 
+参考资料 
+[1] AMD UG903 2018.3 约束使用指南 
+https://docs.amd.com/v/u/2018.3-English/ug903-vivado-using-constraints 
+[2] AMD UG903 Unexpandable Clocks 
+https://docs.amd.com/r/2025.1-English/ug903-vivado-using-constraints/Unexpandable-Clocks 
+[3] AMD UG908 硬件目标连接与配置文件选择 
+https://docs.amd.com/r/en-US/ug908-vivado-programming-debugging/Opening-Hardware-Target-Connections 

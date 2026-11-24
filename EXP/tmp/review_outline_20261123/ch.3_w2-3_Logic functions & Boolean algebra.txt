@@ -1,0 +1,1408 @@
+PAGE 1
+陈奕含
+Faculty of Computility Microelectronics
+FCMA201: Digital Logic
+Boolean Algebra 
+& Logic Functions
+
+PAGE 2
+Outline
+◆ Logic Variable
+➢ Logic variable, function, operations 
+◆ Representation of Logic Relations
+➢ Truth table 
+➢ Logic function
+➢ Logic gate network
+➢ Venn diagram 
+◆ Conversion between Logic 
+Representations
+➢ Minterm & maxterm
+➢ Sum-of-product & product-of-sum
+➢ Cost of logic circuit
+◆ Boolean Algebra
+➢ Axioms, theorems, properties
+◆ Minimization of Logic Expression
+➢ Algebra manipulation
+➢ Karnaugh map 
+• Minimize SOP
+• Minimize POS
+• Incompletely specified functions
+◆ Multiple-Output Circuits
+◆ NAND and NOR Logic Networks
+
+PAGE 3
+3
+Logic Variables
+◆ Variable and function in arithmetic operation (算术运算)
+◆ Logic variable
+Logical variable can be either True (“1”) or False (“0”)
+2( , , ) 2f x y z x y z= + +
+variables: x, y, z are real numbersfunction 
+1
+0
+Truex False=
+
+PAGE 4
+4
+Logic Variables
+◆ Logic variable
+Variables True (“1”) False (“0”)
+a Today is Sundy Today is Monday
+b homework no homework
+c with friends without friends
+x happy unhappy
+y standing crouching
+z high voltage low voltage
+… … …
+
+PAGE 5
+Operation Symbol Rule
+NOT 非
+AND 与
+OR 或
+5
+Logic Operations
+◆ Basic logic operation
+➢ Boolean algebra (布尔代数): introduced by 
+George Boole in his first book 
+“ The Mathematical Analysis of Logic ” (1847)
+10() 01 if xL x x if x ===  =
+x
+xy
+xy+
+111() 0 if x and yL x x y otherwise===  = 
+000() 1 if x and yL x x y otherwise=== + = 
+logic function 
+( ' ! ~ )x x x
+
+PAGE 6
+6
+Logic Operations
+◆ Precedence (优先级) of Operations
+➢ In the order of NOT > AND > OR
+➢ Use parentheses (小括号) if needed
+➢ Omit the “·” operator when there is no ambiguity
+1 2 3 2 1 4x x x x x x +  + 
+1 2 3 2 1 4()x x x x x x +  + 
+1 2 3 2 1 4x x x x x x++
+1 2 3 2 1 4()x x x x x x++
+
+PAGE 7
+7
+( , , ) ?x a b c =
+Variables True (“1”) False (“0”)
+a Today is Sundy Today is Monday
+b homework no homework
+c with friends without friends
+x happy unhappy
+Practice:
+Problem: The variables are described as follows. 
+If “Today is Sunday” and I have “no homework”, I will be happy. 
+Or “Today is Sunday” and I am “with friends”, I will also be happy.
+Give the logic function of x in terms of a, b, c.
+
+PAGE 8
+8
+Representation of Logic Relations
+◆ Truth Table (真值表)
+x y z L(x, y, z)
+0 0 0 0
+0 0 1 0
+0 1 0 0
+0 1 1 0
+1 0 0 1
+1 0 1 1
+1 1 0 0
+1 1 1 1
+x L(x)
+0 1
+1 0
+x y L(x, y)
+0 0 0
+0 1 0
+1 0 0
+1 1 1
+x y L(x, y)
+0 0 0
+0 1 1
+1 0 1
+1 1 1
+
+PAGE 9
+9
+Representation of Logic Relations
+◆ Logic Function
+x y z L(x, y, z)
+0 0 0 0
+0 0 1 0
+0 1 0 0
+0 1 1 0
+1 0 0 1
+1 0 1 1
+1 1 0 0
+1 1 1 1
+x L(x)
+0 1
+1 0
+x y L(x, y)
+0 0 0
+0 1 0
+1 0 0
+1 1 1
+x y L(x, y)
+0 0 0
+0 1 1
+1 0 1
+1 1 1
+( , , )L x y z x y x z=  + 
+( , )L x y x y=+
+( , )L x y x y=
+()L x x=
+
+PAGE 10
+10
+Representation of Logic Relations
+◆ Network of Logic Gates
+x
+xy
+xy+
+x
+NOT AND OR
+x
+y
+x
+y
+x
+y
+z
+x y x z + 
+非门/反相器 与门 或门
+
+PAGE 11
+11
+Representation of Logic Relations
+◆ Network of Logic Gates
+➢ More basic logic gates
+x
+y
+xy
+NOR 或非
+xyNAND 与非
+xy+
+x
+y
+XOR 异或
+xy
+x
+y
+x
+y x y
+0 0 0
+0 1 1
+1 0 1
+1 1 0
+xy
+x y x y x y =  + 
+
+PAGE 12
+12
+Representation of Logic Relations
+◆ Network of Logic Gates
+➢ More basic logic gates
+x
+y
+xy
+XNOR 同或
+xy
+x
+y x y
+0 0 1
+0 1 0
+1 0 0
+1 1 1
+xy
+x y x y x y
+xy
+=  + 
+=
+
+
+PAGE 13
+13
+Representation of Logic Relations
+◆ Network of Logic Gates
+➢ More basic logic gates
+XNOR 同或
+xy
+x
+y
+The XOR is sometimes referred to as the 
+odd function (奇函数) because the output is 
+equal to 1 if an odd number of inputs have 
+the value 1, and it is equal to 0 otherwise. 
+输入有奇数个1，输出为1
+XOR 异或
+xy
+x
+y
+The XNOR is sometimes referred to as the 
+coincidence operation (一致性运算) 
+because it produces 1 when its inputs 
+coincide in value.
+输入值一致，输出为1 
+
+
+PAGE 14
+14
+Representation of Logic Relations
+◆ Venn Diagram 韦恩图
+1
+0
+xy
+xy+
+x
+x
+
+PAGE 15
+15
+( , , )L x y z x y x z=  + 
+Practice:
+Problem: Draw the Venn diagram for
+
+PAGE 16
+16
+Conversion between Logic Representations
+◆ Logic function as a central form
+◆ Extracting logic function from truth table is not straightforward  
+x y z L(x, y, z)
+0 0 0
+0 0 1 …
+…
+( , , )L x y z =
+?
+The process to generate a circuit that realizes
+the functional behavior from the description of
+the behavior is called Synthesis (综合)
+
+PAGE 17
+17
+Conversion between Logic Representations
+◆ From truth table to logic function
+x y L(x, y)
+0 0 1
+0 1 1
+1 0 0
+1 1 1
+( , , ) ?L x y z =
+x y z L(x, y, z)
+0 0 0 0
+0 0 1 1
+0 1 0 0
+0 1 1 1
+1 0 0 0
+1 0 1 1
+1 1 0 1
+1 1 1 1
+( , )L x y x y=+
+
+PAGE 18
+18
+Conversion between Logic Representations
+◆ From truth table to logic function
+w x y z L(w, x, y, z) w x y z L(w, x, y, z)
+0 0 0 0 1 1 0 0 0 1
+0 0 0 1 1 1 0 0 1 0
+0 0 1 0 1 1 0 1 0 1
+0 0 1 1 1 1 0 1 1 0
+0 1 0 0 0 1 1 0 0 0
+0 1 0 1 0 1 1 0 1 0
+0 1 1 0 0 1 1 1 0 1
+0 1 1 1 1 1 1 1 1 1
+( , , , ) ?L w x y z =
+
+PAGE 19
+19
+Conversion between Logic Representations
+◆ How to use standard process rather than using eyes
+x y L(x, y)
+0 0 1
+0 1 1
+1 0 0
+1 1 1
+( , )L x y x y=+
+0 0 1xy =  =
+0 1 1xy =  =
+1 1 1xy =  =
+( , )L x y x y x y x y=  +  + 
+by observation
+by analysis
+
+PAGE 20
+20
+Boolean Algebra
+◆ Axioms (公理)
+ ◆ Single-Variable Theorems (定理)
+
+
+PAGE 21
+21
+Boolean Algebra
+◆ Two-Variable and Three-Variable Properties 
+Commutative (交换律)
+Associative (结合律)
+Distributive (分配律)
+Absorption (吸收律)
+Combining (组合律)
+
+PAGE 22
+22
+Boolean Algebra
+◆ Two-Variable and Three-Variable Properties 
+DeMorgan’s theorem 
+(德摩根定理、反演律)
+Consensus (包含律)
+
+PAGE 23
+23
+Boolean Algebra
+◆ Principle of Duality (对偶性原理)
+Given a logic expression, its dual (对偶) is obtained by: 
+➢ replacing all “+” with “·”
+➢ replacing all “·” with “+”
+➢ replacing all “0” with “1”
+➢ replacing all “1” with “0”
+A true statement’s dual is also a true statement !
+
+PAGE 24
+24
+Practice:
+Prove the validity of following logic equations:
+1.
+2. 
+3.  
+4. 
+1 3 2 3 1 3 2 3 1 2 1 2 1 2x x x x x x x x x x x x x x +  +  +  =  +  + 
+2 3 4 1 3 4 1 2 4 2 3 4 1 4x x x x x x x x x x x x x x  +   +   =   + 
+1 2 3 1 2 4 1 3 4
+1 2 4 1 3
+( ) ( ) ( )
+( ) ( )
+x x x x x x x x x
+x x x x x
++ +  + +  + +
+= + +  +
+x y x y x y x y +  +  = +
+
+PAGE 25
+25
+Synthesis Process
+◆ Similarity between logic and arithmetic 
+Arithmetic Logic
+⸱ multiplication (×) and
++ addition or
+operation
+precedence
+properties
+00x=
+1xx=
+1 2 3 2x x x x + 
+0xx+=
+OR: logical sum 逻辑和
+AND: logical product 逻辑积
+x y y x = 
+x y y x+ = +
+( ) ( )x y z x y z  =  
+( ) ( )x y z x y z+ + = + +
+()x y z x y x z + =  + 
+( ) ( ) ( )x y z x y x z+  = +  +
+
+PAGE 26
+26
+Minterms & Maxterms
+◆ Minterms(最小项) & Maxterms(最大项) 
+➢ Minterm: a product term in which each of the n variables appears
+➢ Maxterm: complements of minterms
+iimM=
+
+PAGE 27
+27
+Sum-of-Products
+◆ Sum-of-Products (SOP 积之和) Form
+➢ A function can be represented by: sum of “minterm AND function value”
+x y Minterm L(x, y)
+0 0 m0 1
+0 1 m1 1
+1 0 m2 0
+1 1 m3 1
+0 1 2 3
+013
+1 1 0 1
+1 1 0 1
+( , , ) (0,1,3)
+L m m m m
+x y x y x y x y
+x y x y x y
+m m m m
+=  +  +  + 
+=   +   +   +  
+=  +  + 
+==
+f m Value= Only need to sum up minterms 
+corresponding to the rows with f = 1
+
+PAGE 28
+28
+Practice:
+Prove the validity of following logic equations:
+1.
+2. 
+(0,1,3)m x y =+
+(1,3,5,6,7)m xy z =+
+
+PAGE 29
+29
+Product-of-Sums
+◆ Sum-of-Products (SOP 积之和) Form
+Sum of minterms corresponding to the rows with f = 1
+◆ Product-of-Sums (POS 和之积) Form
+Product of maxterms corresponding to the rows with f = 0
+1 3 5 6 7( , , , , ) (1,3,5,6,7)L m m m m m m==
+024( , , ) (0, 2, 4)L M M M M==
+x y z L
+0 0 0 0
+0 0 1 1
+0 1 0 0
+0 1 1 1
+1 0 0 0
+1 0 1 1
+1 1 0 1
+1 1 1 1
+Practice: Prove  
+(1,3,5,6,7) (0, 2, 4)mM = 
+
+PAGE 30
+30
+Practice:
+x y z L
+0 0 0 0
+0 0 1 1
+0 1 0 0
+0 1 1 1
+1 0 0 0
+1 0 1 1
+1 1 0 1
+1 1 1 1
+Prove:
+1 3 5 6 7( , , , , )L m m m m m=
+024( , , )L m m m=
+024
+024
+024
+024
+( , , )L L m m m
+m m m
+m m m
+M M M
+==
+= + +
+=  
+=  
+
+(1,3,5,6,7) (0, 2, 4)mM = 
+
+PAGE 31
+31
+Cost of Logic Circuits
+◆ A good indication of cost: the total number of gates plus the total 
+number of inputs to all gates in the circuit
+Cost gates inputsNN=+
+x y z L(x, y, z)
+0 0 0 0
+0 0 1 1
+0 1 0 0
+0 1 1 1
+1 0 0 0
+1 0 1 1
+1 1 0 1
+1 1 1 1
+1 3 5 6 7( , , , , )L m m m m m=
+L xy z=+
+…
+…
+ Cost = 9 + 23 = 32
+Cost = 2 + 4 = 6
+x
+y
+z
+L
+L
+x
+y
+z
+
+PAGE 32
+32
+Cost of Logic Circuits
+◆ How to use standard process rather than using eyes
+x y L(x, y)
+0 0 1
+0 1 1
+1 0 0
+1 1 1
+( , )L x y x y=+
+( , )L x y x y x y x y=  +  + 
+Cost = ?Cost = ?
+by observationby SOP
+Issue: SOP or POS form may not be the one with lowest cost.
+Need to be simplified.
+
+PAGE 33
+33
+Minimization of Logic Expression
+◆ Karnaugh map (卡诺图) 
+➢ Using algebraic manipulation to minimize logic function is not 
+obvious, and often tedious and impractical 
+➢ Karnaugh map is a more manageable approach
+0 1
+0 m0 m1
+1 m2 m3
+x1 x2 Minterm
+0 0 m0
+0 1 m1
+1 0 m2
+1 1 m3
+1x
+2x
+Two-variable
+
+PAGE 34
+34
+Minimization of Logic Expression
+◆ Karnaugh map (卡诺图) 
+x1 x2 x3 Minterm
+0 0 0 m0
+0 0 1 m1
+0 1 0 m2
+0 1 1 m3
+1 0 0 m4
+1 0 1 m5
+1 1 0 m6
+1 1 1 m7
+00 01 11 10
+0 m0 m1 m3 m2
+1 m4 m5 m7 m6
+1x
+23xx
+Three-variable Four-variable
+00 01 11 10
+00 m0 m1 m3 m2
+01 m4 m5 m7 m6
+11 m12 m13 m15 m14
+10 m8 m9 m11 m10
+12xx
+34xx
+Only one bit change for neighboring cells !
+
+PAGE 35
+35
+Minimization of Logic Expression
+◆ Karnaugh map (卡诺图) 
+Five-variable
+000 001 011 010 110 111 101 100
+00 m0 m1 m3 m2 m6 m7 m5 m4
+01 m8 m9 m11 m10 m14 m15 m13 m12
+11 m24 m25 m27 m26 m30 m31 m29 m28
+10 m16 m17 m19 m18 m22 m23 m21 m20
+12xx
+345x x x
+axis of symmetry (对称轴)
+
+PAGE 36
+36
+Karnaugh Map
+◆ Karnaugh map representing logic expression
+0 1
+0 m0 m1
+1 m2 m3
+1x
+2x
+00 01 11 10
+0 m0 m1 m3 m2
+1 m4 m5 m7 m6
+1x
+23xx
+12L x x=
+0 1
+0 m0 m1
+1 m2 m3
+1x
+2x
+2Lx=
+1 2 3L x x x=
+13L x x=
+00 01 11 10
+0 m0 m1 m3 m2
+1 m4 m5 m7 m6
+1x
+23xx
+2Lx=
+00 01 11 10
+0 m0 m1 m3 m2
+1 m4 m5 m7 m6
+1x
+23xx
+
+PAGE 37
+37
+Karnaugh Map
+◆ Karnaugh map representing logic expression
+00 01 11 10
+00 m0 m1 m3 m2
+01 m4 m5 m7 m6
+11 m12 m13 m15 m14
+10 m8 m9 m11 m10
+12xx
+34xx
+234L x x x=
+00 01 11 10
+00 m0 m1 m3 m2
+01 m4 m5 m7 m6
+11 m12 m13 m15 m14
+10 m8 m9 m11 m10
+12xx
+34xx
+12L x x=
+00 01 11 10
+00 m0 m1 m3 m2
+01 m4 m5 m7 m6
+11 m12 m13 m15 m14
+10 m8 m9 m11 m10
+12xx
+34xx
+1Lx=
+Application of combining (组合律) by circling neighboring cells ! 
+
+PAGE 38
+38
+Karnaugh Map
+◆ Karnaugh map representing logic expression
+00 01 11 10
+00 m0 m1 m3 m2
+01 m4 m5 m7 m6
+11 m12 m13 m15 m14
+10 m8 m9 m11 m10
+12xx
+34xx
+1 2 4L x x x=
+00 01 11 10
+00 m0 m1 m3 m2
+01 m4 m5 m7 m6
+11 m12 m13 m15 m14
+10 m8 m9 m11 m10
+12xx
+34xx
+24L x x=
+00 01 11 10
+00 m0 m1 m3 m2
+01 m4 m5 m7 m6
+11 m12 m13 m15 m14
+10 m8 m9 m11 m10
+12xx
+34xx
+24L x x=
+Application of combining (组合律) by circling neighboring cells ! 
+
+PAGE 39
+39
+Karnaugh Map
+◆ Karnaugh map representing logic expression
+15L x x=
+Application of combining (组合律) by circling neighboring cells ! 
+000 001 011 010 110 111 101 100
+00 m0 m1 m3 m2 m6 m7 m5 m4
+01 m8 m9 m11 m10 m14 m15 m13 m12
+11 m24 m25 m27 m26 m30 m31 m29 m28
+10 m16 m17 m19 m18 m22 m23 m21 m20
+12xx
+345x x x
+1 4 5L x x x=
+
+PAGE 40
+40
+Karnaugh Map
+◆ Minimize SOP with Karnaugh map
+x1 x2 x3 L(x1, x2, x3)
+0 0 0 m0 0
+0 0 1 m1 1
+0 1 0 m2 0
+0 1 1 m3 1
+1 0 0 m4 0
+1 0 1 m5 1
+1 1 0 m6 1
+1 1 1 m7 1
+00 01 11 10
+0
+m0 m1 m3 m2
+1
+m4 m5 m7 m6
+1x
+23xx
+1 1
+1 11
+Given the truth table:
+➢ Step1: mark the minterms with L=1
+
+PAGE 41
+41
+Karnaugh Map
+◆ Minimize SOP with Karnaugh map
+00 01 11 10
+0
+m0 m1 m3 m2
+1
+m4 m5 m7 m6
+1x
+23xx
+1 1
+1 1
+3 1 2L x x x=+
+x1 x2 x3 L(x1, x2, x3)
+0 0 0 m0 0
+0 0 1 m1 1
+0 1 0 m2 0
+0 1 1 m3 1
+1 0 0 m4 0
+1 0 1 m5 1
+1 1 0 m6 1
+1 1 1 m7 1
+➢ Step2: circle neighboring minterms
+• Circles as large as possible
+• All “1” cells need to be circled in
+• Overlap is encouraged
+1
+
+PAGE 42
+42
+Karnaugh Map
+◆ Minimize SOP with Karnaugh map
+x1 x2 x3 x4 L x1 x2 x3 x4 L
+0 0 0 0 m0 1 1 0 0 0 m8 1
+0 0 0 1 m1 1 1 0 0 1 m9 0
+0 0 1 0 m2 1 1 0 1 0 m10 1
+0 0 1 1 m3 1 1 0 1 1 m11 0
+0 1 0 0 m4 0 1 1 0 0 m12 0
+0 1 0 1 m5 0 1 1 0 1 m13 0
+0 1 1 0 m6 0 1 1 1 0 m14 1
+0 1 1 1 m7 1 1 1 1 1 m15 1
+00 01 11 10
+00
+m0 m1 m3 m2
+01
+m4 m5 m7 m6
+11
+m12 m13 m15 m14
+10
+m8 m9 m11 m10
+12xx
+34xx
+2 4 1 2
+2 3 4 1 2 3
+L x x x x
+x x x x x x
+=+
+++
+1 1 1 1
+1 1
+1
+11
+
+PAGE 43
+43
+Karnaugh Map
+◆ Minimize POS with Karnaugh map
+00 01 11 10
+0
+M0 M1 M3 M2
+1
+M4 M5 M7 M6
+1x
+23xx
+➢ Step1: mark the maxterms with L=0
+➢ Step2: circle neighboring maxterms 
+• Circles as large as possible
+• All “0” cells need to be circled in
+• Overlap is allowed
+2 3 1 3( ) ( )L x x x x= +  +
+0
+0
+0
+x1 x2 x3 L(x1, x2, x3)
+0 0 0 M0 0
+0 0 1 M1 1
+0 1 0 M2 0
+0 1 1 M3 1
+1 0 0 M4 0
+1 0 1 M5 1
+1 1 0 M6 1
+1 1 1 M7 1
+
+PAGE 44
+44
+Karnaugh Map
+◆ Minimize POS with Karnaugh map
+2 3 1 2 4
+1 2 4
+( ) ( )
+()
+L x x x x x
+x x x
+= +  + +
+ + +
+x1 x2 x3 x4 L x1 x2 x3 x4 L
+0 0 0 0 M0 1 1 0 0 0 M8 1
+0 0 0 1 M1 1 1 0 0 1 M9 0
+0 0 1 0 M2 1 1 0 1 0 M10 1
+0 0 1 1 M3 1 1 0 1 1 M11 0
+0 1 0 0 M4 0 1 1 0 0 M12 0
+0 1 0 1 M5 0 1 1 0 1 M13 0
+0 1 1 0 M6 0 1 1 1 0 M14 1
+0 1 1 1 M7 1 1 1 1 1 M15 1
+00 01 11 10
+00
+m0 m1 m3 m2
+01
+m4 m5 m7 m6
+11
+m12 m13 m15 m14
+10
+m8 m9 m11 m10
+12xx
+34xx
+0 0 0
+0 0
+0 0
+
+PAGE 45
+45
+Practice:
+Based on the truth table, derive minimum-cost expressions for the 
+function:  in SOP form  in POS form.
+x y z L(x, y, z)
+0 0 0 0
+0 0 1 0
+0 1 0 1
+0 1 1 1
+1 0 0 1
+1 0 1 0
+1 1 0 1
+1 1 1 1
+
+PAGE 46
+46
+Practice:
+Determine the minimum-cost SOP and POS expressions for the 
+function f (x1, x2, x3, x4) = ∑ m(4, 6, 8, 10, 11, 12, 15).
+
+PAGE 47
+47
+Incompletely Specified Functions
+◆ Sometimes certain input conditions can never occur
+◆ (x1, x2) = 11 is called a “don’t-care condition” (无关项), 
+denoted by the letter d in the map
+◆ A function that has don’t-care condition(s) is called 
+incompletely specified function (非完整定义函数)
+◆ The designer may assume that the function value for these 
+valuations is either 1 or 0
+12( , ) 00, 01 10xx = ,
+e.g.
+12( , ) 11xx 
+
+PAGE 48
+48
+Incompletely Specified Functions
+(2, 4, 5, 6,10) (12,13,14,15)L m D=+
+00 01 11 10
+00
+m0 m1 m3 m2
+01
+m4 m5 m7 m6
+11
+m12 m13 m15 m14
+10
+m8 m9 m11 m10
+12xx
+34xx
+1
+1 1 1
+1
+d d dd
+0 0 0
+0 0
+0
+0
+2 3 3 4L x x x x=+
+SOP implementation
+00 01 11 10
+00
+m0 m1 m3 m2
+01
+m4 m5 m7 m6
+11
+m12 m13 m15 m14
+10
+m8 m9 m11 m10
+12xx
+34xx
+1
+1 1 1
+1
+d d dd
+0 0 0
+0 0
+0
+0
+POS implementation
+2 3 3 4( ) ( )L x x x x= +  +
+
+PAGE 49
+49
+Example of Logic Circuit Design
+Problem: Design a logic circuit that displays the decimal value of a two-bit 
+number on a seven-segment display.
+
+
+PAGE 50
+50
+Example of Logic Circuit Design
+Problem: Design a logic circuit that displays the decimal value of a four-bit 
+number on a seven-segment display.
+Solution:
+ For “a” segment
+00 01 11 10
+00
+m0 m1 m3 m2
+01
+m4 m5 m7 m6
+11
+m12 m13 m15 m14
+10
+m8 m9 m11 m10
+32xx
+10xx
+1
+0 1 1
+d
+d d dd
+1 0 1
+1 1
+1
+d
+2 0 2 0 3 1L x x x x x x= + + +
+
+PAGE 51
+51
+Example of Logic Circuit Design
+Solution:
+For “b” segment
+00 01 11 10
+00
+m0 m1 m3 m2
+01
+m4 m5 m7 m6
+11
+m12 m13 m15 m14
+10
+m8 m9 m11 m10
+32xx
+10xx
+1
+1 0 0
+d
+d d dd
+1 1 1
+1 1
+1
+d
+?L=
+For “c” segment
+00 01 11 10
+00
+m0 m1 m3 m2
+01
+m4 m5 m7 m6
+11
+m12 m13 m15 m14
+10
+m8 m9 m11 m10
+32xx
+10xx
+0
+1 1 1
+d
+d d dd
+1 1 1
+1 1
+1
+d
+?L=
+For “d” segment
+00 01 11 10
+00
+m0 m1 m3 m2
+01
+m4 m5 m7 m6
+11
+m12 m13 m15 m14
+10
+m8 m9 m11 m10
+32xx
+10xx
+1
+0 1 1
+d
+d d dd
+1 0 1
+1 1
+0
+d
+?L=
+
+PAGE 52
+52
+Example of Logic Circuit Design
+Solution:
+For “e” segment
+00 01 11 10
+00
+m0 m1 m3 m2
+01
+m4 m5 m7 m6
+11
+m12 m13 m15 m14
+10
+m8 m9 m11 m10
+32xx
+10xx
+1
+0 0 1
+d
+d d dd
+1 0 0
+1 0
+0
+d
+For “f” segment
+00 01 11 10
+00
+m0 m1 m3 m2
+01
+m4 m5 m7 m6
+11
+m12 m13 m15 m14
+10
+m8 m9 m11 m10
+32xx
+10xx
+0
+1 1 1
+d
+d d dd
+1 0 0
+1 1
+0
+d
+For “g” segment
+00 01 11 10
+00
+m0 m1 m3 m2
+01
+m4 m5 m7 m6
+11
+m12 m13 m15 m14
+10
+m8 m9 m11 m10
+32xx
+10xx
+1
+1 1 1
+d
+d d dd
+0 0 1
+1 1
+0
+d
+?L=
+?L=
+?L=
+
+PAGE 53
+55
+Multiple-Output Circuits
+◆ Possible to share some of the gates instead of implementing each 
+function separately
+1 1 4 2 4 1 2 3
+2 1 4 2 4 1 2 3 4
+f x x x x x x x
+f x x x x x x x x
+= + +
+= + +
+Problem: In a system, two functions f1 and f2 are of the same variables, 
+find the minimum-overall-cost implementation. 
+
+PAGE 54
+56
+Multiple-Output Circuits
+1 1 4 2 4 1 2 3f x x x x x x x= + +
+Problem: In a system, two functions f1 and f2 are of the same variables, 
+find the minimum-overall-cost implementation. 
+1x
+4x
+4x
+1x
+2x
+2x
+3x
+1x
+4x
+4x
+1x
+2x
+2x
+3x
+4x
+2 1 4 2 4 1 2 3 4f x x x x x x x x= + +
+Cost = 4 + 10 = 14
+Cost = 4 + 11 = 15
+Overall Cost = 29
+
+PAGE 55
+57
+Multiple-Output Circuits
+Problem: In a system, two functions f1 and f2 are of the same variables, 
+find the minimum-overall-cost implementation. 
+00 01 11 10
+00
+m0 m1 m3 m2
+01
+m4 m5 m7 m6
+11
+m12 m13 m15 m14
+10
+m8 m9 m11 m10
+12xx
+34xx
+0
+0 1 1
+0
+0 1 01
+0 1 1
+0 0
+1
+0
+1 1 4 2 4 1 2 3f x x x x x x x= + +
+00 01 11 10
+00
+m0 m1 m3 m2
+01
+m4 m5 m7 m6
+11
+m12 m13 m15 m14
+10
+m8 m9 m11 m10
+12xx
+34xx
+0
+0 0 1
+0
+0 1 01
+0 1 1
+0 1
+0
+1
+2 1 4 2 4 1 2 3 4f x x x x x x x x= + +
+No common gates!
+
+PAGE 56
+58
+Multiple-Output Circuits
+Problem: In a system, two functions f1 and f2 are of the same variables, 
+find the minimum-overall-cost implementation. 
+00 01 11 10
+00
+m0 m1 m3 m2
+01
+m4 m5 m7 m6
+11
+m12 m13 m15 m14
+10
+m8 m9 m11 m10
+12xx
+34xx
+0
+0 1 1
+0
+0 1 01
+0 1 1
+0 0
+1
+0
+1 1 4 1 2 4 1 2 3 4f x x x x x x x x x= + +
+00 01 11 10
+00
+m0 m1 m3 m2
+01
+m4 m5 m7 m6
+11
+m12 m13 m15 m14
+10
+m8 m9 m11 m10
+12xx
+34xx
+0
+0 0 1
+0
+0 1 01
+0 1 1
+0 1
+0
+1
+2 2 4 1 2 4 1 2 3 4f x x x x x x x x x= + +
+
+PAGE 57
+59
+Multiple-Output Circuits
+Problem: In a system, two functions f1 and f2 are of the same variables, 
+find the minimum-overall-cost implementation. 
+1 1 4 1 2 4 1 2 3 4f x x x x x x x x x= + +
+2 2 4 1 2 4 1 2 3 4f x x x x x x x x x= + +
+Overall Cost = 6 + 17 = 23 < 29
+
+PAGE 58
+60
+NAND and NOR Logic Networks
+◆ In practical circuit, NAND and NOR gates are largely used because 
+they are realized with simpler circuits than AND and OR gates 
+◆ Transistors (晶体管) can be seen as switches (开关)
+
+
+PAGE 59
+61
+NAND and NOR Logic Networks
+◆ Transistors (晶体管) can be seen as switches (开关)
+NMOS transistor PMOS transistor
+
+PAGE 60
+62
+NAND and NOR Logic Networks
+◆ Transistors construct logic gates
+➢ NOT gate with NMOS only or with “NMOS + PMOS”
+x
+f
+
+PAGE 61
+63
+NAND and NOR Logic Networks
+◆ Transistors construct logic gates
+➢ NAND and AND gates with NMOS only
+1x
+f
+2x
+1x
+f
+2x
+
+PAGE 62
+64
+NAND and NOR Logic Networks
+◆ Transistors construct logic gates
+➢ NAND and AND gates with “NMOS + PMOS”
+1x
+f
+2x
+1x
+f
+2x
+
+
+PAGE 63
+65
+NAND and NOR Logic Networks
+◆ Transistors construct logic gates
+➢ NOR and OR gates with NMOS only
+1x
+f
+2x
+1x
+f
+2x
+
+PAGE 64
+66
+NAND and NOR Logic Networks
+◆ Transistors construct logic gates
+➢ NOR and OR gates with “NMOS + PMOS”
+1x
+2x
+1x
+2x
+f
+f
+
+PAGE 65
+67
+NAND and NOR Logic Networks
+◆ OR gate 
+ NAND gate
+◆ AND gate 
+ NOR gate
+1 2 1 2x x x x=+
+1 2 1 2x x x x+ = 
+DeMorgan’s
+theorem
+DeMorgan’s
+theorem
+
+PAGE 66
+68
+NAND and NOR Logic Networks
+◆ NAND gates implementing sum-of-products
+
+
+PAGE 67
+69
+NAND and NOR Logic Networks
+◆ NOR gates implementing products-of-sum
+
+
+PAGE 68
+70
+Practice:
+Problem: Implement the function f (x1, x2, x3) = ∑ m(2, 3, 4, 6, 7):
+ using NAND gates only 
+ using NOR gates only
+Solution:
+
+PAGE 69
+Summary
+◆ Logic Variable
+➢ Logic variable, function, operations 
+◆ Representation of Logic Relations
+➢ Truth table 
+➢ Logic function
+➢ Logic gate network
+➢ Venn diagram 
+◆ Conversion between Logic 
+Representations
+➢ Minterm & maxterm
+➢ Sum-of-product & product-of-sum
+➢ Cost of logic circuit
+◆ Boolean Algebra
+➢ Axioms, theorems, properties
+◆ Minimization of Logic Expression
+➢ Algebra manipulation
+➢ Karnaugh map 
+• Minimize SOP
+• Minimize POS
+• Incompletely specified functions
+◆ Multiple-Output Circuits
+◆ NAND and NOR Logic Networks

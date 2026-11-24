@@ -1,0 +1,813 @@
+PAGE 1
+陈奕含
+Faculty of Computility Microelectronics
+FCMA201: Digital Logic
+Combinational Circuits
+
+PAGE 2
+2
+Outline
+◆ Adders
+➢ Half-adder
+➢ Full-adder
+➢ Ripple-carry Adder
+➢ Adder/subtractor Unit
+➢ Carry-lookahead Adder
+➢ Hierarchical Design for Large 
+Adder
+◆ Multiplier
+➢ Multiplication for Unsigned 
+Numbers
+➢ Array Multiplier
+➢ Multiplication for Signed 
+Numbers
+◆ Multiplexers
+➢ Circuit of Multiplexer
+➢ Hierarchical Multiplexer
+➢ Synthesizing with Multiplexers
+➢ Shannon’s Expansion 
+Theorem
+◆ Decoder
+➢ Decoder with Enable Input 
+➢ Decoder Tree
+➢ Multiplexers with Decoder
+➢ Decoder as Demultiplexer
+◆ Encoder
+◆ Code Converters
+◆ Comparator
+
+PAGE 3
+3
+Adders 加法器
+◆ Addition
+2  2  5
+3  6  3
+5  8  8
++
+5  8  8
+4  6  3
+1  0  5  1
++ 11Decimal 
+Binary
+1  0  0
+0  1  1
+1  1  1
++
+1  1  1
+1  0  1
+1  1  0  0
++ 11
+x y
+Carry 进位
+c
+Sum 和
+s
+5 3 0 8
+8 3 1 1
+x y c s
+0 1 0 1
+1 1 1 0
+
+PAGE 4
+4
+Adders
+◆ Half-adder (半加器)
+Half-adder implements the addition of only two bits
+x y c s
+0 0 0 0
+0 1 0 1
+1 0 0 1
+1 1 1 0
+s xy xy x y
+c x y
+= + = 
+=
+Circuit:
+Graphical 
+symbol:
+
+PAGE 5
+5
+Adders
+◆ Full-adder (全加器)
+Full-adder considers carry-in from less significant bit
+xi yi ci ci+1 si
+0 0 0 0 0
+0 0 1 0 1
+0 1 0 0 1
+0 1 1 1 0
+1 0 0 0 1
+1 0 1 1 0
+1 1 0 1 0
+1 1 1 1 1
+5  8  8
+4  6  3
+1  0  5  1
++ 11
+1  1  1
+1  0  1
+1  1  0  0
++ 11
+ci   : carry-in 来自低位的进位
+ci+1 : carry-out 本位向高位的进位
+
+PAGE 6
+6
+Adders
+◆ Full-adder
+xi yi ci ci+1 si
+0 0 0 0 0
+0 0 1 0 1
+0 1 0 0 1
+0 1 1 1 0
+1 0 0 0 1
+1 0 1 1 0
+1 1 0 1 0
+1 1 1 1 1
+i i i i i i i i i
+i i i
+s x y c x y c x y c
+x y c
+= + +
++
+00 01 11 10
+0 1 1
+1 1 1
+ix
+iiyc
+00 01 11 10
+0 1
+1 1 1 1
+ix
+iiyc
+1i i i i i i ic x y x c y c+ = + +
+
+PAGE 7
+7
+Adders
+◆ Full-adder
+( ) ( )
+( ) ( )
+( ) ( )
+( ) ( )
+1
+i i i i i i i i i i i i i
+i i i i i i i i i i i
+i i i i i i i i i i
+i i i i i i
+i i i i i i
+i i i
+i i i i i i i
+s x y c x y c x y c x y c
+x y c x y c x y c x y c
+x y x y c x y x y c
+x y c x y c
+x y c x y c
+x y c
+c x y x c y c+
+= + + +
+= + + +
+= + + +
+=  +
+=  + 
+=  
+= + +
+
+FA
+ix
+iy
+ic
+is
+1ic +
+
+PAGE 8
+8
+Adders
+◆ Full-adder with Two Half-adders
+( )i i i i i ix y c x y c+ + = + +
+1  1
+1  1
+1  1  0
++ 11
+1  
+1  
+1  0  
++ 1
+1   +
+1  1  
+1  1
+0  1
+1  0  0
++ 11
+1  
+0  
+1  
++ 1
+1   +
+1  0  
+comes from the carry of 
+iixy+ comes from the carry of 
+iix y isc+ +
+
+PAGE 9
+9
+Adders
+◆ Full-adder with Two Half-adders
+( )i i i i i ix y c x y c+ + = + +
+xi
+yi
+c1 s1
++
+ci+1 = c1 + c2
+either c1 or c2 is “1”
+s1
+ci +
+c2 si
+1st half-adder
+2nd half-adder
+
+
+PAGE 10
+10
+Adders
+◆ Another Form of Full-adder
+ix
+iy
+ic
+1ic +
+is
+( )
+( )
+1
+1
+i i i i i i
+i i i i i i i i
+c x y x y c
+s c x y c x y c
++
++
+= + +
+= + + +
+1i i i i i i i
+i i i i
+c x y x c y c
+s x y c
++ = + +
+=  
+
+
+PAGE 11
+11
+Verilog Vode of Full-adder
+module fulladd (Cin, x, y, s, Cout);
+input Cin, x, y;
+output s, Cout;
+xor (s, x, y, Cin);
+and (z1, x, y);
+and (z2, x, Cin);
+and (z3, y, Cin);
+or (Cout, z1, z2, z3);
+endmodule
+module fulladd (Cin, x, y, s, Cout);
+input Cin, x, y;
+output s, Cout;
+xor (s, x, y, Cin);
+and (z1, x, y),
+(z2, x, Cin),
+(z3, y, Cin);
+or (Cout, z1, z2, z3);
+endmodule
+module fulladd (Cin, x, y, s, Cout);
+input Cin, x, y;
+output s, Cout;
+assign s = x y Cin;
+assign Cout = (x & y) | (x & Cin) | (y & Cin);
+endmodule
+module fulladd (Cin, x, y, s, Cout);
+input Cin, x, y;
+output s, Cout;
+assign s = x y Cin,
+Cout = (x & y) | (x & Cin) | (y & Cin);
+endmodule
+
+PAGE 12
+12
+Verilog Vode of Full-adder
+module fulladd (Cin, x, y, s, Cout);
+input Cin, x, y;
+output reg s, Cout;
+always @(x, y, Cin)
+{Cout, s} = x + y + Cin;
+endmodule
+Behavioral description
+
+PAGE 13
+13
+Adders
+◆ Ripple-Carry Adder (行波进位加法器)
+➢ We do addition of multiple bits from the least-significant digit to 
+the most-significant digit
+➢ Carry produced in position i is added to the operands in 
+position i+1
+1   1   0   1
+1   0   1   1
+1 1   0   0   0
++ 111
+
+PAGE 14
+14
+Adders
+◆ Ripple-Carry Adder (行波进位加法器)
+➢ Carry produced in position i is added to the operands in position 
+i+1, carry signals “ripple” through the full-adder stages
+1 2 1 0 1 2 1 0n n n nX Y x x x x y y y y− − − −+ = +
+ 
+
+PAGE 15
+15
+Adders
+◆ Ripple-Carry Adder (行波进位加法器)
+1nx −
+2nx −
+0x
+…
+1ny −
+2ny −
+0y …
+1ns −
+2ns −
+0s
+…
+ncGraphical symbol:
+
+PAGE 16
+16
+Verilog Vode of Ripple-Carry Adder
+module adder4 (carryin, X, Y , S, carryout);
+input carryin;
+input [3:0] X, Y;
+output [3:0] S;
+output carryout;
+wire [3:1] C;
+fulladd stage0 (carryin, X[0], Y[0], S[0], C[1]);
+fulladd stage1 (C[1], X[1], Y[1], S[1], C[2]);
+fulladd stage2 (C[2], X[2], Y[2], S[2], C[3]);
+fulladd stage3 (C[3], X[3], Y[3], S[3], carryout);
+endmodule
+ A 4-bit adder 
+module addern (carryin, X, Y , S, carryout);
+parameter n = 32;
+input carryin;
+input [n –1:0] X, Y;
+output [n –1:0] S;
+output carryout;
+wire [n:0] C;
+assign C[0] = carryin;
+assign carryout = C[n];
+genvar i;
+generate
+for (i = 0; i < = n –1; i = i+1)
+begin:addbit
+fulladd stage (C[i], X[i], Y[i], S[i], C[i+1]);
+end
+endgenerate
+endmodule
+A 32-bit adder 
+using the generate statement 
+
+PAGE 17
+17
+Verilog Vode of Ripple-Carry Adder
+module addern (carryin, X, Y , S, carryout);
+parameter n = 32;
+input carryin;
+input [n– 1:0] X, Y;
+output reg [n –1:0] S;
+output reg carryout;
+reg [n:0] C;
+integer k;
+always @(X, Y , carryin)
+begin
+C[0] = carryin;
+for (k = 0; k < n; k = k+1)
+begin
+S[k] = X[k] ^ Y[k] ^ C[k];
+C[k+1] = (X[k] & Y[k]) | (X[k] & C[k]) (Y[k] & C[k]);
+end
+carryout = C[n];
+end
+endmodule
+A 32-bit adder 
+Logical expression description
+
+PAGE 18
+18
+Verilog Vode of Ripple-Carry Adder
+A 32-bit adder 
+using arithmetic assignment 
+module addern (carryin, X, Y , S, carryout, overflow);
+parameter n = 32;
+input carryin;
+input [n– 1:0] X, Y;
+output reg [n– 1:0] S;
+output reg carryout, overflow;
+always @(X, Y , carryin)
+begin
+{carryout, S} = X + Y + carryin;
+overflow = (X[n– 1] & Y[n– 1] & S[n– 1]) | ( X[n– 1] & Y[n– 1] & S[n– 1]);
+end
+endmodule
+
+PAGE 19
+19
+Practice:
+Problem: A = a7 a6···a1 a0 an eight-bit unsigned number, P = p9 p8···p1 p0 is 
+the product of A multiplying by 3 (P = 3A). Design a circuit to 
+generate P. 
+Solution:
+
+P A A A= + +
+8 bits
+9 bits
+10 bits
+A A
+A
+
+PAGE 20
+20
+Practice:
+Problem: A = a7 a6···a1 a0 an eight-bit unsigned number, P = p9 p8···p1 p0 is 
+the product of A multiplying by 3 (P = 3A). Design a circuit to 
+generate P. 
+Solution:
+
+2P A A=+
+……
+7a
+6a
+1a
+0a
+:A
+…… 0
+7a
+6a
+1a
+0a
+2:A
+“×2” can be generated by shifting one bit to the left
+
+PAGE 21
+21
+Practice:
+Problem: A = a7 a6···a1 a0 an eight-bit unsigned number, P = p9 p8···p1 p0 is 
+the product of A multiplying by 3 (P = 3A). Design a circuit to 
+generate P. 
+Solution:
+
+2P A A=+
+2A A
+9 bits
+10 bits
+
+PAGE 22
+22
+Adder/Subtractor Unit 
+◆ Adder/Subtractor Unit (加法器/减法器单元)
+◆ Common unit for addition and subtraction 
+()X Y X Y− = + −
+use complement 补码
+21( ) ( ) 1K Y K Y− = − +
+……
+1ny −
+2ny −
+:Y
+……
+1( ) :KY−
+1ny −−
+2ny −−
+1y−
+0y−
+1y
+0y1’s complement of -Y
+……
+1ny −−
+2ny −−
+1y−
+0y−
+1+2’s complement of -Y
+
+PAGE 23
+()
+XY
+X Y X Y
++
+
+ − = + −
+23
+Adder/Subtractor Unit 
+◆ Common unit for addition and subtraction 
+……
+1ny −
+2ny −
+1y
+0y
+……
+1ny −−
+2ny −−
+1y−
+0y−
+1+
+either y or -y
+y
+y
+0
+y
+y
+1
+0yy=
+1yy=
+
+
+PAGE 24
+24
+Adder/Subtractor Unit 
+◆ Common unit for addition and subtraction 
+• when control = 0, 
+do addition
+• when control = 1, 
+do subtraction
+A bar over the name (名字上的横线) 
+means that the action is enabled 
+if the control signal is “0”
+…
+1+
+0y−
+1
+1
+
+PAGE 25
+25
+Delay of Ripple-Carry Adder
+◆ The longest delay is often called the critical-path delay 关键路径延时
+◆ The path that causes this delay is called the critical path
+
+
+PAGE 26
+26
+Delay of Ripple-Carry Adder
+◆ Assume delay of a full-adder is 
+◆ Delay of ripple-carry adder is:
+FA
+ix
+iy
+ic
+is
+1ic +
+t
+rct n t = 
+Issue: If n is large (32/64bit), the delay may become unacceptably high!
+t
+
+PAGE 27
+27
+Fast Adders
+◆ Carry-Lookahead Adder (超前进位加法器)
+➢ Carry is the key step for critical-path delay
+➢ A possible quicker way to calculate carry?
+1 ()i i i i i i i i i i i ic x y x c y c x y x y c+ = + + = + +
+1 0 0 0 0 0 ()c x y x y c= + +
+……
+2 1 1 1 1 1 1 1 1 1 0 0 0 0 0( ) ( )( ( ) )c x y x y c x y x y x y x y c= + + = + + + +
+3 2 2 2 2 2 2 2 2 2 1 1 1 1 0 0 0 0 0( ) ( )( ( )( ( ) ))c x y x y c x y x y x y x y x y x y c= + + = + + + + + +
+Actually, calculating ci+1 does not need to wait for the result of ci
+
+PAGE 28
+28
+Carry-Lookahead Adder
+◆ A simpler way for expression
+1 ()
+i i i
+i i i
+i i i i i i i i i
+g x y
+p x y
+c x y x y c g p c+
+=
+ =+
+ = + + = +
+generate function 生成函数
+propagate function 传播函数
+1 1 1 1 1 1 1 ()i i i i i i i i i i i i i i ic g p c g p g p c g p g p p c+ − − − − − −= + = + + = + +
+1 0 0 0
+2 1 1 0 1 0 0
+3 2 2 1 2 1 0 2 1 0 0
+1 1 1 2 1 2 1 0 1 1 0 0n n n n n n n n n n n
+c g p c
+c g p g p p c
+c g p g p p g p p p c
+c g p g p p g p p p p g p p p p c+ − − − − −
+=+
+ = + + = + + +
+
+
+= + + + + +
+
+
+
+PAGE 29
+29
+Carry-Lookahead Adder
+◆ Delay of one stage of adder
+➢ Assume same delay dgate for all gates 
+假设所有的门都有同样的门延迟
+1
+i i i
+ii
+i i i i
+i
+g x y
+p
+cg
+xy
+pc+ =+
+=
+ =+
+
+one AND gate: dgate
+one OR gate: dgate
+one AND gate + one OR gate: 2dgate
+So delay from xi , yi to ci+1 is 3dgate
+ c1
+
+PAGE 30
+30
+Carry-Lookahead Adder
+◆ Delay of ripple-carry adder
+1 3stage gatedd =
+1
+i i i
+i i i
+i i i i
+g x y
+p x y
+c g p c+
+=
+ =+
+ =+
+(2 1)ripple carry gated n d− = + 
+Delay for the 1st stage:
+Delay for n-stage ripple-carry adder:
+2 gatedd=
+Delay for other stages:
+
+PAGE 31
+31
+Carry-Lookahead Adder
+◆ Delay of carry-lookahead adder
+1 0 0 0
+2 1 1 0 1 0 0
+1 1 1 2 1 2 1 0 1 1 0 0n n n n n n n n n n n
+c g p c
+c g p g p p c
+c g p g p p g p p p p g p p p p c+ − − − − −
+=+
+ = + +
+
+ = + + + + +
+
+
+If no limit for fan-in of gates, 
+delays for all carry are same: 3dgate
+1i i i ic g p c+ =+
+Delay from xi , yi to ci+1 is 3dgate
+
+PAGE 32
+32
+Carry-Lookahead Adder
+◆ Delay of carry-lookahead adder
+1
+i i i
+i i i
+i i i i
+g x y
+p x y
+c g p c+
+=
+ =+
+ =+
+4carry lookahead gatedd − =
+Delay for n-stage carry-lookahead adder:
+(2 1)ripple carry gated n d− = + 
+faster for large n
+
+PAGE 33
+33
+Carry-Lookahead Adder
+◆ Issue of carry-lookahead adder: complexity
+If n = 32:
+• 32 AND gates for last stage
+• 33 inputs for AND / OR gate
+1 1 1 2 1 2 1 0 1 1 0 0n n n n n n n n n n nc g p g p p g p p p p g p p p p c+ − − − − −= + + + + +
+ 
+…
+connections
+connections
+sn
+cn+1
+gn pn
+…
+………
+If n = 64 ?
+
+PAGE 34
+34
+Hierarchical Design for Large Adder
+◆ Balance between speed and complexity
+➢ Hierarchical: split larger adder into smaller blocks
+◆ Approach 1: carry-lookahead approach within blocks
+ripple-carry approach between blocks
+e.g. for a 32-bit adder, divide  into 4 8-bit adder blocks
+
+PAGE 35
+35
+Hierarchical Design for Large Adder
+◆ Approach 2: 2nd-level carry-lookahead between blocks
+0G
+0P
+8 0 0 0
+16 1 1 8 1 1 0 1 0 0
+24 2 2 1 2 1 0 2 1 0 0
+32 3 3 2 3 2 1 3 2 1 0 3 2 1 0 0
+c G P c
+c G Pc G PG PP c
+c G P G P PG P PP c
+c G PG P P G P P PG P P PP c
+=+
+= + = + +
+= + + +
+= + + + +
+Block does not need to wait for the carry from other blocks
+
+PAGE 36
+36
+Hierarchical Design for Large Adder
+Critical path delay?
+• G0~G3, P0~P3 are 
+generated at the 
+same delay
+• c8 is necessary to 
+generate c9~c16 
+
+PAGE 37
+37
+Hierarchical Design for Large Adder
+8 0 0 0c G P c=+
+0 7 6 5 4 3 2 1 0P p p p p p p p p=
+i i ip x y=+
+,,i i i i gatex y p g d→
+,i i k gatep g P d→
+0 7 7 6
+7 6 5 4 3 2 1 0
+G g p g
+p p p p p p p g
+= + +
++
+
+,2i i k gatep g G d→
+8,16,24,32,2k k gateG P c d→
+8 9,10, ,15 9,10, ,15c c s→→
+ 
+gated
+2 gated
+critical path delay = 8dgate
+◆ Approach 2: 2nd-level carry-lookahead between blocks
+➢ Critical path delay 
+
+PAGE 38
+38
+Hierarchical Design for Large Adder
+◆ Approach 2: 2nd-level carry-lookahead between blocks
+➢ High fan-in issue
+➢ fan-in: the number of gate inputs
+➢ In reality, fan-in is limited due to speed consideration
+? ?
+
+PAGE 39
+39
+Hierarchical Design for Large Adder
+◆ Approach 2: 2nd-level carry-lookahead between blocks
+➢ High fan-in issue
+➢ Suppose that the maximum fan-in of the gates is four inputs
+8 7 7 6 7 6 5 7 6 5 4
+7 6 5 4 3 2 1 0 0
+7 6 5 4 3 3 2 3 2 1 3 2 1 0
+( )( )
+( )( )
+c g p g p p g p p p g
+p p p p p p p g c
+p p p p g p g p p g p p p g
+= + + +
++
++ + + +
+3 gated
+5 gated

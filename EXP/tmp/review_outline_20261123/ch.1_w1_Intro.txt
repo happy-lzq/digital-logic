@@ -1,0 +1,311 @@
+PAGE 1
+陈奕含
+Faculty of 
+Computility
+Microelectronics
+FCMA201: Digital Logic
+Course Introduction
+
+PAGE 2
+3
+Textbook
+ Ref book
+
+
+PAGE 3
+8
+What’s the Course about?
+◆Hierarchy of computer 
+
+
+PAGE 4
+9
+What’s the Course about?
+◆Hierarchy of computer 
+focus of 
+this course
+
+PAGE 5
+AND
+OR 
+transistor 
+晶体管
+logic gates
+逻辑门
+digital block
+数字电路模块
+processor
+处理器
+operating system
+操作系统
+application software
+应用软件
+hardware
+software
+10
+Digital circuit and logic design
+数字电路与逻辑设计
+Computer architecture
+计算机组成
+What’s the Course about?
+
+PAGE 6
+11
+Digital
+◆Digital vs. Analog  数字与模拟
+Analog signal: continuous value
+Digital signal: discrete value
+
+
+PAGE 7
+12
+Logic
+◆Boolean Algebra (布尔代数)
+➢By British mathematician George Boole in his first 
+book “ The Mathematical Analysis of Logic ” (1847)
+➢Using mathematical language (“and,” “or,” “not”) to 
+describe the fundamental laws of logical reasoning
+➢Purely an achievement in the fields of philosophy 
+and mathematics 
+单纯哲学和数学领域的成果
+
+
+PAGE 8
+13
+Logic
+◆Boolean Algebra for Circuit Systems
+➢By “father ofinformation theory” 信息理论之父
+Claude ElwoodShannon in his master's thesis 
+“A Symbolic Analysis of Relay and Switching 
+Circuits” (1937) 
+➢Find correspondence between Boolean algebra's 
+“true/false” and circuit systems' “on/off ” states
+➢A milestone in integrating abstract mathematical 
+theory with practical engineering applications 
+
+
+PAGE 9
+14
+What Can Logic Do ?
+◆Activity Demo Instruction for kid No.1 : 
+❖if the teacher says “1”, you crouch 老师说“1”，蹲
+❖if the teacher says “2”, you crouch 老师说“2”，蹲
+❖if the teacher says “3”, you stand 老师说“3”，站
+❖if the teacher says “4”, you stand 老师说“4”，站
+Instruction for kid No.4 : 
+❖if the teacher says “1”, you crouch 老师说“1”，蹲
+❖if the teacher says “2”, you stand 老师说“2”，站
+❖if the teacher says “3”, you crouch 老师说“3”，蹲
+❖if the teacher says “4”, you stand 老师说“4”，站
+Instruction for kid No.2 : 
+❖if No.1 crouch, you stand 1号蹲，你就站
+❖if No.1 stand, you crouch 1号站，你就蹲
+Instruction for kid No.3 : 
+❖if No.4 crouch, you stand 4号蹲，你就站
+❖if No.4 stand, you crouch 4号站，你就蹲
+1 2 3 4
+5 6
+7
+
+
+PAGE 10
+15
+What Can Logic Do ? -Activity Demo
+1 2 3 4
+5 6
+7
+Instruction for kid No.5 : 
+❖if anyone of No.1 and No. 3 is crouching, you crouch
+❖if they are both standing, you stand
+❖1号和3号只要有蹲着的，你就蹲
+❖当两个人都站着，你就站
+Instruction for kid No.6 : 
+❖if anyone of No.2 and No. 4 is crouching, you crouch
+❖if they are both standing, you stand
+❖2号和4号只要有蹲着的，你就蹲
+❖当两个人都站着，你就站
+Instruction for kid No.7 : 
+❖if anyone of No.5 and No. 6 is standing, you stand
+❖if they are both crouching, you crouch
+❖5号和6号只要有着站的，你就站
+❖当两个人都蹲着，你就蹲
+
+
+PAGE 11
+16
+What Can Logic Do ? -Activity Demo
+1 2 3 4
+5 6
+7
+StepNo. 1No. 4No. 7
+1 0 0 0
+Record the gestures of No.1, No.4 and No. 7
+❖Mark “1” for standing
+❖Mark “0” for crouching 
+
+
+PAGE 12
+17
+What Can Logic Do ? -Activity Demo
+1 2 3 4
+5 6
+7
+StepNo. 1No. 4No. 7
+1 0 0 0
+2 0 1 1
+Record the gestures of No.1, No.4 and No. 7
+❖Mark “1” for standing
+❖Mark “0” for crouching 
+
+
+PAGE 13
+18
+What Can Logic Do ? -Activity Demo
+1 2 3 4
+5 6
+7
+StepNo. 1No. 4No. 7
+1 0 0 0
+2 0 1 1
+3 1 0 1
+Record the gestures of No.1, No.4 and No. 7
+❖Mark “1” for standing
+❖Mark “0” for crouching 
+
+
+PAGE 14
+19
+What Can Logic Do ? -Activity Demo
+1 2 3 4
+5 6
+7
+StepNo. 1No. 4No. 7
+1 0 0 0
+2 0 1 1
+3 1 0 1
+4 1 1 0
+Record the gestures of No.1, No.4 and No. 7
+❖Mark “1” for standing
+❖Mark “0” for crouching 
+
+
+PAGE 15
+21
+What Can Logic Do ? -Activity Demo
+StepNo. 1No. 4No. 7
+1 0 0 0
+2 0 1 1
+3 1 0 1
+4 1 1 0
+No.1 + No.4
+0
+1
+1
+1   0
+
+PAGE 16
+22
+What Can Logic Do ? 
+◆Logic for Arithmetic and Logic Control
+NOT
+AND
+OR 
+combination
+arithmetic
+e.g. 001000 ×110010
+logic
+e.g. 001000 AND110010
+
+
+PAGE 17
+23
+What for Logic ?
+◆Early Implementation of Logic  
+➢By relays (继电器) and later vacuum tubes (真空管)
+➢ENIAC (the world's first general-purpose electronic computer) 
+utilized ≈18,000 vacuum tubes
+ENIAC (1946) EDVAC (1951)
+
+PAGE 18
+24
+What for Logic ?
+◆Transistor (晶体管) for Logic
+➢Co-invented by John Bardeen, William 
+Shockley, Walter Brattain (1947)
+➢1956 Nobel Prize in Physics
+22nm Tri-gate Transistor1947 First Transistor
+
+PAGE 19
+25
+What for Logic ?
+◆MOSFET Transistor:
+➢A semiconductor material as substrate
+➢Create electron ocean: source & drain 
+➢Create controlling gate
+Gate
+Source Drain
+e- e-
+
+
+PAGE 20
+26
+What for Logic ?
+◆MOSFET Transistor:
+“0”
+Source Drain
+Gate
+“1”
+Gate = high voltage “1”, channel is formed for e-
+With grounded source, drain = low voltage “0”
+“0”
+input
+output= NOTinput
+
+PAGE 21
+27
+Logic Circuits
+◆Integrated Circuit (IC 集成电路)
+➢July 1958, Jack Kilby, Texas Instruments, 
+➢Half a year after, Robert Noyce, Fairchild 
+Semiconductor 
+➢Kilby won the 2000 Nobel Prize in Physics
+Recent IC1958 First IC
+
+
+PAGE 22
+28
+Logic Circuits
+◆Moore’s Law (摩尔定律)
+➢By Gordon Moore(co-founder ofFairchild 
+SemiconductorandIntel 仙童与英特尔的创始人)
+➢The observationin 1965 that the number of 
+transistors in a dense integrated circuit doubles 
+approximately every two years 每两年翻一番
+➢Not a physical or natural law
+➢Still work ?
+
+
+PAGE 23
+29
+Logic Circuits
+
+
+PAGE 24
+30
+Advances of Logic Circuits
+◆More Moore: 
+➢New MOSFET structure: FinFETand GAAFET
+◆New architecture:
+➢Compute-in-memory
+➢Neuromorphic computing
+◆New material
+➢Beyond Silicon: graphene, MoS2
+➢Spintronics
+◆Integration and Packaging
+➢SoC
+➢3D integration
+
+PAGE 25
+31
+End of Introduction
+Formal journal begins!

@@ -1,0 +1,300 @@
+PAGE 1
+数字逻辑 Digital Logic
+课程编码： FCAA213              | 开课单位：计算机科学与人工智能学院
+开课时间：2026-2027学年秋季学期
+主讲教师：马懋德教授 与 李嘉龙助理教授
+SUAT
+
+
+PAGE 2
+目录 Contents
+Chapter 1 Introduction
+Chapter 2 Number & Arithmetic
+Chapter 3 Logic Functions
+Chapter 4 Verilog Language
+Chapter 5 Combinational Circuits
+Chapter 6 Basic Storage Elements
+Chapter 7 Synchronous Sequential Circuits
+Chapter 8 Asynchronous Sequential Circuits
+Chapter 9 Digital System Design
+
+PAGE 3
+7.1 Finite State Machine
+7.2 Design of A Smiling Snail
+7.3 Design of A Register Swap
+7.4 Design of A Counter
+7.5 Mealy-type FSM
+7.6 Analysis of Synchronous Sequential Circuits
+Chapter 7 Synchronous Sequential Circuits
+
+
+PAGE 4
+同步时序电路
+
+
+PAGE 5
+同步时序电路
+
+
+PAGE 6
+同步时序电路
+
+
+PAGE 7
+同步时序电路
+
+
+PAGE 8
+同步时序电路
+
+
+PAGE 9
+同步时序电路
+
+
+PAGE 10
+同步时序电路
+
+
+PAGE 11
+同步时序电路
+
+
+PAGE 12
+同步时序电路
+
+
+PAGE 13
+同步时序电路
+
+
+PAGE 14
+同步时序电路
+
+
+PAGE 15
+同步时序电路
+
+
+PAGE 16
+同步时序电路
+
+
+PAGE 17
+同步时序电路
+
+
+PAGE 18
+同步时序电路
+
+
+PAGE 19
+同步时序电路
+
+
+PAGE 20
+同步时序电路
+
+
+PAGE 21
+同步时序电路
+
+
+PAGE 22
+同步时序电路
+
+
+PAGE 23
+同步时序电路
+
+
+PAGE 24
+同步时序电路
+
+
+PAGE 25
+同步时序电路
+
+
+PAGE 26
+同步时序电路
+
+
+PAGE 27
+同步时序电路
+
+
+PAGE 28
+同步时序电路
+
+
+PAGE 29
+同步时序电路
+
+
+PAGE 30
+同步时序电路
+
+
+PAGE 31
+同步时序电路
+
+
+PAGE 32
+同步时序电路
+
+
+PAGE 33
+同步时序电路
+
+
+PAGE 34
+同步时序电路
+
+
+PAGE 35
+同步时序电路
+
+
+PAGE 36
+同步时序电路
+
+
+PAGE 37
+同步时序电路
+
+
+PAGE 38
+同步时序电路
+
+
+PAGE 39
+同步时序电路
+
+
+PAGE 40
+同步时序电路
+
+
+PAGE 41
+同步时序电路
+
+
+PAGE 42
+同步时序电路
+
+
+PAGE 43
+同步时序电路
+
+
+PAGE 44
+同步时序电路
+
+
+PAGE 45
+同步时序电路
+
+
+PAGE 46
+同步时序电路
+
+
+PAGE 47
+同步时序电路
+
+
+PAGE 48
+同步时序电路
+
+
+PAGE 49
+同步时序电路
+
+
+PAGE 50
+同步时序电路
+
+
+PAGE 51
+同步时序电路
+
+
+PAGE 52
+同步时序电路
+
+
+PAGE 53
+同步时序电路
+
+
+PAGE 54
+同步时序电路
+
+
+PAGE 55
+同步时序电路
+
+
+PAGE 56
+同步时序电路
+
+
+PAGE 57
+同步时序电路
+
+
+PAGE 58
+同步时序电路
+
+
+PAGE 59
+同步时序电路
+
+
+PAGE 60
+同步时序电路
+
+
+PAGE 61
+同步时序电路
+
+
+PAGE 62
+同步时序电路
+
+
+PAGE 63
+同步时序电路
+
+
+PAGE 64
+同步时序电路
+
+
+PAGE 65
+同步时序电路
+
+
+PAGE 66
+同步时序电路
+
+
+PAGE 67
+同步时序电路
+
+
+PAGE 68
+同步时序电路
+
+
+PAGE 69
+同步时序电路
+
+
+PAGE 70
+同步时序电路
+
+
+PAGE 71
+同步时序电路

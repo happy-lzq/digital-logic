@@ -1,0 +1,318 @@
+from pathlib import Path
+import json, re
+from docx import Document
+from docx.shared import Cm, Pt, RGBColor
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.enum.table import WD_TABLE_ALIGNMENT, WD_CELL_VERTICAL_ALIGNMENT
+from docx.oxml import OxmlElement
+from docx.oxml.ns import qn
+
+WORK = Path(__file__).parent
+OUT = WORK.parent.parent / 'output' / 'review_20261123'
+OUT.mkdir(parents=True, exist_ok=True)
+NAME = '数字逻辑_期末复习提纲_2026版'
+
+# A single content source is used to build the editable handout.
+pages = []
+def page(title, blocks):
+    pages.append({'title':title,'blocks':blocks})
+def h(t): return ('h',t)
+def p(t): return ('p',t)
+def b(t): return ('b',t)
+def m(t): return ('m',t)
+def tab(head, rows, widths): return ('table',head,rows,widths)
+
+page('复习目标与资料导航',[
+ p('复习主线是把文字要求、逻辑表达式、真值表、波形、状态图和电路图联系起来。应能独立完成组合逻辑分析与实现，以及同步时序电路设计与分析，并准确回答数制、CMOS和异步时序电路的基础问题。'),
+ p('建议先补齐基础，再集中训练卡诺图、MUX和状态机。每做一道综合题，都保留中间表格、方程和必要说明，最后用真值表或逐拍推演检查结果。'),
+ tab(['复习模块','训练重点','主要资料'],[
+  ['数制与编码','进制互换、补码真值与运算、格雷码转换','第2章；quiz1；本提纲知识卡'],
+  ['逻辑代数与CMOS','德摩根、冗余项、上下拉网络','第3章；quiz1、quiz2'],
+  ['卡诺图与组合分析','含无关项的化简；电路、表格和波形互换','第3章；quiz2'],
+  ['MUX与总线','香农展开、数据端接法、按位组成总线','第9章'],
+  ['存储元件与计数器','D、T、JK特性；触发沿、复位、模计数','第6章；quiz3、quiz4；实验4'],
+  ['同步状态机设计','状态含义、重叠检测、编码、方程和逻辑图','第7章；quiz5；实验5、6'],
+  ['同步时序电路分析','驱动方程、次态、完整状态表、逐拍输出','第7章第62至71页'],
+  ['异步时序基础','基本型约束、稳态、竞争、状态分配','第8章'],
+ ],[3.5,7.5,6.0]),
+ h('资料定位约定'),
+ p('下文页码均为PDF阅读器从1开始的页序，包含封面和目录。课件在PPT目录，课堂练习在quiz目录，实验资料在EXP目录。第6至9章文件分别为Chapter6.pdf至Chapter9.pdf。'),
+ p('当前第5章文件 ch.5_w5-7_Combinational_1.pdf 主要讲加法器；MUX、译码器与总线请查Chapter9.pdf。格雷码转换集中整理在下一页的知识卡中。'),
+ h('复习完成标准'),
+ p('合上答案后，能从头完成一道含无关项的卡诺图题、一道MUX实现题、一道Mealy序列检测设计题和一道双触发器同步电路分析题；并能解释每一步为什么成立。'),
+])
+
+page('数制 逻辑代数与CMOS基础',[
+ h('1 数制 补码与格雷码'),
+ b('进制转换：按位权展开得到十进制；十进制整数用除基取余法转换。二进制与八进制、十六进制分别按3位、4位分组；整数从小数点向左分组。'),
+ b('有符号数：理解原码、反码、补码的差异。同一位串必须先确认编码方式；n位补码表示范围为 −2^(n−1) 至 2^(n−1)−1。'),
+ b('补码求真值：最高位为0时按非负数解释；最高位为1时可用“无符号值减2^n”，或对整个位串取反加1后加负号。'),
+ b('补码加减：统一位宽，把减法转为加上减数的负数补码；只保留规定的n位。加法中同号相加得到异号结果表示溢出，不能把最高位进位直接当作有符号溢出。'),
+ p('格雷码知识卡：设二进制为 b(n−1)…b0，格雷码为 g(n−1)…g0。最高位直接保留，其余位等于对应二进制位与高一位异或。反向转换时，从最高位开始逐位累积异或。'),
+ m(r'g_{n−1}=b_{n−1}；   g_i=b_{i+1}⊕b_i'),
+ m(r'b_{n−1}=g_{n−1}；   b_i=b_{i+1}⊕g_i'),
+ p('资料与练习：第2章第5至12、16至29页；quiz1第1、2题。自查：能分别求补码真值、完成固定8位的减法，并判断有无溢出。'),
+ h('2 逻辑代数与最简表达式'),
+ b('掌握非、与、或、异或与同或，运算优先级为非高于与、与高于或。能够识别输出端或输入端小圆圈所表示的反相。'),
+ b('熟练使用交换、结合、分配、吸收、互补和德摩根定律。对偶式通过与或互换、0与1互换获得；求反函数还需要处理变量取反和括号。'),
+ m(r'\bar{A+B}=\bar{A}\bar{B}；   \bar{AB}=\bar{A}+\bar{B}'),
+ b('理解与或式SOP、最小项和最小项编号。能识别不改变函数值的冗余项；不能只凭项数判断表达式是否正确或最简。'),
+ p('资料与练习：第3章第5至13、20至23、26至29页；quiz1第3至6题。自查：能用代数与真值表交叉验证一个化简结果。'),
+ h('3 CMOS门电路'),
+ b('按开关模型分析：NMOS在输入为1时导通，PMOS在输入为0时导通。下拉网络决定何时把输出接到GND，上拉网络决定何时把输出接到VDD。'),
+ b('标准静态CMOS：NAND的NMOS串联、PMOS并联；NOR的NMOS并联、PMOS串联。能依据输出为0或为1的输入条件，解释串并联关系。'),
+ p('资料与练习：第3章第58至64页；quiz2第2题。自查：能补全三输入NOR的上拉网络，并检查任意输入为1时的输出。'),
+])
+
+page('组合逻辑化简 分析与实现',[
+ h('4 卡诺图化简'),
+ b('先确认变量位序，再把每个最小项编号转换为二进制坐标。行列按格雷顺序00、01、11、10排列，不按普通二进制顺序排列。'),
+ b('把所有规定的1、0和无关项d填完整。圈组必须是矩形，格数为1、2、4、8等2的幂；可以跨上下或左右边界，可以重叠，不能包含规定的0。'),
+ b('所有规定的1必须被覆盖。无关项可在有利于化简时当作1，也可不用；无需把所有d圈入。每个有效圈至少应包含一个规定的1。'),
+ b('从圈中提取保持不变的变量：恒为1写原变量，恒为0写反变量，发生变化的变量消去。n变量图中，2^k格的圈对应n−k个文字的乘积项。'),
+ b('选择必要的大圈，并检查覆盖是否完整、有无可删除的冗余圈。不同的最简式可能等价，应以规定输入上的函数值为准核对。'),
+ p('建议书写顺序：完整填图 → 圈组 → 逐圈写乘积项 → 合并为SOP → 代入检查。资料：第3章第33至48页，重点第40至42、47至48页；quiz2第1题。'),
+ h('5 从电路到表达式 真值表与波形'),
+ b('沿输入到输出的方向，给中间节点命名，逐级写逻辑表达式；检查每一个反相端、异或门和连接点，再进行化简。'),
+ b('n个独立输入对应2^n行真值表。使用统一的变量顺序，必要时增加中间节点列，避免凭直觉跳过组合。'),
+ b('画理想组合波形时，按所有输入的变化时刻划分区间；每个区间读取输入值，再由真值表或化简式确定输出。题目忽略延迟时，不额外添加延迟或毛刺。'),
+ b('说明逻辑功能时，要根据化简式或真值表识别器件，例如反相器、数据选择器、异或/同或或表决逻辑。保留电路原式有助于检查化简。'),
+ p('资料：第3章第8至19、20至23页；结合第9章的器件功能表训练。自查：同一个函数能否在电路、表达式、真值表、波形之间来回转换。'),
+ h('6 用MUX实现逻辑函数'),
+ p('固定两个选择变量后，对它们的四种取值分别求函数的余因子。若三变量函数选择A、B作选择端，则四个数据端只需接0、1、C或C的反相。'),
+ m(r'F=\bar{A}\bar{B}F(0,0,C)+\bar{A}BF(0,1,C)+A\bar{B}F(1,0,C)+ABF(1,1,C)'),
+ b('按S1S0=00、01、10、11依次确定D0、D1、D2、D3。每一组查看C=0、1时的输出对：(0,0)接0，(1,1)接1，(0,1)接C，(1,0)接C的反相。'),
+ b('逻辑图标明选择端、四个数据端、输出和所用反相器。端口顺序以题目规定为准，不能把S1与S0交换后仍沿用原数据端顺序。'),
+ p('资料与练习：第9章第4至17页，重点第8、12至17页；先重做三输入表决函数和三输入异或函数的MUX实现，再更换变量与选择端训练。'),
+])
+
+page('存储元件 计数器与总线',[
+ h('7 锁存器与触发器'),
+ p('下表描述复位、置位均无效时的正常行为。Q表示现态，Q*表示有效时钟沿之后的次态；锁存器的更新条件另按使能电平判断。'),
+ tab(['元件','更新或保持条件','基本关系'],[
+  ['D锁存器','使能有效期间透明；无效期间保持','有效时Q跟随D'],
+  ['D触发器','有效时钟沿采样D；沿间保持','Q* = D'],
+  ['T触发器','有效沿上，T=0保持、T=1翻转','Q* = T ⊕ Q'],
+  ['JK触发器','有效沿上按JK取值更新','00保持；01清0；10置1；11翻转'],
+ ],[3.0,8.0,6.0]),
+ m(r'JK特性方程： Q^{*}=J\bar{Q}+\bar{K}Q'),
+ b('区分上升沿、下降沿和电平敏感。CLK端三角表示边沿触发；再带小圆圈表示下降沿。不要把高电平透明锁存器按上升沿触发器处理。'),
+ b('区分同步复位与异步复位：同步复位在有效时钟沿执行；异步复位有效时可不等时钟沿。先看有效电平，再判断更新时刻；复位方式不改变电路通常按同步时钟工作的性质。'),
+ b('画时序波形：先确定初态和复位，再标出全部有效沿，读取沿前输入及沿前状态，计算所有触发器的沿后状态，最后画沿间保持。'),
+ p('资料与练习：第6章第10至20、23至28页；quiz3；实验4第2至3页。应能解释两级寄存器为什么逐拍传递，以及主从锁存器如何形成边沿触发。'),
+ h('8 计数器'),
+ b('掌握模数、计数方向、初态、使能和有效沿。理想模M递增计数器经过N个有效计数脉冲后，状态为(初始数值+N) mod M；使能无效期间不计数。'),
+ b('n位完整二进制计数器有2^n个状态。同步计数器的触发器共用时钟；异步脉动计数器把前级输出用作后级时钟。不能仅凭存在异步清零端判断计数器是异步计数器。'),
+ b('理解T触发器递增计数规律：最低位每次翻转；高位在其全部低位为1时翻转。模计数回跳、置位、清零及方向切换须按题目规则处理。'),
+ p('资料与练习：第6章第32至41页；quiz4；实验4第4至6页。先完成“状态推算与波形”，再用quiz4巩固双向计数与边界回跳。'),
+ h('9 用MUX构成总线'),
+ b('分清数据源个数与数据位宽。m个n位数据源组成一条n位MUX总线时，每一位各使用一个m选1单比特MUX，共n个；各位共享选择信号。'),
+ b('外部数据输入也算一个可选源。用二进制编码选择m个源，需要至少ceil(log2 m)位选择信号。若题目给的是多比特MUX模块或封装芯片，应按其位宽和通道数重新计算数量。'),
+ p('资料：第9章第43至47页，重点第47页。自查：能画出总线任意一位的结构，解释为什么单比特MUX数量由总线位宽决定。'),
+])
+
+page('同步状态机设计',[
+ h('10 区分Mealy与Moore'),
+ tab(['比较内容','Mealy型','Moore型'],[
+  ['输出关系','当前状态与当前输入共同决定','仅由当前状态决定'],
+  ['状态图常用标注','转移弧写“输入/输出”','状态内标输出；弧上标输入'],
+  ['逐周期求输出','按题目周期约定使用现态和输入','按要求读取相应时刻的状态输出'],
+ ],[3.6,6.7,6.7]),
+ p('不能仅凭“用D触发器”或“在时钟沿更新状态”判断类型。应查看输出方程是否直接含当前输入；同一检测任务采用两种模型时，状态数量和输出时刻可能不同。'),
+ h('11 序列检测器的设计步骤'),
+ b('第1步 读清任务：目标序列、输入先后顺序、是否允许重叠、指定模型、触发器类型、初态，以及输出周期的定义。'),
+ b('第2步 定义状态：记录“已读入序列的末尾，与目标序列前缀相匹配的最长部分”。每个状态用一句话解释所记住的历史；根据需要区分历史，不机械按目标长度或已读位数定状态数。'),
+ b('第3步 补全状态图：对每个状态分别分析输入0和1。匹配失败时，寻找仍然有效的最长后缀；允许重叠时，检测成功后也要保留可作为下一次匹配前缀的后缀。'),
+ b('第4步 建状态表并编码：逐条抄入状态转移与输出，说明状态名与编码的对应。二进制编码有N个状态时，至少需要ceil(log2 N)个状态触发器。'),
+ b('第5步 求方程：按现态位和输入列完整真值表，对每一个次态位及输出分别用卡诺图化简。D触发器输入直接等于对应次态方程；未使用编码按题目要求处理。'),
+ b('第6步 画逻辑图：由输入和现态生成次态及输出，次态连接D端，Q端作为现态反馈；所有状态触发器使用规定的时钟，明确复位状态与有效电平。'),
+ b('第7步 逐拍验算：从复位状态出发，记录“周期、输入、读入前现态、输出、读入后状态”。同时检查命中、未命中、部分匹配失败与重叠命中。'),
+ h('12 必须讲清的三个问题'),
+ p('为什么需要这个状态：因为它代表会影响未来行为的历史。为什么回到这个状态：因为已有后缀仍可能成为下一次检测的开头。为什么在这个周期输出：因为当前状态、输入及题目约定共同决定了检测时刻。'),
+ p('资料与练习：第7章第7至21、47至55页；quiz5的Mealy型微笑蜗牛；实验5、6中的交通灯FSM。先完整重做quiz5，再改成另一条具有重叠可能的序列，重新推导全部转移。'),
+ p('自查：能否只依据自己画的状态图重新建立状态表，并由状态表重新得到方程和电路；若三者不一致，应回到最早出现分歧的一步修正。'),
+])
+
+page('同步电路分析与异步时序基础',[
+ h('13 同步时序电路的分析步骤'),
+ b('第1步 标状态变量：从触发器输出识别现态，确定变量位序、触发沿、初态和复位。读图时区分导线交叉与电气连接，同名网络按题目说明视为相连。'),
+ b('第2步 写驱动与输出方程：逐级分析各D、T或JK输入端的组合逻辑，单独写出输出方程。JK输入方程不是次态方程。'),
+ b('第3步 转换为次态方程：D型直接代入D；T型用异或关系；JK型代入特性方程。方程右侧全部使用同一时钟沿之前的现态。'),
+ m(r'Y_i=J_i\bar{y_i}+\bar{K_i}y_i'),
+ b('第4步 列完整状态表：两个状态位、一个输入时，覆盖4个现态与输入0、1共8种组合；写清次态位序及输出。Moore输出可按现态列出，Mealy输出须区分输入。'),
+ b('第5步 画状态图并说明功能：依据表格画全部转移；按输出对输入的依赖判断模型。说明功能要结合状态所记录的历史或计数意义，不能仅写“有四个状态”。'),
+ b('第6步 推演指定输入：先求沿前输入作用下的次态，再让全部触发器同时更新。若题目问上升沿之后的输出，应使用更新后的状态计算相应输出。'),
+ h('14 统一周期记账'),
+ p('Mealy按“第k位输入与读入前现态”定义输出时，先由旧状态和第k位输入求输出，再推进状态。若问Moore电路第k个沿后的输出，先推进到沿后状态，再求输出。实际作答始终遵循题目给定的时刻约定。'),
+ p('资料与练习：第7章第62至71页，重点第69至71页的JK电路分析；配合第6章第28页。自查：用完整状态表和逐拍代入方程计算同一输入串，结果应一致。'),
+ h('15 基本型异步时序电路'),
+ b('基本型约束：外部输入每次只允许一个变量改变；下一次改变应等电路达到稳态，留足内部传播与反馈稳定的时间。状态变化不由统一的时钟沿触发。'),
+ b('流程表稳态：在固定输入下，次态与所在行现态相同，即Y=y；若Y与y不同，则为非稳态，应继续沿同一输入条件追踪后续状态，直到稳定。'),
+ b('竞争：一次状态转换要求两个或更多状态变量改变时，不同反馈延时会造成先后顺序差异；若最终到达状态受该顺序影响，就是关键竞争。'),
+ b('状态分配：应使实际允许的相邻状态转换只改变一个状态位；必要时引入过渡状态。不能只把状态依次写成格雷码，就认定所有可能转移都安全。'),
+ p('资料：第8章第4至12、17至23、32页。自查：能圈出流程表中的稳态，解释基本型输入约束，并判断指定状态转换改变了几个状态位。'),
+])
+
+page('练习安排与考前自查',[
+ h('16 按现有练习巩固'),
+ tab(['资料','本轮复习任务','完成标志'],[
+  ['quiz1+a.pdf','重做学生题部分的数制、补码、代数与真值表','过程可解释；核对编码与溢出'],
+  ['quiz2.pdf','卡诺图、CMOS；再看运算符与MUX代码问题','会填图、补上拉网络、解释锁存'],
+  ['quiz3.pdf','锁存器、不同触发沿与主从结构波形','每个跳变都有明确触发条件'],
+  ['quiz4.pdf','先算同步计数状态，再复习双向及模数边界','初态、方向、有效沿和回跳一致'],
+  ['quiz5.pdf','完整重做Mealy型微笑蜗牛设计','状态、表、方程、电路和序列一致'],
+  ['实验4','用波形复核两级寄存器、计数器与复位','会说明旧值采样与复位时刻'],
+  ['实验5、6','用交通灯场景复核状态、条件、计数和输出','能把行为要求对应到状态转移'],
+ ],[3.5,7.5,6.0]),
+ h('17 建议复习顺序'),
+ b('第一轮 基础核查：完成数制、补码、逻辑运算、CMOS与触发器特性，形成一页公式与易错点笔记。'),
+ b('第二轮 组合专题：连续练习卡诺图、组合电路分析和MUX实现；每题至少用一种独立方法检查。'),
+ b('第三轮 时序专题：完整做一次Mealy设计和一次JK电路分析，再复习计数器与异步基础概念。'),
+ b('第四轮 限时综合：混合选择、填空与综合设计训练；复查错题产生于读题、建模、化简、读图还是周期记账。'),
+ h('18 考前检查清单'),
+ p('数值：位宽、编码方式、符号与溢出是否确认。逻辑：反相是否遗漏，最小项位序是否一致，无关项是否误用。MUX：选择端与D0至D3的顺序是否对应。'),
+ p('时序：现态与次态是否分清，各触发器是否同时更新，Mealy与Moore是否按输出关系判断，检测重叠和复位是否覆盖。作图：输入、输出、时钟、复位和连线节点是否标清。'),
+ p('答题：按题目要求给出表格、圈组、方程、状态图或逻辑图；画图参照试卷给出的规范符号；在答题卡对应题号作答。'),
+ h('19 配套知识的复习深度'),
+ p('Verilog用于帮助理解硬件：复习assign、always、条件分支完整性，以及时钟过程中的非阻塞赋值。进一步巩固加法器、译码器、比较器、移位寄存器和简单处理器时，围绕器件功能及控制与数据通路关系阅读课件。FPGA综合、约束、实现和比特流流程可结合实验6回顾。'),
+ p('相关资料：第4章第31至44页；第5章加法器；第9章第22至41、53至66页；实验4至6。核心综合题尚不能独立完成时，优先回到第3至6页的专题训练。'),
+])
+
+
+def set_font(style,name,size,bold=False):
+    style.font.name=name;style.font.size=Pt(size);style.font.bold=bold
+    style.font.color.rgb=RGBColor(0,0,0)
+    style.element.get_or_add_rPr().rFonts.set(qn('w:eastAsia'),name)
+
+def math_text(text):
+    e=OxmlElement('m:r')
+    props=OxmlElement('m:rPr');sty=OxmlElement('m:sty');sty.set(qn('m:val'),'p');props.append(sty);e.append(props)
+    t=OxmlElement('m:t');t.set(qn('xml:space'),'preserve');t.text=text;e.append(t)
+    return e
+
+def math_nodes(src):
+    nodes=[];i=0
+    def group_at(pos):
+        if src[pos]=='{':
+            depth=1;j=pos+1
+            while j<len(src) and depth:
+                if src[j]=='{':depth+=1
+                if src[j]=='}':depth-=1
+                j+=1
+            return src[pos+1:j-1],j
+        return src[pos],pos+1
+    while i<len(src):
+        if src.startswith('\\bar',i):
+            content,j=group_at(i+4)
+            node=OxmlElement('m:bar');prop=OxmlElement('m:barPr');pos=OxmlElement('m:pos');pos.set(qn('m:val'),'top');prop.append(pos);node.append(prop)
+            expr=OxmlElement('m:e')
+            for child in math_nodes(content):expr.append(child)
+            node.append(expr);nodes.append(node);i=j
+        elif src[i] in '_^' and nodes:
+            op=src[i];content,j=group_at(i+1)
+            node=OxmlElement('m:sSub' if op=='_' else 'm:sSup')
+            base=OxmlElement('m:e');base.append(nodes.pop());node.append(base)
+            arg=OxmlElement('m:sub' if op=='_' else 'm:sup')
+            for child in math_nodes(content):arg.append(child)
+            node.append(arg);nodes.append(node);i=j
+        else:
+            # Individual symbols allow the next subscript/superscript to attach correctly.
+            nodes.append(math_text(src[i]));i+=1
+    return nodes
+
+def add_math(doc,src):
+    par=doc.add_paragraph(style='Equation')
+    par.alignment=WD_ALIGN_PARAGRAPH.CENTER
+    omath=OxmlElement('m:oMath')
+    for node in math_nodes(src):omath.append(node)
+    par._p.append(omath)
+    return par
+
+doc=Document();sec=doc.sections[0]
+sec.page_width=Cm(21);sec.page_height=Cm(29.7)
+sec.top_margin=Cm(1.65);sec.bottom_margin=Cm(1.65);sec.left_margin=Cm(2);sec.right_margin=Cm(2)
+sec.footer_distance=Cm(.7)
+set_font(doc.styles['Normal'],'宋体',10.5)
+normal=doc.styles['Normal'].paragraph_format
+normal.line_spacing=1.17;normal.space_after=Pt(5)
+set_font(doc.styles['Title'],'黑体',21,True)
+doc.styles['Title'].paragraph_format.space_after=Pt(7)
+set_font(doc.styles['Subtitle'],'宋体',10.5)
+doc.styles['Subtitle'].paragraph_format.space_after=Pt(10)
+set_font(doc.styles['Heading 1'],'黑体',15,True)
+doc.styles['Heading 1'].paragraph_format.space_before=Pt(0)
+doc.styles['Heading 1'].paragraph_format.space_after=Pt(9)
+set_font(doc.styles['Heading 2'],'黑体',12,True)
+doc.styles['Heading 2'].paragraph_format.space_before=Pt(8)
+doc.styles['Heading 2'].paragraph_format.space_after=Pt(5)
+doc.styles.add_style('Review Bullet',1)
+set_font(doc.styles['Review Bullet'],'宋体',10.5)
+bf=doc.styles['Review Bullet'].paragraph_format
+bf.left_indent=Cm(.35);bf.first_line_indent=Cm(-.35);bf.space_after=Pt(4);bf.line_spacing=1.15
+doc.styles.add_style('Equation',1);set_font(doc.styles['Equation'],'Cambria Math',10.5)
+doc.styles['Equation'].paragraph_format.space_after=Pt(5)
+doc.styles['Equation'].paragraph_format.space_before=Pt(2)
+
+for sty in ['Normal','Title','Subtitle','Heading 1','Heading 2','Review Bullet','Equation']:
+    style=doc.styles[sty]
+    for el in list(style.element.xpath('.//w:color')):
+        for key in ['themeColor','themeTint','themeShade']:
+            el.attrib.pop(qn('w:'+key),None)
+    for bdr in list(style.element.xpath('.//w:pBdr')):bdr.getparent().remove(bdr)
+
+def cell_fill(cell,fill):
+    props=cell._tc.get_or_add_tcPr();el=OxmlElement('w:shd');el.set(qn('w:fill'),fill);props.append(el)
+
+def add_table(headers,rows,widths):
+    table=doc.add_table(rows=1,cols=len(headers));table.alignment=WD_TABLE_ALIGNMENT.CENTER;table.autofit=False
+    props=table._tbl.tblPr
+    borders=OxmlElement('w:tblBorders')
+    for name in ['top','left','bottom','right','insideH','insideV']:
+        border=OxmlElement('w:'+name);border.set(qn('w:val'),'single');border.set(qn('w:sz'),'4');border.set(qn('w:color'),'D9D9D9');borders.append(border)
+    props.append(borders)
+    margins=OxmlElement('w:tblCellMar')
+    for side,val in [('top',75),('bottom',75),('left',90),('right',90)]:
+        e=OxmlElement('w:'+side);e.set(qn('w:w'),str(val));e.set(qn('w:type'),'dxa');margins.append(e)
+    props.append(margins)
+    for i,w in enumerate(widths):table.columns[i].width=Cm(w)
+    for i,t in enumerate(headers):table.rows[0].cells[i].text=t
+    for row in rows:
+        for c,t in zip(table.add_row().cells,row):c.text=t
+    repeat=OxmlElement('w:tblHeader');table.rows[0]._tr.get_or_add_trPr().append(repeat)
+    for ri,row in enumerate(table.rows):
+        cant=OxmlElement('w:cantSplit');row._tr.get_or_add_trPr().append(cant)
+        for ci,cell in enumerate(row.cells):
+            cell.width=Cm(widths[ci]);cell.vertical_alignment=WD_CELL_VERTICAL_ALIGNMENT.CENTER
+            cell_fill(cell,'DFEAF3' if ri==0 else ('FFFFFF' if ri%2 else 'F7F9FB'))
+            for para in cell.paragraphs:
+                para.paragraph_format.space_after=Pt(0);para.paragraph_format.space_before=Pt(0);para.paragraph_format.line_spacing=1.1
+                for run in para.runs:
+                    run.font.size=Pt(9.5);run.font.name='宋体';run._element.get_or_add_rPr().rFonts.set(qn('w:eastAsia'),'宋体')
+                    run.font.color.rgb=RGBColor(0,0,0);run.bold=ri==0
+    after=doc.add_paragraph();after.paragraph_format.space_after=Pt(0);after.paragraph_format.space_before=Pt(0);after.paragraph_format.line_spacing=1;after.paragraph_format.line_spacing_rule=None
+    after.add_run().font.size=Pt(1)
+
+for index,record in enumerate(pages):
+    if index:doc.add_page_break()
+    else:
+        doc.add_paragraph('数字逻辑期末复习提纲',style='Title')
+        doc.add_paragraph('2026—2027学年第一学期   2026年11月23日',style='Subtitle')
+    doc.add_paragraph(record['title'],style='Heading 1')
+    for item in record['blocks']:
+        kind=item[0]
+        if kind=='h':doc.add_paragraph(item[1],style='Heading 2')
+        elif kind=='p':doc.add_paragraph(item[1])
+        elif kind=='b':doc.add_paragraph('• '+item[1],style='Review Bullet')
+        elif kind=='m':add_math(doc,item[1])
+        elif kind=='table':add_table(item[1],item[2],item[3])
+
+footer=sec.footer.paragraphs[0];footer.alignment=WD_ALIGN_PARAGRAPH.RIGHT
+r=footer.add_run('数字逻辑期末复习提纲  |  ');r.font.name='宋体';r.font.size=Pt(8.5)
+field=OxmlElement('w:fldSimple');field.set(qn('w:instr'),'PAGE');footer._p.append(field)
+doc.core_properties.title='数字逻辑期末复习提纲'
+doc.core_properties.subject='数制 组合逻辑 时序逻辑与复习练习'
+doc.core_properties.author=''
+doc.core_properties.keywords='数字逻辑,期末复习,卡诺图,MUX,Mealy,Moore,JK'
+output=OUT/(NAME+'.docx');doc.save(output)
+(WORK/'outline_content.json').write_text(json.dumps(pages,ensure_ascii=False,indent=2),encoding='utf-8')
+print(json.dumps({'docx':str(output),'planned_pages':len(pages),'paragraphs':len(doc.paragraphs),'tables':len(doc.tables)},ensure_ascii=False))

@@ -1,0 +1,836 @@
+PAGE 1
+陈奕含
+Faculty of Computility Microelectronics
+FCMA201: Digital Logic
+Verilog Hardware 
+Description Language
+
+PAGE 2
+2
+Outline
+◆ Verilog Code Example
+◆ Lexical Token
+➢ White space 
+➢ Comment
+➢ Identifier
+➢ Keyword
+➢ Number, string, operator
+◆ Value Set 
+◆ Number Declaration
+➢ Integer constants
+➢ Real constants
+◆ Data Types
+➢ Net: wire, tri, etc.
+➢ Variable: reg, integer, etc.
+➢ Vectors, arrays, memory
+➢ parameter
+◆ Expressions
+➢ Operators
+• bitwise, logical, reduction, 
+relational, arithmetic, shift, 
+concatenate, replication, 
+condition
+➢ Expression bit length
+➢ Signed expression
+➢ Truncation
+
+PAGE 3
+3
+Outline
+◆ Assignments 
+➢ Continuous assignments
+➢ Procedural assignments
+• Always, initial, task, function
+• If-else, case, loop
+◆ Description of logic circuit 
+➢ Structural description
+➢ Behavioral description
+◆ Hierarchical Verilog Code
+
+PAGE 4
+4
+Hardware Description Language
+◆ A hardware description language (HDL) is used to describe the 
+structure and behavior of electronic circuits
+◆ Allows for the automated analysis and simulation of the circuit
+◆ Two major hardware description languages: VHDL and Verilog
+x y z L(x, y, z)
+0 0 0
+0 0 1 …
+…
+( , , )L x y z =
+HDL
+synthesis
+
+PAGE 5
+5
+References
+◆ Textbook Appendix A (27 pages)
+◆ Online tutorial
+e.g. www.runoob.com/w3cnote/verilog-tutorial.html
+菜鸟教程网站
+◆ IEEE standard for Verilog (590 pages)
+
+PAGE 6
+6
+Verilog Code Example
+start/end of module
+module example (x1, x2, s, f);
+input x1, x2, s;
+output f;
+reg f;
+always @(x1 or x2 or s)
+if (s == 0)
+f = x1;
+else
+f = x2;
+endmodule
+module name
+ports (端口)
+input/output declaration
+signal declaration
+description of the 
+circuit function
+◆ A logic circuit is specified in the form of a module (模块) 
+
+PAGE 7
+module module name [(port name{, port name})];
+[parameter declarations]
+[input declarations]
+[output declarations]
+[inout declarations]
+[wire or tri declarations]
+[reg or integer declarations]
+[function or task declarations]
+[assign continuous assignments]
+[initial block]
+[always blocks]
+[gate instantiations]
+[module instantiations]
+endmodule 7
+Verilog Code Example
+◆ Complete module content
+参数声明
+instantiation (实例化)
+输入输出声明
+procedural statements (过程语句)
+signal declaration (信号声明)
+函数/任务声明
+concurrent statements (并行语句)
+
+PAGE 8
+8
+Lexical Token (词法单元)
+◆ White space 空白符
+◆ Comment 注释
+◆ Identifier 标识符
+◆ Keyword 关键字
+◆ Number 数
+◆ String 字符串
+◆ Operator 操作符
+module example (x1, x2, s, f);
+input x1, x2, s;
+output f;
+reg f; // this is on-line comment
+integer a = 4’b100;
+reg [8*5:1] stringx = “Hello”
+/* 
+This is an example 
+of block comment of multiple lines.
+*/
+always @(x1 or x2 or s)
+if (s == 0)
+f = x1 & x2;
+else
+f = x2;
+endmodule
+
+PAGE 9
+9
+Lexical Token
+SPACE, TAB, Enter and blank lines are 
+ignored by the Verilog compiler
+◆ White space 空白符
+◆ Comment 注释
+◆ Identifier 标识符
+◆ Keyword 关键字
+◆ Number 数
+◆ String 字符串
+◆ Operator 操作符
+wire[1:0]results;assign results=(a==1’b0)?2’b01:(b==1’b0)?2’b10:2’b11;
+wire [1:0] results ;
+assign results = (a == 1’b0) ? 2’b01 : 
+(b==1’b0) ? 2'b10 : 2’b11;
+
+PAGE 10
+10
+Lexical Token
+◆ White space 空白符
+◆ Comment 注释
+◆ Identifier 标识符
+◆ Keyword 关键字
+◆ Number 数
+◆ String 字符串
+◆ Operator 操作符
+module example (x1, x2, s, f);
+input x1, x2, s;
+output f;
+reg f; // this is on-line comment
+integer a = 4’b100;
+reg [8*5:1] stringx = “Hello”;
+/* 
+This is an example 
+of block comment of multiple lines.
+*/
+always @(x1 or x2 or s)
+if (s == 0)
+f = x1 & x2;
+else
+f = x2;
+endmodule
+
+PAGE 11
+11
+Lexical Token
+◆ White space 空白符
+◆ Comment 注释
+◆ Identifier 标识符
+◆ Keyword 关键字
+◆ Number 数
+◆ String 字符串
+◆ Operator 操作符
+Simple identifier:
+➢ Case sensitive e.g. “ADDER” ≠ “adder”
+区分大小写
+➢ Any sequence of letters, digits, dollar signs ($), 
+and underscore characters (_)
+字母、数字、美元符号$、下划线_ 的组合
+➢ The first character shall not be a digit or $, can 
+be a letter or an underscore
+第一个字符不能是数字或$
+e.g. shiftreg_a
+busa_index
+_bus3
+n$657
+
+PAGE 12
+12
+Lexical Token
+◆ White space 空白符
+◆ Comment 注释
+◆ Identifier 标识符
+◆ Keyword 关键字
+◆ Number 数
+◆ String 字符串
+◆ Operator 操作符
+Escaped identifier (转义标识符):
+➢ Start with the backslash character (\) and end 
+with white space (space, tab, newline) 
+以反斜线\开始，以空白符结束
+➢ Should not be used in normal Verilog code, 
+used in when other languages are translated 
+into Verilog 
+正常Verilog代码中不使用，用于其他语言转为Verilog时
+e.g. \busa+index
+\-clock
+\***error-condition***
+\net1/\net2
+\{a,b}
+\a*(b+c) 
+
+PAGE 13
+13
+Lexical Token
+◆ White space 空白符
+◆ Comment 注释
+◆ Identifier 标识符
+◆ Keyword 关键字
+◆ Number 数
+◆ String 字符串
+◆ Operator 操作符
+➢ Predefined nonescaped identifiers 
+➢ All keywords are defined in lowercase only
+所有的关键字都是小写
+➢ keyword preceded by an escape character is 
+not interpreted as a keyword
+在转义标识符后的关键字不被识别
+
+PAGE 14
+14
+Lexical Token
+◆ White space 空白符
+◆ Comment 注释
+◆ Identifier 标识符
+◆ Keyword 关键字
+◆ Number 数
+◆ String 字符串
+◆ Operator 操作符
+
+
+PAGE 15
+15
+Lexical Token
+◆ White space 空白符
+◆ Comment 注释
+◆ Identifier 标识符
+◆ Keyword 关键字
+◆ Number 数
+◆ String 字符串
+◆ Operator 操作符
+System tasks and functions:
+
+
+PAGE 16
+16
+Value Set 数值种类
+◆ The Verilog HDL value set consists of four basic values:
+0 - represents a logic 0, or a false condition
+1 - represents a logic 1, or a true condition
+x or X - represents an unknown logic value 未知态
+z or Z - represents a high-impedance state 高阻态
+x z
+When conflicts happen
+Disabled driver
+
+PAGE 17
+17
+Number Declaration 数的声明
+◆ Integer constants 整数常数
+➢ format   [size][’radix] constant 
+number of bits 
+in the constant d/D = decimal
+b/B = binary
+h/H = hexadecimal
+o/O = octal 
+If no radix is specified, the 
+default is decimal 
+• If size specifies more bits than 
+constant, then the constant is 
+padded with zeros usually
+• But, when the first character of 
+the constant is either x or z, the 
+padding is done using x or z
+
+PAGE 18
+18
+Number Declaration
+◆ Integer constants 整数常数
+➢ format   [size][’radix] constant 
+e.g. 0 the number 0
+10 the decimal number 10
+’b10 the binary number 10 = (2)10
+’h10 the hex number 10 = (16)10
+4’b100 the binary number 0100 = (4)10
+4’bx an unknown 4-bit value xxxx
+8’b1000_0011 _ can be inserted for readability
+8’hfx equivalent to 8’b1111_xxxx 
+4af is illegal (hexadecimal format requires 'h) 
+unsized
+sized
+
+PAGE 19
+19
+Number Declaration
+◆ Integer constants 整数常数
+➢ Using sign 
+e.g. 8’d -6 this is illegal syntax
+-8’d6 = -(8'd 6)
+4’shf = -1 or -4’b0001 or -4'h 1
+treat 4-bit number ‘1111’ as a signed number
+(-1)2’s = ‘1111’ 
+-4’sd15 = 1 or -(-4'd 1)
+16’sd? the same as 16'sbz 
+
+PAGE 20
+20
+Number Declaration
+◆ Integer constants 整数常数
+➢ Automatic left padding 
+e.g. reg [11:0] a, b, c, d;
+a = 'h x; // yields xxx xxxx_xxxx_xxxx
+b = 'h 3x; // yields 03x 0000_0011_xxxx
+c = 'h z3; // yields zz3 zzzz_zzzz_0011
+d = 'h 0z3; // yields 0z3 0000_zzzz_0011
+
+PAGE 21
+21
+Number Declaration
+◆ Real constants 实数常数
+➢ Specified in either decimal notation or in scientific notation
+e.g. 1.2
+0.1
+2394.26331
+1.2E12 (the exponent symbol can be e or E)
+1.30e-2
+0.1e-0
+23E10
+29E-2
+236.123_763_e-12 (underscores are ignored) 
+
+PAGE 22
+22
+Number Declaration
+◆ Real constants 实数常数
+➢ Specified in either decimal notation or in scientific notation
+➢ At least one digit on each side of the decimal point
+e.g. .12
+9.
+4.E3
+.2e-7 
+
+
+PAGE 23
+23
+Data Types 数据类型
+◆ Two main groups of data types: net, variable
+◆ Net 
+➢ A net represents a node in a circuit (connections between 
+logic elements)
+➢ Two commonly used types: wire (线网) | tri (三态)
+➢ Other types: triand | trior | tri0 | tri1 | trireg | 
+uwire | wand | wor | supply0 | supply1 
+wire  f;
+wire  a, b, c;
+tri z;  
+x
+y
+z
+a
+b
+c
+f
+wire  gnd = 1'b0;
+
+PAGE 24
+24
+Data Types
+◆ Variable
+➢ Used to describe circuit in terms of its behavior
+➢ Two commonly used types: reg (寄存器) and integer (整数)
+➢ Other types: time | real | realtime
+reg Count;
+integer k;
+Count = 0;
+for (k = 0; k < 4; k = k + 1)
+if (S[k])
+Count = Count + 1; 
+reg: retains value until it is 
+overwritten in a subsequent 
+assignment statement
+integer: do not directly correspond 
+to nodes in a circuit 
+
+PAGE 25
+25
+Data Types
+◆ Vectors
+➢ Both net and reg can be declared as vectors 
+e.g. reg a; // a scalar reg
+reg [3:0] v; // a 4-bit vector reg made up of (from most to
+// least significant) v[3], v[2], v[1], and v[0]
+reg [-1:4] b; // a 6-bit vector reg
+reg [4:0] x, y, z; // declares three 5-bit regs 
+wire w1, w2; // a scalar wire
+wire [8:2] addr; // a 7-bit vector wire with bit ranging from 8 to 2 
+tri [15:0] busa; // a three-state 16-bit bus
+wand w; // a scalar net of type "wand"
+
+PAGE 26
+26
+Data Types
+◆ Arrays
+➢ A net or a variable (either scalar or vector) can be declared as 
+an array
+e.g. reg x[11:0]; // array of scalar reg
+wire [0:7] y[5:0]; // array of 8-bit-wide vector wire indexed 
+// from 0 to 7
+reg [31:0] x [127:0]; // array of 32-bit-wide reg 
+A one-dimensional array with elements 
+of type reg is also called a memory
+
+PAGE 27
+27
+Data Types
+◆ Memory
+➢ Can be used to model read-only memories (ROMs), random 
+access memories (RAMs), and reg files 
+e.g. reg [7:0] mema [0:255]; // declares a memory mema of 256 8-bit registers
+mema = 0; // illegal syntax- attempt to write to entire array
+mema[1] = 0; // assigns 0 to the second element of mema
+mem[127] = 8'b0 ;         // assign 8’b0 to the 128th element of mema
+reg arrayb [7:0] [0:255]; // declare a two-dimensional array of 1-bit registers 
+arrayb[1] = 0; // illegal syntax 
+arrayb[1][12:31] = 0; // illegal syntax
+arrayb[1][0] = 0; // assigns 0 to the bit referenced by indices [1][0]
+
+
+PAGE 28
+28
+Data Types
+◆ Parameters
+➢ A parameter assigns a constant to an identifier
+module addern (carryin, X, Y , S, carryout);
+parameter n = 32;
+input carryin;
+input [n –1:0] X, Y;
+output [n –1:0] S;
+output carryout;
+wire [n:0] C; 
+……
+endmodule
+Declaration of parameter
+Utilization of parameter
+
+PAGE 29
+29
+Expressions 表达式
+◆ Operator
+◆ Expression bit length
+◆ Signed expression
+◆ Truncation
+
+PAGE 30
+30
+Expressions – Operators & Bit Length
+Indicate the number of 
+bits of the results when 
+the operation is done
+运算的结果包含几位
+Same length as A
+The larger one of two 
+operands’ length
+,  A <<< B, A >>> B
+
+PAGE 31
+31
+Expressions – Operators
+Bitwise 按位操作
+~ Bitwise negation按位取反 ~1101 = 0010
++ Unary +单目正
+- Unary -单目负
+& Bitwise and 按位与 1101 & 0110 = 0100
+| Bitwise or按位或 1101 | 0110 = 1111
+^ Bitwise exclusive or按位异或 1101 ^ 0110 = 1011
+~^ or ^~ Bitwise equivalence按位同或 1101 ~^ 0110 = 0100
+A <<< B, A >>> B
+
+PAGE 32
+32
+Expressions – Operators
+Logic 逻辑运算
+! Logic negation逻辑取反 !(2’b10 < 2’b11) = 0
+&& Logic and 逻辑与
+|| Logic or逻辑或
+A <<< B, A >>> B
+
+PAGE 33
+33
+Expressions – Operators
+Reduction 缩减/归约
+& Reduction and 缩减与 & 0110 = 0
+~& Reduction nand缩减与非 ~& 0110 = 1
+| Reduction or缩减或 | 0110 = 1
+~| Reduction nor缩减或非 ~| 0110 = 0
+^ Reduction exclusive or缩减异或 ^ 0110 = 0
+~^ or ^~ Reduction xnor缩减同或 ~^ 0110 = 1
+A <<< B, A >>> B
+
+PAGE 34
+34
+Expressions – Operators
+Relational 关系
+== Logical equality逻辑相等 (1011==1011) = 1(10xz == 10xz) = x
+!= Logical inequality逻辑不等 (1011 !=1011) = 0(10xz != 10xz) = x
+>  <  
+>=  <=
+Value relation
+数值关系
+=== Case equality case等 (1011===1011) = 1(10xz === 10xz) = 1
+!== Case inequalitycase不等 (1011 !==1011) = 0(10xz !== 10xz) = 0
+A <<< B, A >>> B
+
+PAGE 35
+35
+Expressions – Operators
+Shift 移位
+<< Logical left shift逻辑左移 1011 << 2 = 1100
+>> Logical right shift逻辑右移 1011 >> 2 = 0010
+<<< Arithmetic left shift算术左移 1011 <<< 2 = 1100
+>>> Arithmetic right shift算术右移 1011 >>> 2 = 1110
+A <<< B, A >>> B
+
+PAGE 36
+36
+Expressions – Operators
+Concatenate 拼接
+{  }
+Assuming A = 4’b1010, B = 1’b1
+{ B, A } = 5’b1_1010
+{ B, A[3:2], A[0], 4’h3 } = ’b1100_0011
+Replication 复制
+{{}}
+Assuming B = 1’b1
+{ 32{1’b0} } = 32’h0
+{ 4{B} } = 4’b1111
+{ 4{B}, 3’d4 } = 7’b111_1100
+often used for reg initialization
+A <<< B, A >>> B
+
+PAGE 37
+37
+Expressions – Operators
+Condition 条件运算符
+A ? B : C
+If A = 1, result = B
+If A = 0, result = C 
+hsel = (addr[9:8] == 2'b0) ? hsel_p1 : hsel_p2
+A <<< B, A >>> B
+
+PAGE 38
+38
+Expressions – Operators
+◆ Operator Precedence
+
+
+PAGE 39
+39
+Expressions - signed expression
+◆ Operator
+◆ Expression bit length
+◆ Signed expression
+◆ Truncation
+➢ Verilog has many rules for determining the 
+resulting type of an expression
+➢ Two system functions to handle type 
+casting on expressions: 
+$signed( ) ,  $unsigned( )
+e.g.
+reg [7:0] regA, regB;
+reg signed [7:0] regS;
+regA = $unsigned(-4); // regA = 8'b11111100
+regB = $unsigned(-4'sd4); // regB = 8'b00001100
+regS = $signed (4'b1100); // regS = -4
+
+PAGE 40
+40
+Expressions - truncation
+◆ Operator
+◆ Expression bit length
+◆ Signed expression
+◆ Truncation
+For “f = x & y”
+If the width of “x & y” is larger than the width of f, 
+the MSBs of “x & y” will be discarded
+reg [5:0] a;
+reg signed [4:0] b;
+a = 8’hff; // After the assignment, a = 6’h3f
+b = 8’hff; // After the assignment, b = 5’h1f
+reg [0:5] a;
+reg signed [0:4] b, c;
+a = 8’sh8f; // After the assignment, a = 6'h0f
+b = 8’sh8f; // After the assignment, b = 5'h0f
+c = -113; // After the assignment, c = 15
+e.g.
+
+PAGE 41
+41
+Expressions - truncation
+reg [5:0] a;
+reg signed [4:0] b;
+a = 8’hff; // After the assignment, a = 6’h3f
+b = 8’hff; // After the assignment, b = 5’h1f
+reg [0:5] a;
+reg signed [0:4] b, c;
+a = 8’sh8f; // After the assignment, a = 6'h0f
+b = 8’sh8f; // After the assignment, b = 5'h0f
+c = -113; // After the assignment, c = 15
+1111 1111
+1111 1111
+1000 1111
+1000 1111
+(113)10 =  (0111_0001)2
+(-113)10 =  (1000_1111)2
+(0_1111)2 =  (15)10
+
+PAGE 42
+42
+Assignments
+Assignment 
+types
+Data types to be 
+assigned Statements 
+Continuous 
+assignments 
+连续赋值
+Primarily net assign
+Procedural 
+assignments 
+过程赋值
+Primarily variable always, initial, task, function 
+
+
+PAGE 43
+43
+Assignments
+◆ Procedural assignments
+➢ In blocks such as always, initial, task, function
+➢ Blocks also contain if-else, case, loop (while, repeat, for) 
+statements
+“begin-end” is used 
+when more than one 
+statements appear
+
+PAGE 44
+44
+Assignments
+◆ Procedural assignment statements
+casez treats “z” as don’t-care condition
+casex treats both “x” and “z” as don’t-care condition
+if-else statement case statement
+
+PAGE 45
+45
+Assignments
+◆ Procedural assignment statements
+loop statements
+forever continuously executes a statement
+
+PAGE 46
+46
+Different Description of Logic Circuit
+◆ Structural description (结构化描述)
+➢ Verilog includes a set of gate-level primitives for commonly-used 
+logic gates.
+y
+y
+y
+x
+1x
+2x
+and (y, x1, x2); or (y, x1, x2, x3, x4);not (y, x);
+2x
+3x
+1x
+4x
+output input output input output input
+
+PAGE 47
+47
+Different Description of Logic Circuit
+◆ Structural description
+module example (x1, x2, s, f);
+input x1, x2, s;
+output f;
+not (k, s);
+and (g, k, x1);
+and (h, s, x2);
+or (f, g, h);
+endmodule
+k
+g
+h
+By gate instantiations  
+
+PAGE 48
+48
+Different Description of Logic Circuit
+◆ Structural description
+module example (x1, x2, s, f);
+input x1, x2, s;
+output f;
+assign f = (~s & x1) | (s & x2);
+endmodule
+By continuous assignments  
+
+PAGE 49
+49
+Different Description of Logic Circuit
+◆ Behavioral description (行为描述)
+module example (x1, x2, s, f);
+input x1, x2, s;
+output f;
+reg f;
+always @(x1 or x2 or s)
+if (s == 0)
+f = x1;
+else
+f = x2;
+endmodule
+
+PAGE 50
+50
+Hierarchical Verilog code
+◆ Module in module
+1w
+0w
+3w
+2w
+0s
+1s
+
+PAGE 51
+51
+Hierarchical Verilog code
+module mux (x1, x2, s, f);
+input x1, x2, s;
+output f;
+assign f = (~s & x1) | (s & x2);
+endmodule
+module MUX_all (s0, s1, w0, w1, w2, w3, f);
+input s0, s1, w0, w1, w2, w3;
+output f;
+wire y1, y2;
+mux muxinst1 (w0, w1, s0, y1)
+mux muxinst2 (w2, w3, s0, y2)
+mux muxinst1 (y1, y2, s1, f)
+endmodule
+1w
+0w
+3w
+2w
+0s
+1s
+1y
+2y
+
+PAGE 52
+52
+Summary
+◆ Verilog Code Example
+◆ Lexical Token
+➢ White space 
+➢ Comment
+➢ Identifier
+➢ Keyword
+➢ Number, string, operator
+◆ Value Set 
+◆ Number Declaration
+➢ Integer constants
+➢ Real constants
+◆ Data Types
+➢ Net: wire, tri, etc.
+➢ Variable: reg, integer, etc.
+➢ Vectors, arrays, memory
+➢ parameter
+◆ Expressions
+➢ Operators
+• bitwise, logical, reduction, 
+relational, arithmetic, shift, 
+concatenate, replication, 
+condition
+➢ Expression bit length
+➢ Signed expression
+➢ Truncation
+
+PAGE 53
+53
+Summary
+◆ Assignments 
+➢ Continuous assignments
+➢ Procedural assignments
+• Always, initial, task, function
+• If-else, case, loop
+◆ Description of logic circuit 
+➢ Structural description
+➢ Behavioral description
+◆ Hierarchical Verilog Code

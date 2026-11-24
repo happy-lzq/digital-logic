@@ -1,0 +1,759 @@
+PAGE 1
+陈奕含
+Faculty of Computility Microelectronics
+FCMA201: Digital Logic
+Number Representation 
+& Arithmetic Operations
+
+PAGE 2
+2
+Outline
+◆ Positional Number Representation
+➢ Review of Decimal Numbers
+➢ Binary, Octal, Hexadecimal
+➢ Conversion between different 
+representations
+◆ Non-positional Number 
+Representation
+➢ Roman Numeral System
+◆ Number Representation in Computer
+➢ Signed numbers
+➢ Signed negative numbers
+• Sign-and-magnitude
+• 1’s complement
+• 2’s complement
+• Addition and subtraction
+➢ Real number
+• Fixed-point numbers
+• Floating-point numbers
+
+PAGE 3
+3
+Review of Decimal Numbers
+◆ Review of Decimal (十进制)
+1 2 1 0 1 2 .n n kD d d d d d d d− − − − −=
+( )
+1
+1 2 0 1
+1 2 0 110 10 10 10 10 10
+n
+n n k i
+n n k i
+ik
+V D d d d d d d
+−
+− − − −
+− − − −
+=−
+=  +  + +  +  +  =  
+11235813
+11235813.2134
+- 11235813.2134
+- 11235813
+positive integer
+negative integer
+negative real number
+positive real number
+Example:
+7 6 0 1 4112358 413. 3 1 10 1 10 3 10 2 10 1021 4 −−=  +  + +  +  + 
+
+
+PAGE 4
+4
+Positional Number Representation
+◆ Positional number representation (按位记数法)
+◆ A method of representing numbers where the value of each digit 
+depends on its position 位置决定数值
+1 2 1 0 1 2 .n n kX x x x x x x x− − − − −=
+( ) ( )
+1
+1 0 1
+1 0 1
+n
+n k i
+n k i
+ik
+V X x r x r x r x r x r
+−
+− − −
+− − −
+=−
+=  + +  +  +  =  
+:r radix
+(基数)
+
+PAGE 5
+5
+Positional Number Representation
+◆ Binary (二进制)
+◆ Octal (八进制)
+◆ Hexadecimal (十六进制)
+Digits: 0 1
+Digits: 0 1 2 3 4 5 6 7
+Digits: 0 1 2 3 4 5 6 7 8 9 A B C D E F
+(1 1)2 =   21 + 20   = (3)10
+(1 1)8 =   81 + 80 = (9)10
+(1 1)16 = 161 + 160 = (17)10
+
+
+PAGE 6
+6
+Conversion Between Different Representations
+X → decimal
+1 2 1 0 1 2 .n n kX x x x x x x x− − − − −=
+( ) ( )
+1
+1 0 1
+1 0 1
+n
+n k i
+n k i
+ik
+V X x r x r x r x r x r
+−
+− − −
+− − −
+=−
+=  + +  +  +  =  
+(1 1)2 =   21 + 20   = (3)10
+(1 1)8 =   81 + 80 = (9)10
+(1 1)16 = 161 + 160 = (17)10
+(F C)16 = 15×161 + 12×160 = (252)10
+
+PAGE 7
+7
+Example: decimal integer: 1 1 2 3 5 8 1 3
+1 1 2 3 5 8 1 310
+1 1 2 3 5 8 1 
+Remainder (余数)
+3
+10
+1 1 2 3 5 8 10
+1
+1 1 2 3 5 
+1 1 2 3 
+1 1 2 
+1 1
+110
+10
+10
+10
+10
+8
+5
+3
+2
+1
+1
+✓ divide by 10 successively
+✓ record remainders
+✓ get remainders from MSB to LSB
+MSB: most significant bit
+LSB: least significant bit
+0
+Conversion Between Different Representations
+decimal → X
+
+PAGE 8
+8
+Example: decimal fraction(小数): 0. 1 1 2 3
+0. 1 1 2 3 ×10
+Integer part (整数部分)
+1
+✓ multiply by 10 successively
+✓ subtract integer part and record
+✓ get integer part from MSB to LSB
+LSB
+MSB
+Conversion Between Different Representations
+decimal → X
+1. 1 2 3
+0. 1 2 3 ×10
+1. 2 3
+2. 3
+0. 3
+0. 2 3 ×10
+1
+2
+×10
+3 3
+-1
+-1
+-2
+-3
+0 
+
+PAGE 9
+9
+Example: 
+convert decimal number (2 0 1)10 to binary number
+2 0 12
+1 0 0
+Remainder (余数)
+1
+2
+5 0 2
+0
+2 5 
+1 2 
+6 
+3
+12
+2
+2
+2
+2
+0
+1
+0
+0
+1
+1
+(2 0 1)10 = (1 1 0 0 1 0 0 1)2
+0
+decimal → binary
+Conversion Between Different Representations
+
+PAGE 10
+10
+Example: 
+convert decimal number (0. 8 2 5 4)10 to binary number
+(0. 8 2 5 4)10
+= (0. 1 1 0 1 0 0 1 1⸱ ⸱ ⸱)2
+decimal → binary
+Conversion Between Different Representations
+0. 8 2 5 4 ×2
+1. 6 5 0 8
+1. 3 0 1 6
+0. 6 0 3 2
+0. 4 1 2 8
+0. 8 2 5 6
+1. 2 0 6 4
+1. 6 5 1 2 
+1. 3 0 2 4 
+×2
+Integer part (整数部分)
+1
+LSB
+MSB
+1
+0
+1
+1
+×2
+0
+0
+1
+×2
+×2
+×2
+×2
+×2
+×2
+…
+…
+
+PAGE 11
+11
+Example: convert decimal number (2 0 1)10 to hexadecimal number
+2 0 116
+1 2
+Remainder (余数)
+9
+16
+0 
+C (2 0 1)10 = (C 9)16
+decimal → hexadecimal
+Conversion Between Different Representations
+
+PAGE 12
+12
+0 0 1 0 1 0 1 1 1 1 0 0 1 0 0 1 0 1
+(1010111100100101)2 = (AF25)16(1010111100100101)2 = (127445)8
+544721
+8 = 23
+Take 3 bits as one group
+16 = 24
+Take 4 bits as one group
+1 0 1 0 1 1 1 1 0 0 1 0 0 1 0 1
+52FA
+binary → octal binary → hexadecimal
+Conversion Between Different Representations
+0. 1 0 1 0 1 1 1 0 1
+(0.10101110)2 = (0.AE8)16(0.10101110)2 = (0.535)8
+535
+0. 1 0 1 0 1 1 1 0 1 0 0 0 
+EA 8
+integerfraction
+
+PAGE 13
+13
+Non-positional Number Representation
+◆ Roman Numeral System
+https://www.rapidtables.com/math/symbols/roman_numerals.html
+primary symbols
+Roman Arabic
+I 1
+V 5
+X 10
+L 50
+C 100
+D 500
+M 1000
+• A symbol placed after another equal or greater value adds 
+its value
+e.g.   II = 1 + 1 = 2,    LVIII = 50 + 5 + 1 + 1 + 1 = 58
+• A symbol is placed before one of greater value to subtract 
+its value
+e.g.   IV = −1 + 5 = 4,    LIX = 50 -1 + 10 = 59
+• A bar (vinculum) placed over a number multiplies its value 
+by 1,000.
+e.g.
+• Usually only three identical symbols can be used 
+consecutively; 
+• 4,000 is sometimes written as MMMM, and clocks usually 
+display 4 as IIII. 
+V 5 1000 5000=  =
+
+PAGE 14
+14
+Non-positional Number Representation
+◆ Roman Numeral System
+https://www.rapidtables.com/math/symbols/roman_numerals.html
+Roman Calculation Arabic
+III 1+1+1 3
+IV 5-1 4
+VIII 5+1+1+1 8
+XVIII 10+5+1+1+1 18
+XIX 10+(10-1) 19
+XLIX (50-10)+(10-1) 49
+LXXII 50+10+10+1+1 72
+MDC 1000+500+100 1600
+MMVII 1000+1000+5+1+1 2007
+MMXXV 1000+1000+10+10+5 2025
+…… …… ……
+
+PAGE 15
+15
+Number Representation in Computer 
+Question: How to store negative and real numbers ? 
+11235813
+11235813 . 2134
+- 1123581 . 32134
+- 11235813
+positive integer
+negative integer
+negative real number
+positive real number
+➢ Store a character “-” or “.” ?
+➢ Use more bits for “-” or “.” ?
+➢ How does the “-” “.” used in arithmetic operation?
+
+PAGE 16
+16
+Signed Numbers (有符号数) 
+MSB …… LSBUnsigned numbers:
+Signed numbers:
+1nb −
+1b
+0b Sign MSB …… LSB
+1nb −
+1b
+0b
+2nb −
+0 denotes “+”
+1 denotes “-”
+n significant bits 
+n-1 significant bits 
+
+PAGE 17
+17
+Signed Integers
+0 MSB …… LSB
+1nb −
+1b
+0b
+2nb −
+◆ Signed positive numbers:
+magnitude (positional number representation)
+1 MSB …… LSB
+1nb −
+1b
+0b
+2nb −
+◆ Signed negative numbers:
+?
+
+PAGE 18
+18
+Signed Negative Integers
+1 MSB …… LSB
+1nb −
+1b
+0b
+2nb −
+◆ Sign-and-magnitude representation
+(符号-模值表示法 或 原码表示法)
+magnitude 
+(positional number representation)
+sign
+e.g. (+5)10 = (0 1 0 1)2
+(- 5)10 = (1 1 0 1)2
+
+PAGE 19
+19
+Signed Negative Integers
+◆ 1’s complement representation (1的补码表示法):
+1 (2 1)nKP= − −
+:P
+equivalent positive number
+1 :K
+1’s complement representation 
+e.g. (–5)10 = (24 - 1) - (0 1 0 1)2 = (1 1 1 1)2 - (0 1 0 1)2 = (1 0 1 0)2
+Method 1
+P = (+5)10 = (0 1 0 1)2
+Method 2 Complementing each bit of P, including the sign bit
+(+5)10 = (0 1 0 1)2
+(–5)10 = (1 0 1 0)2
+complement
+
+PAGE 20
+20
+Signed Negative Integers
+◆ 2’s complement representation (2的补码表示法):
+2 2 1 21nK P or K K= − = +
+:P
+equivalent positive number
+2 :K
+2’s complement representation 
+e.g. (–5)10 = 24– 5 = (11)10 = (1 0 1 1)2 
+(–5)10 = (1 0 1 0)2 + 1 = (1 0 1 1)2 
+0 115
+14
+13
+12
+11
+10
+9 8 7
+6
+5
+4
+3
+2
+2 2nKP=−
+2 2nKP+=
+one lap
+
+PAGE 21
+21
+Signed Negative Integers
+Same for positive integers  
+Issue: two representation for “0”
+2’s complement scheme is better
+
+PAGE 22
+22
+Practice:
+1 0 1 1 0 1 1 1
+Problem: Determine the decimal values of the following 8 bits when it’s 
+stored as: 
+ unsigned integer 
+ signed integer with sign-and-magnitude scheme
+ signed integer with 1’s complement scheme
+ signed integer with 2’s complement scheme
+Solution:  as unsigned integer:
+( )
+7 5 4 2 1 0
+102 2 2 2 2 2 183V = + + + + + =
+
+PAGE 23
+23
+Practice: 1 0 1 1 0 1 1 1
+Solution:  as signed integer with sign-and-magnitude scheme :
+( ) ( )
+5 4 2 1 0
+102 2 2 2 2 55V =− + + + + = −
+ as signed integer with 1’s complement scheme :
+( ) ( )
+63
+102 2 72V =− + = −
+ as signed integer with 2’s complement scheme :
+( ) ( )
+6 3 0
+102 2 2 73V =− + + =−
+0 1 0 0 1 0 0 0Magnitude:
+0 1 0 0 1 0 0 1Magnitude:
+
+PAGE 24
+24
+Addition(加法) of Signed Integers
+1’s complement
+(+5)
+(+2)
+(+7)
++
+(–5)
+(–2)
+(–7)
++
+2’s complementsign-and-magnitude
+0 1 0 1
+0 0 1 0
+0 1 1 1
++
+0 1 0 1
+0 0 1 0
+0 1 1 1
++
+0 1 0 1
+0 0 1 0
+0 1 1 1
++
+1 0 1 0
+1 1 0 1
+1 0 1 1 1
++
+1 0 1 1
+1 1 1 0
+1 1 0 0 1
++
+1 1 0 1
+1 0 1 0
+1 0 1 1 1
++
+(-7)SM=1 1 1 1 (-7)1’s=1 0 0 0 (-7)2’s=1 0 0 1
+(+7)SM=0 1 1 1 (+7)1’s=0 1 1 1 (+7)2’s=0 1 1 1
+
+
+PAGE 25
+25
+Addition of Signed Integers
+1’s complement
+(–5)
+(+2)
+(–3)
++
+(+5)
+(–2)
+(+3)
++
+2’s complementsign-and-magnitude
+1 0 1 0
+0 0 1 0
+1 1 0 0
++
+1 0 1 1
+0 0 1 0
+1 1 0 1
++
+1 1 0 1
+0 0 1 0
+1 1 1 1
++
+0 1 0 1
+1 1 0 1
+1 0 0 1 0
++
+0 1 0 1
+1 1 1 0
+1 0 0 1 1
++
+0 1 0 1
+1 0 1 0
+1 1 1 1
++
+(+3)SM=0 0 1 1 (+3)1’s=0 0 1 1 (+3)2’s=0 0 1 1
+(-3)SM=1 0 1 1 (-3)1’s=1 1 0 0 (-3)2’s=1 1 0 1
+
+
+PAGE 26
+26
+Subtraction(减法) of Signed Integers
+(–5)
+(+2)
+(–3)
++
+(+5)
+(–2)
+(+3)
++
+(+5)
+(+2)
+(+7)
++
+(–5)
+(–2)
+(–7)
++
+◆ Subtraction can be performed by addition
+◆ Negate(取反) the subtrahend(减数) and add it to the minuend(被减数)
+( )A B A B− = + −
+(+5)
+(+2)
+(+3)
+–
+(+5)
+(–2)
+(+7)
+–
+(–5)
+(+2)
+(–7)
+–
+(–5)
+(–2)
+(–3)
+–
+
+PAGE 27
+27
+Subtraction of Signed Integers
+◆ Why is 2’s complement suitable for subtraction
+2 2nKP=−
+2 2nKP+=
+Subtracting 2 by adding its 2’s 
+complement
+
+PAGE 28
+28
+Radix-Complement Schemes
+◆ Take decimal as example
+7 4
+3 6
+3 8
+–
+1
+borrow(借位)
+An easier way is:
+74 - 36 = 74 + (- 36) + 100 - 100
+= 74 + 102 - 36 - 100
+= 74 + 99 - 36 + 1 - 100
+How do we compute 74 - 36 ?
+10’s complement of 36
+1 (2 1)nKP= − −
+2 2nKP=−
+9’s complement of 36
+0 1 0 1
+1 1 1 0
+1 0 0 1 1
++
+(+3)2’s= 0 0 1 1
+(+5)
+(–2)
+(+3)
++
+ignore the carry
+
+PAGE 29
+29
+Addition and Subtraction
+Summary
+◆ Sign-and-magnitude scheme cannot deal with addition of negative 
+number
+◆ 1’s complement scheme cannot deal with addition of negative 
+addend (加数)
+◆ 2’s complement scheme does addition correctly
+◆ Subtraction can be performed by addition
+◆ 2’s complement scheme does both addition and subtraction correctly
+
+PAGE 30
+Question: How to store negative and real numbers ? 
+Real Numbers
+1 2 1 0 1 2 .n n kX x x x x x x x− − − − −=
+◆ Fixed-Point Numbers
+The position of the radix point (小数点) is assumed to be fixed
+0 1 1 0 1 1 1 0
+⸱
+(27.5)10
+1 1 0 0 1 0 0 1
+⸱
+(-18.25)10
+Issue: limited bits leads to limited range of number
+30
+
+PAGE 31
+Real Numbers
+The position of the radix point is changing2.75432×101 = 27.5432 
+2.75432×102 = 275.432  
+2.75432×103 = 2754.32 
+2.75432×104 = 27543.2  
+◆ Floating-Point Numbers
+ExponentMantissa R
+尾数 基数 指数
+◆ Two format for binary floating-point numbers
+➢ IEEE 754 standard
+➢ Single-precision 32-bit floating-point format
+➢ Double-precision 64-bit floating-point format
+31
+
+PAGE 32
+Real Numbers
+◆ Single-precision format
+ 0, 255E
+0, Value 0if E ==
+255, Valueif E = =+
+: 127else Exponent E=−
+the most-significant bit of 
+mantissa is always equal to “1”, 
+so not represented
+127Value 1. 2 EM −= 
+32
+
+PAGE 33
+Real Numbers
+◆ Single-precision format
+Largest absolute value:
+254 127 381.11 1 2 3.4 10−  
+1 127 381.00 0 2 1.18 10−−  
+33
+Smallest absolute value: 
+Total range:
+38 38 38 383.4 10 , 1.18 10 1.18 10 ,3.4 10−−   −  −      
+
+
+PAGE 34
+Real Numbers
+◆ Double-precision format
+34
+ 0, 2047E
+0, Value 0if E ==
+2047, Valueif E = =+
+: 1023else Exponent E=−
+the most-significant bit of 
+mantissa is always equal to “1”, 
+so not represented
+1023Value 1. 2 EM −= 
+
+PAGE 35
+Real Numbers
+◆ Double-precision format
+35
+Largest absolute value:
+2046 1023 3081.11 1 2 1.8 10−  
+1 1023 3081.00 0 2 2.23 10−−  
+Smallest absolute value: 
+Total range:
+308 308 308 3081.8 10 , 2.23 10 2.23 10 ,1.8 10−−   −  −      
+https://zhuanlan.zhihu.com/p/343037540
+
+PAGE 36
+36
+Outline
+◆ Positional Number Representation
+➢ Review of Decimal Numbers
+➢ Binary, Octal, Hexadecimal
+➢ Conversion between different 
+representations
+◆ Non-positional Number 
+Representation
+➢ Roman Numeral System
+◆ Number Representation in Computer
+➢ Signed numbers
+➢ Signed negative numbers
+• Sign-and-magnitude
+• 1’s complement
+• 2’s complement
+• Addition and subtraction
+➢ Real number
+• Fixed-point numbers
+• Floating-point numbers

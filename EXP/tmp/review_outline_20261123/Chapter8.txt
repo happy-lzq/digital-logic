@@ -1,0 +1,278 @@
+PAGE 1
+数字逻辑 Digital Logic
+课程编码： FCAA213              | 开课单位：计算机科学与人工智能学院
+开课时间：2026-2027学年秋季学期
+主讲教师：马懋德教授 与 李嘉龙助理教授
+SUAT
+
+
+PAGE 2
+目录 Contents
+Chapter 1 Introduction
+Chapter 2 Number & Arithmetic
+Chapter 3 Logic Functions
+Chapter 4 Verilog Language
+Chapter 5 Combinational Circuits
+Chapter 6 Basic Storage Elements
+Chapter 7 Synchronous Sequential Circuits
+Chapter 8 Asynchronous Sequential Circuits
+Chapter 9 Digital System Design
+
+PAGE 3
+8.1 Introduction
+8.2 Analysis of Asynchronous Sequential Circuits
+8.3 Design of Asynchronous Sequential Circuits
+Chapter 8 Asynchronous Sequential Circuits
+
+
+PAGE 4
+异步时序电路- Introduction
+Asynchronous sequential circuits do not operate in pulse mode and do
+not use flip-flops to represent state variables.
+In an asynchronous sequential circuit, state changes are not triggered by
+clock pulses.
+State changes are dependent on whether each of the inputs to the circuit
+has the logic level 0 or 1 at any given time.
+For reliable operation, the inputs must change in a specific way.
+
+PAGE 5
+异步时序电路
+Moreover, there must be sufficient time between the changes in input
+signals to allow the circuit to reach a stable state, which is achieved when all
+internal signals stop changing.
+A circuit that adheres to these constraints is said to operate in the
+fundamental mode.
+Asynchronous circuits are much more difficult to design than synchronous
+circuits, although they can be synthesized using similar techniques.
+
+PAGE 6
+异步时序电路
+Instead of a “state table,” it is more common to use the term of “flow
+table”, which indicates how the changes in state flow as a result of the
+changes in the input signals.
+Instead of a “state-assigned table,” it is usual to refer to a transition
+table or an excitation table.
+
+PAGE 7
+异步时序电路
+A flow table defines the state changes and outputs that must be
+generated.
+An excitation table depicts the transitions in terms of the state variables.
+The excitation table derives from the fact that a change from a stable
+state is performed by “exciting” the next-state variables to start
+changing towards a new state.
+
+PAGE 8
+异步时序电路-Analysis
+Analysis of asynchronous circuits or synchronous circuits is a procedure
+to obtain the system functions from the given circuits.
+It is the reverse process of circuit design:
+First, next-state and output expressions are derived from the circuit.
+Then, the excitation table corresponding to the next-state and output
+expressions is derived.
+Then, a flow table is obtained.
+At last, a corresponding state diagram is derived from the flow table.
+
+PAGE 9
+异步时序电路
+There is a circuit to analyze as below:
+
+
+PAGE 10
+异步时序电路
+To analyze the circuit, each feedback path is cut, and a delay element is inserted at the cut point.
+The input signal to the delay element represents a corresponding next-state variable,Yi, while the
+output signal is the present-state variable,yi.
+A cut can be made anywhere in a particular loop formed by the feedback connection, as long as
+there is only one cut per loop.
+Thus, the number of cuts that should be made is the smallest number that results in there being no
+feedback anywhere in the circuit.
+This minimal number of cuts is referred to as thecut set.
+Note that the analysis based on a cut made at one point in a given loop may not produce the same
+flow table as an analysis on a cut made at another point in this loop. Both flow tables would reflect
+the same functional behavior in terms of the applied inputs and generated outputs.
+
+PAGE 11
+异步时序电路
+The combined propagation delay is represented by the box labeled Δ.
+The value of y is fed back through the circuit to generate the value of the
+next-state variable, Y, which represents the next state of the circuit.
+After the Δ time delay, y takes the value of Y.
+The next-state and output expressions of the circuit are derived as follows:
+
+
+PAGE 12
+异步时序电路
+For a given set of inputs, if a circuit reaches a particular state and remains
+there, the state is stable.
+To clearly indicate the conditions under which the circuit is stable, it is
+usual to encircle the stable states in the excitation table and flow table.
+There is an assumption that both w1 and w2 cannot change simultaneously.
+In state A, the circuit is stable whenw2 w1 = 00. Its inputs cannot change to 11 without
+passing through the values of 01 or 10.
+Similarly, if the circuit is stable in stateB, in which casew2w1 = 01, it is impossible to
+force a change to stateC by changing the inputs tow2w1 = 10.
+If the circuit is stable in stateD under w2w1 = 11, it is not possible to go toA by changing
+the inputs directly tow2w1 = 00.
+A
+
+PAGE 13
+异步时序电路
+
+
+PAGE 14
+异步时序电路
+
+
+PAGE 15
+异步时序电路
+The behavior of an asynchronous sequential circuit can be represented 
+as an FSM in a similar way to the synchronous sequential circuits
+
+PAGE 16
+异步时序电路-Design
+The design of asynchronous sequential circuits follows the same basic steps 
+used to design synchronous circuits.
+The basic steps are:
+Devise a state diagram for an FSM that realizes the required basic behavior.
+Derive the flow table and reduce the number of states if possible.
+Perform the state assignment and derive the excitation table.
+Obtain the next-state and output expressions.
+Construct a circuit that implements these expressions.
+
+PAGE 17
+异步时序电路
+Design a serial parity generator that has an inputw and an outputz. When
+pulses are applied to w, outputz is equal to 0 if the number of previously
+applied pulses is even, whilez is equal to 1 if the number of pulses is odd.
+
+PAGE 18
+异步时序电路
+Let A be the state that indicates that an even number of pulses has been received. The
+output z will be 0 when the circuit is in stateA.
+As long asw = 0, the circuit remains inA. Thus,A is stable whenw = 0.
+When the next pulse arrives, the inputw = 1, and stateB is reached, makingz = 1.
+State B remains stable as long asw = 1.
+The next input change occurs whenw goes to 0. In response, the system changes to state
+C, where z = 1, showing that a complete pulse has been observed.
+It is stable under the inputw = 0. The arrival of the next pulse makesw = 1, and the
+system changes to stateD, indicating that an even number of pulses has been observed.
+The stateD is stable underw = 1, and it causes the output to bez = 0.
+Finally, whenw returns to 0 at the end of the pulse, the FSM returns to stateA, which
+indicates an even number of pulses andw equal to 0 at that moment.
+
+PAGE 19
+异步时序电路
+
+
+PAGE 20
+异步时序电路
+
+
+PAGE 21
+异步时序电路
+The required transition fromD to A will be performed correctly ify2 changes
+before y1, but it will not work ify1 changes before y2. The result depends on the
+outcome of the “race” to change between the signalsy1 and y2.
+To avoid uncertainty, which is caused by multiple changes in the state variables
+in response to an input, only one state variable is allowed to change at a time.
+For the example the state assignmentA = 00, B = 01, C = 11, and D = 10
+achieves this objective
+
+PAGE 22
+异步时序电路
+
+
+PAGE 23
+异步时序电路
+The next-state and output expressions are
+Y1 = wy2 + wy1 + y1y2
+Y2 = wy2 + wy1 + y1y2
+z = y1
+
+PAGE 24
+异步时序电路
+
+
+PAGE 25
+异步时序电路
+Design of a simple arbiter to implement resource sharing.
+Suppose that two devices are competing for the shared resource. Each device
+communicates with the arbiter by means of two signals—Request and Grant.
+When a device needs to use the shared resource, it raises its Request signal to
+1. Then it waits until the arbiter responds with the Grant signal.
+
+PAGE 26
+异步时序电路
+
+
+PAGE 27
+异步时序电路
+A device initiates the activity by raising a request,r = 1.
+When the shared resource is available, the arbiter responds by issuing a grant,g = 1.
+When the device receives the grant signal, it proceeds to use the shared resource.
+When it completes its use of the resource, it drops its request by settingr = 0. When
+the arbiter sees thatr = 0, it deactivates the grant signal, makingg = 0.
+The arrows in the figure indicate the signal relationships: a change in one signal causes
+a change in the other signal. The time elapsed between the changes in the signals
+depends on the specific implementation of the circuit.
+A key point is that there is no need for a synchronizing clock.
+A state diagram for the simple arbiter can be obtained with two inputs, the request
+signals r1 and r2, and two outputs, the grant signalsg1 and g2.
+
+PAGE 28
+异步时序电路
+
+
+PAGE 29
+异步时序电路
+In A, there is no request. InB, Device 1 is given permission to use the resource, and
+state C denotes the same for Device 2.
+Thus B is stable ifr2r1 = 01, andC is stable ifr2r1 = 10.
+It is assumed that the inputsr2 and r1become activated one at a time.
+Hence, in stateA, it is impossible to have a change fromr2r1 = 00 tor2r1 = 11.
+The situation wherer2r1 = 11 occurs only when a second request is raised before the
+device that has the grant signal completes its use of the shared resource, which may
+happen in statesB and C.
+If the FSM is stable in stateB or C, it will remain in this state if bothr1and r2go to 1.
+
+PAGE 30
+异步时序电路
+
+
+PAGE 31
+异步时序电路
+
+
+PAGE 32
+异步时序电路
+The transitions between statesB and C involve changes in both state variablesy1 and y2.
+If stateB is stable under input valuationr2r1 = 11, and the inputs change tor2r1 = 10, it
+will go to stateC, and the state variables must change fromy2y1 = 01 to 10.
+If y1 changes faster thany2, then the circuit will find itself momentarily in statey2y1 =
+00, which leads to the desired final state because from stateA there is a specified
+transition toC with r2r1 =10.
+But ify2 changes faster thany1, the circuit will reach the statey2y1 = 11, which is not
+defined in the flow table.
+To make sure that the circuit will proceed to the required destinationC, a new statey2y1
+= 11, labeledD, is included in the excitation table to specify the required transition.
+A similar situation appears when the circuit is stable inC with r2r1 = 11, and it has to
+change toB when r2 changes from 1 to 0.
+
+PAGE 33
+异步时序电路
+
+
+PAGE 34
+异步时序电路
+
+
+PAGE 35
+异步时序电路
+Practice:
+Design the same arbiter using a Mealy–type FSM to implement resource
+sharing.
+Suppose that two devices are competing for the shared resource. Each device
+communicates with the arbiter by means of two signals—Request and Grant. When a
+device needs to use the shared resource, it raises its Request signal to 1. Then it waits
+until the arbiter responds with the Grant signal.
